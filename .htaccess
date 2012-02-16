@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^(/index\.php|/img|/js|/css|/robots\.txt|/favicon\.ico|/user_guide)
+    RewriteRule ^(.*)$ index.php?/$1 [QSA,L]
+</IfModule>
+#<VirtualHost *>
+#        ServerName www.mydomain.com
+#        DocumentRoot /path/to/ci/directory
+#        <Directory /path/to/ci/directory>
+#                RewriteEngine On
+#                RewriteBase /
+#                RewriteCond %{REQUEST_FILENAME} !-f
+#                RewriteCond %{REQUEST_FILENAME} !-d
+#                RewriteRule ^(.*)$ index.php/$1 [L]
+#        </Directory>
+#</VirtualHost>
