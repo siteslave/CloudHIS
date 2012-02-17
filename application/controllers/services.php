@@ -18,6 +18,7 @@ class Services extends CI_Controller {
 		$this->load->model('Service_model', 'Services');
 		$this->load->model('Fp_model', 'FP');
 		$this->load->model('Epi_model', 'EPI');
+		$this->load->model('Anc_model', 'ANC');
 	}
 	
 	function test_spark() {
@@ -736,7 +737,7 @@ class Services extends CI_Controller {
 		}
 	}
 	/**
-	* Save FP
+	* Save EPI
 	*
 	* @url		POST /services/doepi
 	* @params	$vn, $vcctype, $vccplace
@@ -788,6 +789,96 @@ class Services extends CI_Controller {
 
 		if ( ! empty( $vn ) || ! empty( $vcctype )  ) {
 			$result = $this->EPI->_remove($vn, $vcctype);		
+			if ( $result ) {
+				$json = '{"success": true}';	
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			printjson($json);
+		} else {
+			show_404();
+		}
+	}
+	/**
+	* Get ANC list
+	*
+	* @url		POST /services/getanc
+	* @param	$cid
+	* 
+	**/
+	public function getanc()
+	{
+		$cid = $this->input->post('cid');
+		// cid not empty
+		if( ! empty($cid) ) {
+			$result = $this->ANC->_getlist( $cid );
+			// json encode
+			if ( $result ) {
+				$json = '{"success": true, "rows": '.json_encode($result).'}';
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Save ANC
+	*
+	* @url		POST /services/doanc
+	* @params	$vn, $anc_place, $gravida, $ga, $anc_res
+	* 
+	**/
+	public function doanc()
+	{
+		$vn = $this->input->post('vn');
+		// vn not empty
+		if( ! empty($vn) ) {
+			$anc_place = $this->input->post('anc_place');
+			$gravida = $this->input->post('gravida');
+			$ga = $this->input->post('ga');
+			$anc_res = $this->input->post('anc_res');
+			
+			// check duplicate
+			$cid = get_visit_cid($vn);
+			$date_serv = get_visit_date($vn);
+			
+			$c = $this->ANC->_check_duplicate( $cid, $date_serv );
+			if ( count($c) > 0 ) {
+				$json = '{"success": false, "status": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
+			} else {
+				$result = $this->ANC->_save_service( $vn, $anc_place, $gravida, $ga, $anc_res );
+				// json encode
+				if ( $result ) {
+					$json = '{"success": true, "rows": '.json_encode($result).'}';
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
+			}
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Remove ANC
+	*
+	* @url			POST /services/removeanc
+	* 
+	**/
+	public function removeanc() {
+		$id	= $this->input->post('id');
+
+		if ( ! empty( $id ) ) {
+			$result = $this->ANC->_remove( $id );		
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
