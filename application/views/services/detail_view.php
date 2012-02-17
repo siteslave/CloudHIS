@@ -847,6 +847,92 @@
 	</div>
 </div>
 <!-- /add epi -->
+<!-- add anc -->
+<div class="modal hide fade" id="modal-anc" style="width: 700px;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>บันทึกข้อมูลการฝากครรภ์ (ANC)</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-info" data-name="alert-anc">
+			<h4>เงื่อนไขการให้บริการ</h4>
+			<p>
+				1. หญิงตั้งครรภ์ทุกคนที่มารับบริการ <br />
+				2. การตั้งครรภ์ 1 ครั้งสามารถรับบริการฝากครรภ์ได้มากกว่า 1 ครั้ง (Record)
+			</p>
+		</div>
+		<p>
+		<div class="tabbable">
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#tab-anc-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+				<li><a href="#tab-anc-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-anc-list">
+					<table class="table table-striped" data-name="tblANCList">
+						<thead>
+							<tr>
+								<th>วันที่รับบริการ</th>
+								<th>สถานที่ตรวจ</th>
+								<th>ครรภ์ที่</th>
+								<th>อายุครรภ์</th>
+								<th>ผลการตรวจ</th>
+								<th></th>
+							</tr>
+							<tbody>
+							</tbody>
+						</thead>
+					</table>
+				</div>
+				<div class="tab-pane" id="tab-anc-new">
+				<form>
+					<div class="row">
+						<div class="span4">
+							<label for="">สถานที่ตรวจ</label>
+							<input type="text" data-name="anc-service-place-name" class="input-xlarge">		
+							<input type="hidden" data-name="anc-service-place-code">		
+						</div>
+						<div class="span4">
+							<label for="">ครรภ์ที่</label>
+							<select data-name="anc-gravida" class="span1">
+								<?php 
+								for($i=1; $i<=12; $i++){
+									if ($i == 1) {
+										echo '<option value="'.$i.'" selected="selected">'.$i.'</option>';
+									} else {
+										echo '<option value="'.$i.'">'.$i.'</option>';
+									}
+								}
+								?>
+							</select>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="span4">
+							<label for="">อายุครรภ์</label>
+							<input type="text" data-name="anc-ga" class="span1">
+						</div>
+						<div class="span4">
+							<label for="">ผลการตรวจ</label>
+							<select data-name="anc-res" class="span2">
+								<option value="1" selected="selected">ปกติ</option>
+								<option value="2">ผิดปกติ</option>
+							</select>
+						</div>
+						</div>
+					<button type="button" class="btn btn-primary" data-name="btn-save-anc"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
+					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+				</form>
+				</div>
+			</div>
+		</div>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+	</div>
+</div>
+<!-- /add anc -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
@@ -854,3 +940,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.surveil.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
