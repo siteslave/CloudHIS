@@ -46,33 +46,17 @@
 	</div>
 	<div style="float: left; padding: 5px;">
 		<div class="btn-group">
-			<a class="btn btn-primary" href="#"> <i class="icon-folder-open icon-white"></i>  ส่งเสริมสุขภาพ</a>
+			<a class="btn btn-primary" href="#"> <i class="icon-folder-open icon-white"></i> การให้บริการอื่นๆ</a>
 			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
 				<li><a href="#modal-fp" data-toggle="modal" data-name="service-fp"> <i class="icon-eye-open"></i>  วางแผนครอบครัว (Family Planing)</a></li>
-				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i> สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
-				<li><a href="#">เยี่ยมมารดาหลังคลอด</a></li>
-				<li><a href="#">เยี่ยมเด็กหลังคลอด</a></li>
+				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
+				<li><a href="#modal-anc" data-toggle="modal" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
 				<li class="divider"></li>
-				<li><a href="#">ฉีดวัคซีน</a></li>
-				<li><a href="#">อนามัยโรงเรียน</a></li>
-			</ul>
-		</div>
-	</div>
-	<div style="float: left; padding: 5px;">
-		<div class="btn-group">
-			<a class="btn btn-success" href="#">บริการอื่นๆ</a>
-			<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li><a href="#">บริการทันตกรรม</a></li>
-				<li><a href="#">แพทย์แผนไทย</a></li>
-				<li class="divider"></li>
-				<li><a href="#">เบาหวาน/ความดัน</a></li>
-				<li><a href="#">คัดกรองมะเร็ง</a></li>
+				<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (Home Health Care)</a></li>
+				<li><a href="#"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยเรื้อรัง</a></li>
 			</ul>
 		</div>
 	</div>
