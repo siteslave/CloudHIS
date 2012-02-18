@@ -98,24 +98,24 @@ $( function() {
 	},
 	// check valid form.
 	checkScreening = function() {
-		var _vn 			= $('input[data-name="vn"]').val(),
-			_weight 		= $('input[data-name="weight"]').val(),
-			_height 		= $('input[data-name="height"]').val(),
+		var _vn 				= $('input[data-name="vn"]').val(),
+			_weight 			= $('input[data-name="weight"]').val(),
+			_height 			= $('input[data-name="height"]').val(),
 			_heartbeat 		= $('input[data-name="heartbeat"]').val(),
-			_pulse 			= $('input[data-name="pulse"]').val(),
+			_pulse 				= $('input[data-name="pulse"]').val(),
 			_waistline 		= $('input[data-name="waistline"]').val(),
 			_temperature 	= $('input[data-name="temperature"]').val(),
-			_fbs			= $('input[data-name="fbs"]').val(),
-			_bp1 			= $('input[data-name="bp1"]').val(),
-			_bp2 			= $('input[data-name="bp2"]').val(),
-			_dtx1	 		= $('input[data-name="dtx1"]').val(),	
-			_dtx2 			= $('input[data-name="dtx2"]').val(),
-			_smoking 		= $('select[data-name="smoking"]').val(),
+			_fbs					= $('input[data-name="fbs"]').val(),
+			_bp1 					= $('input[data-name="bp1"]').val(),
+			_bp2 					= $('input[data-name="bp2"]').val(),
+			_dtx1	 				= $('input[data-name="dtx1"]').val(),	
+			_dtx2 				= $('input[data-name="dtx2"]').val(),
+			_smoking 			= $('select[data-name="smoking"]').val(),
 			_drinking 		= $('select[data-name="drinking"]').val(),
 			_allergic 		= $('select[data-name="allergic"]').val(),
-			_cc 			= $('textarea[data-name="cc"]').val(),
+			_cc 					= $('textarea[data-name="cc"]').val(),
 			_new_height 	= _height / 100,
-			_bmi 			= (_weight / (_new_height * _new_height)).toFixed(2);
+			_bmi 					= (_weight / (_new_height * _new_height)).toFixed(2);
 		
 		// check if data empty	
 		var _str_error = '';

@@ -19,6 +19,7 @@ class Services extends CI_Controller {
 		$this->load->model('Fp_model', 'FP');
 		$this->load->model('Epi_model', 'EPI');
 		$this->load->model('Anc_model', 'ANC');
+		$this->load->model('Ncd_model', 'NCD');
 	}
 	
 	function test_spark() {
@@ -117,8 +118,6 @@ class Services extends CI_Controller {
 			if( count($data['rows']) ) {
 				$data['screenings'] = $this->Services->_getScreening($vn);
 				// basic data
-				$data['drinkings']	= $this->Basic->_get_drinkings_dropdown();
-				$data['smokings'] 	= $this->Basic->_get_smokings_dropdown();
 				$data['allergics'] 	= $this->Basic->_get_allergics_dropdown();
 				$data['diag_types']	= $this->Basic->_get_diagtype_dropdown();
 				$data['appoints']		= $this->Basic->_get_appoint_dropdown();
@@ -890,6 +889,105 @@ class Services extends CI_Controller {
 			}
 			printjson($json);
 		} else {
+			show_404();
+		}
+	}
+	/**
+	* Save NCD Screen service
+	*
+	* @url		POST /services/doncd
+	* @params	$vn = '', $date_exam, $service_place_id, $smoke, $alcohol, $dmfamily, $htfamily, $weight, $height, $waist, $bph1, $bph2, $bpl1, $bpl2, $bslevel, $bstest, $screen_place = '11053', $screen_year = '2555'
+	* 
+	**/
+	public function doncd()
+	{
+		$vn = $this->input->post('vn');
+		$cid = get_visit_cid($vn);
+		$date_exam = $this->input->post('date_exam');
+		$service_place_id = $this->input->post('service_place_id'); 
+		$smoke = $this->input->post('smoke'); 
+		$alcohol = $this->input->post('alcohol');
+		$dmfamily = $this->input->post('dmfamily'); 
+		$htfamily = $this->input->post('htfamily');
+		$weight = $this->input->post('weight'); 
+		$height = $this->input->post('height');
+		$waist = $this->input->post('waist');
+		$bph1 = $this->input->post('bph1');
+		$bph2 = $this->input->post('bph2'); 
+		$bpl1 = $this->input->post('bpl1');
+		$bpl2 = $this->input->post('bpl2');
+		$bslevel = $this->input->post('bslevel');
+		$bstest = $this->input->post('bstest');
+		$screen_place = '11053';
+		$screen_year = '2555';
+		// vn not empty
+		if( ! empty($date_exam) ) {
+			// check duplicate
+			//$cid = get_visit_cid($vn);
+			//$date_serv = get_visit_date($vn);
+			
+			//$c = $this->ANC->_check_duplicate( $cid, $date_serv );
+			/*
+			if ( count($c) > 0 ) {
+				$json = '{"success": false, "status": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
+			} else {
+				$result = $this->ANC->_save_service( $vn, $anc_place, $gravida, $ga, $anc_res );
+				// json encode
+				if ( $result ) {
+					$json = '{"success": true, "rows": '.json_encode($result).'}';
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
+			}
+			*/
+			$age = $this->NCD->_check_age($cid);
+			if ( $age < 15 ) {
+				$json = '{"success": false, "status": "อายุไม่อยู่ในเกณฑ์ อายุต้องมากว่าหรือเท่ากับ 15 ปี ขึ้นไป"}';
+			} else {
+				$result = $this->NCD->_save_screen( $cid, $vn, $date_exam, $service_place_id, $smoke, $alcohol, 
+															$dmfamily, $htfamily, $weight, $height, $waist, $bph1, $bph2, 
+															$bpl1, $bpl2, $bslevel, $bstest, $screen_place, 
+																$screen_year);
+				if ( $result ) {
+					$json = '{"success": true, "rows": '.json_encode($result).'}';
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
+			}
+
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Get NCD  list
+	*
+	* @url		POST /services/getncd
+	* @param	$cid
+	* 
+	**/
+	public function getncd()
+	{
+		$cid = $this->input->post('cid');
+		// cid not empty
+		if( ! empty($cid) ) {
+			$result = $this->NCD->_getlist( $cid );
+			// json encode
+			if ( $result ) {
+				$json = '{"success": true, "rows": '.json_encode($result).'}';
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
 			show_404();
 		}
 	}

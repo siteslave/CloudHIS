@@ -20,9 +20,11 @@
 				<strong>เลขที่รับบริการ</strong> :  <?php echo $row->vn; ?> <br />
 				<input type="hidden" data-name="vn" value="<?php echo $row->vn; ?>" id="vn">
 				<input type="hidden" data-name="cid" value="<?php echo $row->cid; ?>">
+				<input type="hidden" data-name="date_serv" value="<?php echo $row->date_serv; ?>">
+				<input type="hidden" data-name="service_place_id" value="<?php echo $row->service_place_id; ?>">
 				<strong>เลขบัตรประชาชน</strong>: <?php echo $row->cid; ?> <br />
 				<strong>ชื่อ - สกุล</strong>: <?php echo $row->fname. ' '. $row->lname; ?> <br />
-				<strong>วันเกิด</strong>: <?php echo to_thai_date ( $row->birthdate ); ?> <br /> <br />
+				<strong>วันเกิด</strong>: <?php echo to_thai_date ( $row->birthdate ); ?>  <strong>อายุ</strong>: <?php echo $row->age; ?> ปี<br /> <br />
 				<a href="<?php echo base_url(); ?>people/detail/<?php echo $row->cid; ?>" class="btn btn-primary"><i class="icon-user icon-white"></i>  แก้ไขข้อมูล »</a>
 			</div>
 			<div class="span5">
@@ -134,42 +136,61 @@
 			<div class="span3">
 				<label for="cigarate">การสูบบุหรี่</label>
 				<select data-name="smoking" id="cigarate" style="width: 140px;">
-					<?php
-						foreach ( $smokings as $key => $value ) {
+						<?php 
+						$i = 1;
+						foreach($smokes as $key => $value){
 							if( $sc->smoking == $key ) {
-								echo '<option value="'.$key.'" selected="selected">'. $value . '</option>';
-							}else {
-								echo '<option value="'.$key.'">'. $value . '</option>';
+								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+							} else {
+								if( $i == 1) {
+									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+								} else {
+									echo '<option value="'.$key.'">'.$value.'</option>';
+								}
 							}
+							$i++;
 						}
-					?>
+						?>
 				</select>
 			</div>
 			<div class="span3">
 				<label for="drink">การดื่่มสุรา</label>
 				<select data-name="drinking" id="drink" style="width: 140px;">
-					<?php
-						foreach ( $drinkings as $key => $value ) {
+						<?php 
+						$i = 1;
+						foreach($alcohols as $key => $value){
 							if( $sc->drinking == $key ) {
-								echo '<option value="'.$key.'" selected="selected">'. $value . '</option>';
-							}else {
-								echo '<option value="'.$key.'">'. $value . '</option>';
+								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+							} else {
+								if ($i == 1) {
+									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+								} else {
+									echo '<option value="'.$key.'">'.$value.'</option>';
+								}
 							}
+
+							$i++;
 						}
-					?>
+						?>
 				</select>
 			</div>
 			<div class="span3">
 				<label for="drug-error">การแพ้ยา</label>
 				<select data-name="allergic" id="drug-error" style="width: 140px;">
 					<?php
+						$i = 1;
 						foreach ( $allergics as $key => $value ) {
 							if( $sc->allergic == $key ) {
 								echo '<option value="'.$key.'" selected="selected">'. $value . '</option>';
 							}else {
-								echo '<option value="'.$key.'">'. $value . '</option>';
+								if ($i == 1) {
+									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+								} else {
+									echo '<option value="'.$key.'">'.$value.'</option>';
+								}
 							}
 						}
+						$i++;
 					?>
 				</select>
 			</div>
@@ -962,6 +983,7 @@
 								<th>วันที่คัดกรอง</th>
 								<th>สถานที่คัดกรอง</th>
 								<th>พื้นที่บริการ</th>
+								<th>ปีงบประมาณ</th>
 								<th></th>
 							</tr>
 							<tbody>
@@ -1024,41 +1046,41 @@
 					<div class="row">
 						<div class="span1">
 							<label for="">น้ำหนัก</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-weight" value="" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">ส่วนสูง</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-height" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">รอบเอว</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-waist" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">BPH 1</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-bph1" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">BPL 1</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-bpl1" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">BPH 2</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-bph2" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">BPL 2</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-bpl2" class="span1">
 						</div>
 					</div>
 					<div class="row">
 						<div class="span1">
 							<label for="">น้ำตาล</label>
-							<input type="text" data-name="" class="span1">
+							<input type="text" data-name="ncd-bslevel" class="span1">
 						</div>
 						<div class="span5">
 							<label for="">วิธีการตรวจน้ำตาลในเลือด</label>
-							<select data-name="ncd-blood-test" style="width: 350px;">
+							<select data-name="ncd-bstest" style="width: 350px;">
 						<?php 
 						$i = 1;
 						foreach($blood_screens as $key => $value){
@@ -1094,3 +1116,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
