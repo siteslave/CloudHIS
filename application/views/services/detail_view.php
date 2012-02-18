@@ -59,7 +59,7 @@
 				<li class="divider"></li>
 				<li><a href="#modal-ncd" data-toggle="modal" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดันโลหิตสูง</a></li>
 				
-				<li><a href="#"><i class="icon-lock" data-toggle="modal" data-name="service-chronicfu"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>
+				<li><a href="#modal-chronicfu" data-toggle="modal" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>
 			</ul>
 		</div>
 	</div>
@@ -1132,10 +1132,11 @@
 					<table class="table table-striped" data-name="tblChronicFuList">
 						<thead>
 							<tr>
-								<th>วันที่คัดกรอง</th>
-								<th>สถานที่คัดกรอง</th>
-								<th>พื้นที่บริการ</th>
-								<th>ปีงบประมาณ</th>
+								<th>วันที่ตรวจ</th>
+								<th>ความดันซิสโตลิก</th>
+								<th>ความดันไดแอสโตลิก</th>
+								<th>ตรวจจอประสาทตา</th>
+								<th>ตรวจเท้า</th>
 								<th></th>
 							</tr>
 							<tbody>
@@ -1148,31 +1149,39 @@
 					<div class="row">
 						<div class="span1">
 							<label for="">น้ำหนัก</label>
-							<input type="text" data-name="ncd-weight" value="" class="span1">
+							<input type="text" data-name="chronicfu-weight" value="" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">ส่วนสูง</label>
-							<input type="text" data-name="ncd-height" class="span1">
+							<input type="text" data-name="chronicfu-height" class="span1">
 						</div>
 						<div class="span1">
 							<label for="">รอบเอว</label>
-							<input type="text" data-name="ncd-waist" class="span1">
+							<input type="text" data-name="chronicfu-waist" class="span1">
 						</div>
 						<div class="span1">
-							<label for="">BPH 1</label>
-							<input type="text" data-name="ncd-bph1" class="span1">
+							<label for="">SBP</label>
+							<input type="text" data-name="chronicfu-sbp" class="span1">
 						</div>
 						<div class="span1">
-							<label for="">BPL 1</label>
-							<input type="text" data-name="ncd-bpl1" class="span1">
+							<label for="">DBP</label>
+							<input type="text" data-name="chronicfu-dbp" class="span1">
 						</div>
-						<div class="span1">
-							<label for="">BPH 2</label>
-							<input type="text" data-name="ncd-bph2" class="span1">
+					</div>
+					<div class="row">
+						<div class="span4">
+							<label for="">การตรวจเท้า</label>
+							<select data-name="chronicfu-foot">
+								<option value="1" selected="selected">ตรวจ</option>
+								<option value="2">ไม่ตรวจ</option>
+							</select>
 						</div>
-						<div class="span1">
-							<label for="">BPL 2</label>
-							<input type="text" data-name="ncd-bpl2" class="span1">
+						<div class="span4">
+							<label for="">การตรวจจอประสาทตา</label>
+							<select data-name="chronicfu-eye">
+								<option value="1" selected="selected">ตรวจ</option>
+								<option value="2">ไม่ตรวจ</option>
+							</select>
 						</div>
 					</div>
 					<button type="button" class="btn btn-primary" data-name="btn-save-chronicfu"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
@@ -1197,3 +1206,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>

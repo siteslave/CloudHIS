@@ -992,6 +992,96 @@ class Services extends CI_Controller {
 			show_404();
 		}
 	}
+	/**
+	* Save Chronic follow up
+	*
+	* @url		POST /services/dochronicfu
+	* @params	$vn, $weight, $height, $waist, $sbp, $dbp, $foot, $eye
+	* 
+	**/
+	public function dochronicfu()
+	{
+		$vn = $this->input->post('vn');
+		// vn not empty
+		if( ! empty($vn) ) {
+			$weight = $this->input->post('weight');
+			$height = $this->input->post('height');
+			$waist = $this->input->post('waist');
+			$sbp = $this->input->post('sbp');
+			$dbp = $this->input->post('dbp');
+			$foot = $this->input->post('foot');
+			$eye = $this->input->post('eye');
+			// check duplicate
+			$c = $this->NCD->_check_chronicfu_duplicate( $vn );
+			if ( count($c) > 0 ) { // duplicate
+				$json = '{"success": false, "status": "ข้อมูลซ้ำ เนื่องจากมีการมารับบริการหลายครั้ง"}';
+			} else {
+				$result = $this->NCD->_save_chronicfu( $vn, $weight, $height, $waist, $sbp, $dbp, $foot, $eye );
+				// json encode
+				if ( $result ) {
+					$json = '{"success": true, "rows": '.json_encode($result).'}';
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Get Chronic follow up  list
+	*
+	* @url		POST /services/getchronicfu
+	* @param	$cid
+	* 
+	**/
+	public function getchronicfu()
+	{
+		$cid = $this->input->post('cid');
+		// cid not empty
+		if( ! empty($cid) ) {
+			$result = $this->NCD->_get_chronicfu_list($cid);
+			// json encode
+			if ( $result ) {
+				$json = '{"success": true, "rows": '.json_encode($result).'}';
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Remove Chronic fu
+	*
+	* @url			POST /services/removechronicfu
+	* @params 	$id
+	**/
+	public function removechronicfu() {
+		$id	= $this->input->post('id');
+
+		if ( ! empty( $id ) ) {
+			$result = $this->NCD->_remove_chronicfu( $id );		
+			if ( $result ) {
+				$json = '{"success": true}';	
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			printjson($json);
+		} else {
+			show_404();
+		}
+	}
 }	
 /* End of file services.php */
 /* Location: ./application/controllers/services.php */
