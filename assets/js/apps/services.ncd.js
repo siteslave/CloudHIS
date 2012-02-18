@@ -102,6 +102,8 @@ $(function(){
 		$('input[data-name="ncd-bpl1"]').val(_bp2);
 		$('select[data-name="ncd-smoke"]').val(_smoke);
 		$('select[data-name="ncd-alcohol"]').val(_alcohol);
+		$('input[data-name="ncd-bslevel"]').val(_fbs);
+		$('input[data-name="ncd-waist"]').val(_waistline);
 	},
 	getNCDList = function() {
 		var _cid = $('input[data-name="cid"]').val();

@@ -45,10 +45,10 @@ class Services extends CI_Controller {
 	**/
 	public function register()
 	{
-		$data['pttypes']		= $this->Basic->_get_pttypes_dropdown();
-		$data['clinics']		= $this->Basic->_get_clinics_dropdown();
+		$data['pttypes']	= $this->Basic->_get_pttypes_dropdown();
+		$data['clinics']	= $this->Basic->_get_clinics_dropdown();
 		$data['locations']	= $this->Basic->_get_locations_dropdown();
-		$data['places']			= $this->Basic->_get_places_dropdown();
+		$data['places']		= $this->Basic->_get_places_dropdown();
 
 		$this->layout->view('/services/register_view', $data);
 	}
@@ -66,7 +66,7 @@ class Services extends CI_Controller {
 			show_404();
 		}else{
 			// get input
-			$cid				= $this->input->post('cid');
+			$cid		= $this->input->post('cid');
 			$clinic_id	= $this->input->post('clinic_id');
 			$date_serv	= $this->input->post('date_serv');
 			$hmain_code	= $this->input->post('hmain_code');
@@ -81,19 +81,20 @@ class Services extends CI_Controller {
 				$ins_start = to_mysql_date( $ins_start );
 			}
 			
-			$ins_code					= $this->input->post('ins_code');
-			$ins_id						= $this->input->post('ins_id');
-			$intime						= $this->input->post('intime');
-			$location_id			= $this->input->post('location_id');
-			$pttype_id				= $this->input->post('pttype_id');
+			$ins_code			= $this->input->post('ins_code');
+			$ins_id				= $this->input->post('ins_id');
+			$intime				= $this->input->post('intime');
+			$location_id		= $this->input->post('location_id');
+			$pttype_id			= $this->input->post('pttype_id');
 			$service_place_id	= $this->input->post('service_place_id');
-			$time_serv				= $this->input->post('time_serv');
+			$time_serv			= $this->input->post('time_serv');
 			
 			// save service register
-			$result = $this->Services->_save( $cid, $clinic_id, to_mysql_date( $date_serv ), $hmain_code,
-																				$hsub_code, $ins_expire, $ins_start,
-																				$ins_code, $ins_id, $intime, $location_id,
-																				$pttype_id, $service_place_id, $time_serv );
+			$result = $this->Services->_save( 
+				$cid, $clinic_id, to_mysql_date( $date_serv ), $hmain_code,
+				$hsub_code, $ins_expire, $ins_start,
+				$ins_code, $ins_id, $intime, $location_id,
+				$pttype_id, $service_place_id, $time_serv );
 			// check if result is success.
 			if( $result ) {
 				$json = '{"success": true}';
@@ -988,6 +989,96 @@ class Services extends CI_Controller {
 			
 		} else { // vn empty
 			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Save Chronic follow up
+	*
+	* @url		POST /services/dochronicfu
+	* @params	$vn, $weight, $height, $waist, $sbp, $dbp, $foot, $eye
+	* 
+	**/
+	public function dochronicfu()
+	{
+		$vn = $this->input->post('vn');
+		// vn not empty
+		if( ! empty($vn) ) {
+			$weight = $this->input->post('weight');
+			$height = $this->input->post('height');
+			$waist = $this->input->post('waist');
+			$sbp = $this->input->post('sbp');
+			$dbp = $this->input->post('dbp');
+			$foot = $this->input->post('foot');
+			$eye = $this->input->post('eye');
+			// check duplicate
+			$c = $this->NCD->_check_chronicfu_duplicate( $vn );
+			if ( count($c) > 0 ) { // duplicate
+				$json = '{"success": false, "status": "ข้อมูลซ้ำ เนื่องจากมีการมารับบริการหลายครั้ง"}';
+			} else {
+				$result = $this->NCD->_save_chronicfu( $vn, $weight, $height, $waist, $sbp, $dbp, $foot, $eye );
+				// json encode
+				if ( $result ) {
+					$json = '{"success": true, "rows": '.json_encode($result).'}';
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Get Chronic follow up  list
+	*
+	* @url		POST /services/getchronicfu
+	* @param	$cid
+	* 
+	**/
+	public function getchronicfu()
+	{
+		$cid = $this->input->post('cid');
+		// cid not empty
+		if( ! empty($cid) ) {
+			$result = $this->NCD->_get_chronicfu_list($cid);
+			// json encode
+			if ( $result ) {
+				$json = '{"success": true, "rows": '.json_encode($result).'}';
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			
+			// render json
+			printjson($json);
+			
+		} else { // vn empty
+			// show error 404 if no id
+			show_404();
+		}
+	}
+	/**
+	* Remove Chronic fu
+	*
+	* @url			POST /services/removechronicfu
+	* @params 	$id
+	**/
+	public function removechronicfu() {
+		$id	= $this->input->post('id');
+
+		if ( ! empty( $id ) ) {
+			$result = $this->NCD->_remove_chronicfu( $id );		
+			if ( $result ) {
+				$json = '{"success": true}';	
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			printjson($json);
+		} else {
 			show_404();
 		}
 	}

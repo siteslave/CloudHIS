@@ -73,7 +73,39 @@ class Ncd_model extends CI_Model {
 												->row();
 		return $result->age;
 	}
+	public function _check_chronicfu_duplicate( $vn )
+	{
+		$result = $this->db->where('vn', $vn)->get('chronic_follows')->result();
+		return $result;
+	}
 	
+	public function _save_chronicfu( $vn, $weight, $height, $waist, $sbp, $dbp, $foot, $eye )
+	{
+		$result = $this->db->set('vn', $vn)
+												->set('weight', $weight)
+												->set('height', $height)
+												->set('waist', $waist)
+												->set('sbp', $sbp)
+												->set('dbp', $dbp)
+												->set('foot', $foot)
+												->set('eye', $eye)
+												->insert('chronic_follows');
+		return $result;
+	}
+	public function _get_chronicfu_list($cid)
+	{
+		$result = $this->db->select(array(
+			'visits.date_serv', 'chronic_follows.sbp', 'chronic_follows.dbp',
+			'chronic_follows.sbp', 'chronic_follows.foot', 'chronic_follows.eye', 'chronic_follows.id'))
+			 									->join('visits', 'visits.vn=chronic_follows.vn')
+				 								->get('chronic_follows')->result();
+		return $result;
+	}
+	public function _remove_chronicfu( $id )
+	{
+		$result = $this->db->where('id', $id)->delete('chronic_follows');
+		return $result;
+	}
 }
 /* End of file ncd_model.php */
 /* Location: ./application/models/ncd_model.php */

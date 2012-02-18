@@ -58,8 +58,8 @@
 				<li><a href="#modal-anc" data-toggle="modal" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
 				<li class="divider"></li>
 				<li><a href="#modal-ncd" data-toggle="modal" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดันโลหิตสูง</a></li>
-				<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (Home Health Care)</a></li>
-				<li><a href="#"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยเรื้อรัง</a></li>
+				
+				<li><a href="#modal-chronicfu" data-toggle="modal" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>
 			</ul>
 		</div>
 	</div>
@@ -1107,7 +1107,96 @@
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
-<!-- /add anc -->
+<!-- /add ncd -->
+<!-- chronic fu  -->
+<div class="modal hide fade" id="modal-chronicfu" style="width: 700px;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>บันทึกข้อมูลการตรวจติดตามผู้ป่วยโรคเรื้อรัง (เบาหวาน, ความดันโลหิตสูง)</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-info" data-name="alert-chronicfu">
+			<h4>เงื่อนไขการให้บริการ</h4>
+			<p>
+				1. เป็นผู้ป่วยโรคเรื้อรัง (เบาหวาน และ ความดันโลหิตสูง)
+			</p>
+		</div>
+		<p>
+		<div class="tabbable">
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#tab-chronicfu-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+				<li><a href="#tab-chronicfu-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-chronicfu-list">
+					<table class="table table-striped" data-name="tblChronicFuList">
+						<thead>
+							<tr>
+								<th>วันที่ตรวจ</th>
+								<th>ความดันซิสโตลิก</th>
+								<th>ความดันไดแอสโตลิก</th>
+								<th>ตรวจจอประสาทตา</th>
+								<th>ตรวจเท้า</th>
+								<th></th>
+							</tr>
+							<tbody>
+							</tbody>
+						</thead>
+					</table>
+				</div>
+				<div class="tab-pane" id="tab-chronicfu-new">
+				<form>
+					<div class="row">
+						<div class="span1">
+							<label for="">น้ำหนัก</label>
+							<input type="text" data-name="chronicfu-weight" value="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">ส่วนสูง</label>
+							<input type="text" data-name="chronicfu-height" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">รอบเอว</label>
+							<input type="text" data-name="chronicfu-waist" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">SBP</label>
+							<input type="text" data-name="chronicfu-sbp" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">DBP</label>
+							<input type="text" data-name="chronicfu-dbp" class="span1">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span4">
+							<label for="">การตรวจเท้า</label>
+							<select data-name="chronicfu-foot">
+								<option value="1" selected="selected">ตรวจ</option>
+								<option value="2">ไม่ตรวจ</option>
+							</select>
+						</div>
+						<div class="span4">
+							<label for="">การตรวจจอประสาทตา</label>
+							<select data-name="chronicfu-eye">
+								<option value="1" selected="selected">ตรวจ</option>
+								<option value="2">ไม่ตรวจ</option>
+							</select>
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary" data-name="btn-save-chronicfu"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
+					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+				</form>
+				</div>
+			</div>
+		</div>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+	</div>
+</div>
+<!-- /chronic fu -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
@@ -1117,3 +1206,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>
