@@ -94,6 +94,7 @@
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-user"></i> ข้อมูลหญิงเจริญพันธ์ (Women)</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-file"></i> การดูแลเด็กหลังคลอด (PP)</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด (MCH)</a></li>
+							<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (Home Health Care)</a></li>
 							<li class="nav-header">ระบบงานคัดกรอง</li>
 							<li><a href="<?php echo base_url(); ?>ncd"><i class="icon-th-list"></i> ทะเบียนผู้ป่วยโรคเรื้อรัง</a></li>
 							<li><a href="<?php echo base_url(); ?>ncd/screening"><i class="icon-th-list"></i> คัดกรองเบาหวานความดันโลหิตสูง</a></li>

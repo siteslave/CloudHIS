@@ -1,4 +1,4 @@
-﻿CloudHIS Enterprise software for PCU
+CloudHIS Enterprise software for PCU
 ====================================
 ความต้องการของระบบ
 ----------------

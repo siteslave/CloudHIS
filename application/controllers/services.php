@@ -45,10 +45,10 @@ class Services extends CI_Controller {
 	**/
 	public function register()
 	{
-		$data['pttypes']		= $this->Basic->_get_pttypes_dropdown();
-		$data['clinics']		= $this->Basic->_get_clinics_dropdown();
+		$data['pttypes']	= $this->Basic->_get_pttypes_dropdown();
+		$data['clinics']	= $this->Basic->_get_clinics_dropdown();
 		$data['locations']	= $this->Basic->_get_locations_dropdown();
-		$data['places']			= $this->Basic->_get_places_dropdown();
+		$data['places']		= $this->Basic->_get_places_dropdown();
 
 		$this->layout->view('/services/register_view', $data);
 	}
@@ -66,7 +66,7 @@ class Services extends CI_Controller {
 			show_404();
 		}else{
 			// get input
-			$cid				= $this->input->post('cid');
+			$cid		= $this->input->post('cid');
 			$clinic_id	= $this->input->post('clinic_id');
 			$date_serv	= $this->input->post('date_serv');
 			$hmain_code	= $this->input->post('hmain_code');
@@ -81,19 +81,20 @@ class Services extends CI_Controller {
 				$ins_start = to_mysql_date( $ins_start );
 			}
 			
-			$ins_code					= $this->input->post('ins_code');
-			$ins_id						= $this->input->post('ins_id');
-			$intime						= $this->input->post('intime');
-			$location_id			= $this->input->post('location_id');
-			$pttype_id				= $this->input->post('pttype_id');
+			$ins_code			= $this->input->post('ins_code');
+			$ins_id				= $this->input->post('ins_id');
+			$intime				= $this->input->post('intime');
+			$location_id		= $this->input->post('location_id');
+			$pttype_id			= $this->input->post('pttype_id');
 			$service_place_id	= $this->input->post('service_place_id');
-			$time_serv				= $this->input->post('time_serv');
+			$time_serv			= $this->input->post('time_serv');
 			
 			// save service register
-			$result = $this->Services->_save( $cid, $clinic_id, to_mysql_date( $date_serv ), $hmain_code,
-																				$hsub_code, $ins_expire, $ins_start,
-																				$ins_code, $ins_id, $intime, $location_id,
-																				$pttype_id, $service_place_id, $time_serv );
+			$result = $this->Services->_save( 
+				$cid, $clinic_id, to_mysql_date( $date_serv ), $hmain_code,
+				$hsub_code, $ins_expire, $ins_start,
+				$ins_code, $ins_id, $intime, $location_id,
+				$pttype_id, $service_place_id, $time_serv );
 			// check if result is success.
 			if( $result ) {
 				$json = '{"success": true}';
