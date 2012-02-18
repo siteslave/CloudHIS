@@ -11,14 +11,23 @@ class Ncd extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
-		//set layout
+		// load model
+		$this->load->model('Ncd_model', 'NCD');
+		// set layout
 		$this->layout->setLayout('services_layout');
 	}
 	//default action
 	public function index(){
 		$this->layout->view('/ncd/index_view');
 	}
-
+	
+	// screening
+	public function screening()
+	{
+		$data['targets'] = $this->NCD->_get_target();
+		
+		$this->layout->view('/ncd/screening_view', $data);
+	}
 }
-/* End of file pages.php */
-/* Location: ./application/controllers/pages.php */
+/* End of file ncd.php */
+/* Location: ./application/controllers/ncd.php */

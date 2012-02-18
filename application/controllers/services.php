@@ -126,6 +126,10 @@ class Services extends CI_Controller {
 				$data['fpplaces']		= $this->Basic->_get_fpplace_dropdown();
 				$data['vccplaces']		= $this->Basic->_get_vccplace_dropdown();
 				$data['vcctypes']		= $this->Basic->_get_vcctype_dropdown();
+				// screening
+				$data['smokes']				= $this->Basic->_get_smoke_dropdown();
+				$data['alcohols']			= $this->Basic->_get_alcohol_dropdown();
+				$data['blood_screens']= $this->Basic->_get_blood_screen_dropdown();
 				
 				$data['patient_status'] = $this->Basic->_get_surveil_patient_status_dropdown();
 				

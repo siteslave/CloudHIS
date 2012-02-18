@@ -96,6 +96,7 @@
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด (MCH)</a></li>
 							<li class="nav-header">ระบบงานคัดกรอง</li>
 							<li><a href="<?php echo base_url(); ?>ncd"><i class="icon-th-list"></i> ทะเบียนผู้ป่วยโรคเรื้อรัง</a></li>
+							<li><a href="<?php echo base_url(); ?>ncd/screening"><i class="icon-th-list"></i> คัดกรองเบาหวานความดันโลหิตสูง</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-th"></i> คัดกรองมะเร็งปากมดลูก</a></li>
 						</ul>
 					</div><!-- /wel -->	

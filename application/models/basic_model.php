@@ -347,6 +347,42 @@ class Basic_model extends CI_Model {
 		}
 		return $vcctypes;
 	}
+	/*
+	* Get ncd screening smoke type
+	*
+	**/
+	public function _get_smoke_dropdown(){
+		$query = $this->db->get('ncd_screening_smokes');
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/*
+	* Get ncd screening alcohol type
+	*
+	**/
+	public function _get_alcohol_dropdown(){
+		$query = $this->db->get('ncd_screening_alcohols');
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/*
+	* Get ncd screening alcohol type
+	*
+	**/
+	public function _get_blood_screen_dropdown(){
+		$query = $this->db->get('ncd_screening_bloods');
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */

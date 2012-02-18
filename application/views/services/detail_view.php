@@ -55,6 +55,7 @@
 				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
 				<li><a href="#modal-anc" data-toggle="modal" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
 				<li class="divider"></li>
+				<li><a href="#modal-ncd" data-toggle="modal" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดันโลหิตสูง</a></li>
 				<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (Home Health Care)</a></li>
 				<li><a href="#"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยเรื้อรัง</a></li>
 			</ul>
@@ -921,6 +922,158 @@
 						</div>
 						</div>
 					<button type="button" class="btn btn-primary" data-name="btn-save-anc"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
+					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+				</form>
+				</div>
+			</div>
+		</div>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+	</div>
+</div>
+<!-- /add anc -->
+<!-- add ncd -->
+<div class="modal hide fade" id="modal-ncd" style="width: 700px;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>บันทึกข้อมูลการคัดกรองเบาหวานความดัน</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-info" data-name="alert-ncd">
+			<h4>เงื่อนไขการให้บริการ</h4>
+			<p>
+				1. อายุ 15 ปีขึ้นไป ไม่ป่วยเป็นโรคเบาหวาน ความดันโลหิตสูง <br />
+				2.คัดกรองปีละ 1 ครั้ง 
+			</p>
+		</div>
+		<p>
+		<div class="tabbable">
+			<ul class="nav nav-pills">
+				<li class="active"><a href="#tab-ncd-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+				<li><a href="#tab-ncd-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-ncd-list">
+					<table class="table table-striped" data-name="tblNCDList">
+						<thead>
+							<tr>
+								<th>วันที่คัดกรอง</th>
+								<th>สถานที่คัดกรอง</th>
+								<th>พื้นที่บริการ</th>
+								<th></th>
+							</tr>
+							<tbody>
+							</tbody>
+						</thead>
+					</table>
+				</div>
+				<div class="tab-pane" id="tab-ncd-new">
+				<form>
+					<div class="row">
+						<div class="span2">
+							<label for="">การสูบบุหรี่</label>
+							<select data-name="ncd-smoke" class="span2">
+						<?php 
+						$i = 1;
+						foreach($smokes as $key => $value){
+							if ($i == 1) {
+								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+							} else {
+								echo '<option value="'.$key.'">'.$value.'</option>';
+							}
+							$i++;
+						}
+						?>
+							</select>
+						</div>
+						<div class="span2">
+							<label for="">ดื่มแอลกอฮอล์</label>
+							<select data-name="ncd-alcohol" class="span2">
+						<?php 
+						$i = 1;
+						foreach($alcohols as $key => $value){
+							if ($i == 1) {
+								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+							} else {
+								echo '<option value="'.$key.'">'.$value.'</option>';
+							}
+							$i++;
+						}
+						?>
+							</select>
+						</div>
+						<div class="span2">
+							<label for="">เบาหวานในญาติสายตรง</label>
+							<select data-name="ncd-dmfamily" class="span2">
+								<option value="1" selected="selected">มีประวัติ</option>
+								<option value="2">ไม่มี</option>
+								<option value="2">ไม่ทราบ</option>
+							</select>
+						</div>
+						<div class="span2">
+							<label for="">ความดันสูงในญาติสายตรง</label>
+							<select data-name="ncd-htfamily" class="span2">
+								<option value="1" selected="selected">มีประวัติ</option>
+								<option value="2">ไม่มี</option>
+								<option value="2">ไม่ทราบ</option>
+							</select>
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="">น้ำหนัก</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">ส่วนสูง</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">รอบเอว</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">BPH 1</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">BPL 1</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">BPH 2</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span1">
+							<label for="">BPL 2</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+					</div>
+					<div class="row">
+						<div class="span1">
+							<label for="">น้ำตาล</label>
+							<input type="text" data-name="" class="span1">
+						</div>
+						<div class="span5">
+							<label for="">วิธีการตรวจน้ำตาลในเลือด</label>
+							<select data-name="ncd-blood-test" style="width: 350px;">
+						<?php 
+						$i = 1;
+						foreach($blood_screens as $key => $value){
+							if ($i == 1) {
+								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
+							} else {
+								echo '<option value="'.$key.'">'.$value.'</option>';
+							}
+							$i++;
+						}
+						?>
+							</select>
+						</div>
+					</div>
+					<button type="button" class="btn btn-primary" data-name="btn-save-ncd"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
 					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
 				</form>
 				</div>
