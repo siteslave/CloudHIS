@@ -40,16 +40,44 @@
 </div>
 
 <div class="form-actions" style="height: 30px;">
-	<div style="float: left; padding: 5px;">
-		<a href="#" class="btn btn-primary"><i class="icon-edit icon-white"></i> รายงานผล LAB</a>
-		<a href="#" class="btn btn-inverse"><i class="icon-share icon-white"></i>  ส่งต่อผู้ป่วย</a>
-		<a href="#modal-506" class="btn btn-danger" data-name="show-506" data-toggle="modal"><i class="icon-fire icon-white"></i> บันทึก 506</a>
-		<a href="#modal-appoint" data-name="show-appoint" data-toggle="modal" class="btn btn-info"><i class="icon-tags icon-white"></i>  ลงทะเบียนนัด</a>
-	</div>
-	<div style="float: left; padding: 5px;">
+<div class="btn-toolbar">
+			<div class="btn-group">
+			<a class="btn btn-info" href="#"> <i class="icon-list icon-white"></i> ข้อมูล LAB</a>
+			<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="#modal-fp" data-toggle="modal" data-name="service-fp"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
+				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i> รายงานผล LAB</a></li>
+			</ul>
+		</div>
+		
 		<div class="btn-group">
-			<a class="btn btn-primary" href="#"> <i class="icon-folder-open icon-white"></i> การให้บริการอื่นๆ</a>
-			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn btn-success" href="#"> <i class="icon-comment icon-white"></i> การให้บริการหลัก</a>
+			<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="#modal-506" data-name="show-506" data-toggle="modal"><i class="icon-fire"></i> บันทึก 506</a></li>
+				
+				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-tags"></i>  ลงทะเบียนนัด</a></li>
+			</ul>
+		</div>
+		
+		<div class="btn-group">
+			<a class="btn btn-warning" href="#"> <i class="icon-th icon-white"></i> ข้อมูลส่งต่อ (Refer)</a>
+			<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
+				<li><a href="#"><i class="icon-play-circle"></i>  ลงทะเบียนรับ</a></li>
+				<li><a href="#modal-506" data-name="show-506" data-toggle="modal"><i class="icon-share"></i> ลงทะเบียนส่งต่อ</a></li>
+				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-list"></i>  ทะเบียนส่งต่อ...</a></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<a class="btn btn-inverse" href="#"> <i class="icon-folder-open icon-white"></i> บริการส่งเสริมและคัดกรอง</a>
+			<a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
@@ -62,7 +90,7 @@
 				<li><a href="#modal-chronicfu" data-toggle="modal" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>
 			</ul>
 		</div>
-	</div>
+	</div><!-- /btn-toolbar -->
 </div>
 
 <!-- alert -->
