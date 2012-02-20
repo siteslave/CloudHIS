@@ -29,7 +29,7 @@ $(function(){
 	$('a[data-name="remove-lab-order-item"]').live('click', function() {
 		var _id = $(this).attr("data-labitem");
 		
-		if ( confirm( 'คุณต้องการลบรายการนี้ใช่หรือไม่?\r\n รหัส : ' + _id )  ) {
+		if ( confirm( 'คุณต้องการลบรายการนี้ใช่หรือไม่?') ) {
 			doRemoveLabOrderItem( _id);
 			$(this).parent().parent().remove();
 		}
