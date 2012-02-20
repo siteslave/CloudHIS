@@ -22,10 +22,7 @@ class Services extends CI_Controller {
 		$this->load->model('Ncd_model', 'NCD');
 		$this->load->model('Lab_model', 'LAB');
 	}
-	
-	function test_spark() {
-		//display_css(array('application.css'));
-	}
+
 	/**
 	* Main service page
 	*
@@ -1094,12 +1091,17 @@ class Services extends CI_Controller {
 
 		if ( ! empty( $vn ) ) {
 			$group_id = $this->input->post('group_id');
-			
-			$result = $this->LAB->_save_order($vn, $group_id);		
-			if ( $result ) {
-				$json = '{"success": true}';	
+			// check duplicate
+			$c = $this->LAB->_check_order_duplicate($group_id, $vn);
+			if (count($c)) {
+				$json = '{"success": false, "status": "รายการซ้ำ : รายการนี้ถูกสั่งแล้วสำหรับบริการในครั้งนี้"}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$result = $this->LAB->_save_order($vn, $group_id);		
+				if ( $result ) {
+					$json = '{"success": true}';	
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
 			}
 			printjson($json);
 		} else {

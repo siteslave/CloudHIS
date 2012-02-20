@@ -48,7 +48,7 @@
 			</a>
 			<ul class="dropdown-menu">
 				<li><a href="#modal-lab-order" data-toggle="modal" data-name="service-lab-order"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
-				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i> รายงานผล LAB</a></li>
+				<li><a href="#modal-lab-result" data-toggle="modal" data-name="service-lab-result"><i class="icon-random"></i> รายงานผล LAB</a></li>
 			</ul>
 		</div>
 		
@@ -1233,8 +1233,19 @@
 	</div>
 	<div class="modal-body">
 		<p>
-			<label for="">รายการ LAB Groups</label>
-			<select data-name="lab-group-list" class="span6"></select>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#svtab-lab-order-new" data-toggle="tab">สั่ง LAB</a></li>
+				<li><a href="#svtab-lab-order-history" data-toggle="tab">ประวัติวันนี้</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="svtab-lab-order-new">
+					<label for="">รายการ LAB Groups</label>
+					<select data-name="lab-group-list" class="span6"></select>
+				</div>
+				<div class="tab-pane" id="svtab-lab-order-history">
+					xxx
+				</div>
+			</div>
 		</p>
 	</div>
 	<div class="modal-footer">
@@ -1243,6 +1254,37 @@
 	</div>
 </div>
 <!-- /lab order -->
+<!-- lab result  -->
+<div class="modal hide fade" id="modal-lab-result" style="width: 700px;">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>สั่ง LAB</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			<form action="#" class="form-inline">
+				<label for="">รายการ LAB ทั่สั่ง</label>
+				<select data-name="lab-order-list-result" class="span5"></select>
+				<button type="button" class="btn btn-primary" data-name="svbtn-get-lab-items"><i class="icon-list icon-white"></i> แสดงรายการ</button>
+			</form>
+			<table class="table table-stripped" data-name="svtbl-lab-item-list">
+				<thead>
+					<tr>
+						<th>รายการ LAB</th>
+						<th>ผลแล็บ</th>
+						<th>หน่วย</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+		<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  บันทึกผล LAB</a>
+	</div>
+</div>
+<!-- /lab result -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>

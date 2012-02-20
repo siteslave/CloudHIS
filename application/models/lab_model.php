@@ -37,6 +37,35 @@ class Lab_model extends CI_Model {
 			 					->insert('lab_results');
 		}	
 	}
+	public function _get_order_list($vn)
+	{
+		$result = $this->db->select(array(
+			'lab_orders.vn', 'lab_groups.name', 'lab_groups.id'
+			))
+			->where('lab_orders.vn', $vn)
+			->join('lab_groups', 'lab_groups.id=lab_orders.lab_group_id')
+			->get('lab_orders')
+			->result();
+		return $result;
+	}
+	public function _get_lab_items_services($group_id)
+	{
+		$result = $this->db->select(array(
+			'lab_results.lab_item_id', 'lab_results.lab_result',
+			'lab_items.name', 'lab_items.lab_unit'
+			))
+			->where('lab_orders.lab_group_id', $group_id)
+			->join('lab_results', 'lab_results.lab_order_id=lab_orders.id')
+			->join('lab_items', 'lab_items.id=lab_results.lab_item_id')
+			->get('lab_orders')
+			->result();
+		return $result;
+	}
+	public function _check_order_duplicate($group_id, $vn)
+	{
+		$result = $this->db->where('vn', $vn)->where('lab_group_id', $group_id)->get('lab_orders')->result();
+		return $result;
+	}
 }
 /* End of file lab_model.php */
 /* Location: ./application/models/lab_model.php */
