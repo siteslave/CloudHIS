@@ -1233,7 +1233,7 @@
 	</div>
 	<div class="modal-body">
 		<p>
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-pills">
 				<li class="active"><a href="#svtab-lab-order-new" data-toggle="tab">สั่ง LAB</a></li>
 				<li><a href="#svtab-lab-order-history" data-toggle="tab">ประวัติวันนี้</a></li>
 			</ul>
@@ -1243,7 +1243,15 @@
 					<select data-name="lab-group-list" class="span6"></select>
 				</div>
 				<div class="tab-pane" id="svtab-lab-order-history">
-					xxx
+				<table class="table table-stripped" data-name="svtbl-lab-order-history">
+					<thead>
+						<tr>
+							<th>รายการกลุ่ม LAB</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 				</div>
 			</div>
 		</p>
@@ -1271,8 +1279,9 @@
 				<thead>
 					<tr>
 						<th>รายการ LAB</th>
-						<th>ผลแล็บ</th>
+						<th>ผล</th>
 						<th>หน่วย</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody></tbody>

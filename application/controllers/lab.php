@@ -21,7 +21,7 @@ class Lab extends CI_Controller {
 			if ($result) {
 				$json = '{"success": true, "rows": '. json_encode($result) .'}';
 			} else {
-				$json = '{"success": false, "status": '. $this->db->_error_message() . '}';
+				$json = '{"success": false, "status": "database error."}';
 			}
 			printjson($json);		
 		} else {
@@ -35,9 +35,65 @@ class Lab extends CI_Controller {
 			if ($result) {
 				$json = '{"success": true, "rows": '. json_encode($result) .'}';
 			} else {
-				$json = '{"success": false, "status": '. $this->db->_error_message() .'}';
+				$json = '{"success": false, "status": "database error" }';
 			}
 			printjson($json);		
+		} else {
+			show_404();
+		}
+	}
+	public function getorder_history()
+	{
+		$vn = $this->input->post('vn');
+		if( ! empty ($vn) ) {
+			$result = $this->LAB->_get_order_visit_history($vn);
+			
+			if ($result) {
+				$json = '{"success": true, "rows": '. json_encode($result) .'}';
+			} else {
+				$json = '{"success": false, "status": "database error."}';
+			}
+			
+			printjson($json);
+			
+		} else {
+			show_404();
+		}
+	}
+	// remove service order
+	public function removeorder()
+	{
+		$order_id = $this->input->post('order_id');
+		if( ! empty ($order_id) ) {
+			$result = $this->LAB->_remove_order($order_id);
+			
+			if ($result) {
+				$json = '{"success": true, "rows": '. json_encode($result) .'}';
+			} else {
+				$json = '{"success": false, "status": "database error."}';
+			}
+			
+			printjson($json);
+			
+		} else {
+			show_404();
+		}
+	}
+	// remove lab order item
+	public function removeorder_item()
+	{
+		$id = $this->input->post('id');
+		if( ! empty ($id) ) {
+			$result = $this->LAB->_remove_order_item_result($id);
+			
+			if ($result) {
+				$json = '{"success": true, "rows": '. json_encode($result) .'}';
+			} else {
+				$json = '{"success": false, "status": "database error."}';
+			}
+			
+			printjson($json);
+			
 		} else {
 			show_404();
 		}

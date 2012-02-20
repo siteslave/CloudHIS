@@ -51,7 +51,7 @@ class Lab_model extends CI_Model {
 	public function _get_lab_items_services($group_id)
 	{
 		$result = $this->db->select(array(
-			'lab_results.lab_item_id', 'lab_results.lab_result',
+			'lab_results.id', 'lab_results.lab_item_id', 'lab_results.lab_result',
 			'lab_items.name', 'lab_items.lab_unit'
 			))
 			->where('lab_orders.lab_group_id', $group_id)
@@ -66,6 +66,34 @@ class Lab_model extends CI_Model {
 		$result = $this->db->where('vn', $vn)->where('lab_group_id', $group_id)->get('lab_orders')->result();
 		return $result;
 	}
+	public function _get_order_visit_history($vn)
+	{
+		$result = $this->db->select(array('lab_orders.id', 'lab_groups.name'))
+		 										->where('lab_orders.vn', $vn)
+		 										->join('lab_groups', 'lab_groups.id=lab_orders.lab_group_id')
+		 										->get('lab_orders')
+			 									->result();
+		return $result;
+	}
+	public function _remove_order($order_id)
+	{
+		$result = $this->db->where('id', $order_id)->delete('lab_orders');
+		// clear order items
+		$this->_remove_order_items($order_id);
+		// return reslt
+		return $result;
+	}
+	
+	private function _remove_order_items($order_id) {
+		$this->db->where('lab_order_id', $order_id)->delete('lab_results');
+	}
+	
+	public function _remove_order_item_result($id)
+	{
+		$result = $this->db->where('id', $id)->delete('lab_results');
+		return $result;
+	}
+	
 }
 /* End of file lab_model.php */
 /* Location: ./application/models/lab_model.php */
