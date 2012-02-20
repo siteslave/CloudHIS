@@ -20,6 +20,7 @@ class Services extends CI_Controller {
 		$this->load->model('Epi_model', 'EPI');
 		$this->load->model('Anc_model', 'ANC');
 		$this->load->model('Ncd_model', 'NCD');
+		$this->load->model('Lab_model', 'LAB');
 	}
 	
 	function test_spark() {
@@ -1072,6 +1073,29 @@ class Services extends CI_Controller {
 
 		if ( ! empty( $id ) ) {
 			$result = $this->NCD->_remove_chronicfu( $id );		
+			if ( $result ) {
+				$json = '{"success": true}';	
+			} else {
+				$json = '{"success": false, "status": "Database error."}';
+			}
+			printjson($json);
+		} else {
+			show_404();
+		}
+	}
+	/**
+	* Save lab orders
+	*
+	* @url			POST /services/dolaborder
+	* @params 	$id
+	**/
+	public function dolaborder() {
+		$vn	= $this->input->post('vn');
+
+		if ( ! empty( $vn ) ) {
+			$group_id = $this->input->post('group_id');
+			
+			$result = $this->LAB->_save_order($vn, $group_id);		
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {

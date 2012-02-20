@@ -47,7 +47,7 @@
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#modal-fp" data-toggle="modal" data-name="service-fp"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
+				<li><a href="#modal-lab-order" data-toggle="modal" data-name="service-lab-order"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
 				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i> รายงานผล LAB</a></li>
 			</ul>
 		</div>
@@ -1225,6 +1225,24 @@
 	</div>
 </div>
 <!-- /chronic fu -->
+<!-- lab order  -->
+<div class="modal hide fade" id="modal-lab-order">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>สั่ง LAB</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			<label for="">รายการ LAB Groups</label>
+			<select data-name="lab-group-list" class="span6"></select>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+		<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  สั่ง LAB</a>
+	</div>
+</div>
+<!-- /lab order -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
@@ -1235,3 +1253,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>

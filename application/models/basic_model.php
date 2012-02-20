@@ -383,6 +383,14 @@ class Basic_model extends CI_Model {
 		}
 		return $result;
 	}
+	/*
+	* Get ncd screening alcohol type
+	*
+	**/
+	public function _getlab_orders_list(){
+		$result = $this->db->order_by('name', 'desc')->get('lab_groups')->result();
+		return $result;
+	}
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */
