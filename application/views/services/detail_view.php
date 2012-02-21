@@ -25,15 +25,18 @@
 				<strong>เลขบัตรประชาชน</strong>: <?php echo $row->cid; ?> <br />
 				<strong>ชื่อ - สกุล</strong>: <?php echo $row->fname. ' '. $row->lname; ?> <br />
 				<strong>วันเกิด</strong>: <?php echo to_thai_date ( $row->birthdate ); ?>  <strong>อายุ</strong>: <?php echo $row->age; ?> ปี<br /> <br />
+				<!--
 				<a href="<?php echo base_url(); ?>people/detail/<?php echo $row->cid; ?>" class="btn btn-primary"><i class="icon-user icon-white"></i>  แก้ไขข้อมูล »</a>
+			-->
 			</div>
 			<div class="span5">
 				<strong>วันที่รับบริการ</strong>: <?php echo to_thai_date ( $row->date_serv ) . ' '. $row->time_serv; ?> <br />
 				<strong>แผนก</strong>: <?php echo $row->clinic_name; ?> <br />
 				<strong>สิทธิการรักษา</strong>: <?php echo $row->ins_name; ?> <br />
 				<strong>เลขที่สิทธิ</strong>: <?php echo $row->ins_code; ?> <br /> <br />
-				
+				<!-- 
 				<a href="<?php echo base_url(); ?>people/detail/<?php echo $row->cid; ?>" class="btn btn-success"><i class="icon-calendar icon-white"></i> ประวัติการรับบริการ  »</a>
+			-->
 			</div>
 		</div>
 		<br />
@@ -63,28 +66,24 @@
 				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-tags"></i>  ลงทะเบียนนัด</a></li>
 			</ul>
 		</div>
-		
+
 		<div class="btn-group">
-			<a class="btn btn-warning" href="#"> <i class="icon-th icon-white"></i> ข้อมูลส่งต่อ (Refer)</a>
-			<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
-				<span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-				<li><a href="#"><i class="icon-play-circle"></i>  ลงทะเบียนรับ</a></li>
-				<li><a href="#modal-506" data-name="show-506" data-toggle="modal"><i class="icon-share"></i> ลงทะเบียนส่งต่อ</a></li>
-				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-list"></i>  ทะเบียนส่งต่อ...</a></li>
-			</ul>
-		</div>
-		<div class="btn-group">
-			<a class="btn btn-inverse" href="#"> <i class="icon-folder-open icon-white"></i> บริการส่งเสริมและคัดกรอง</a>
-			<a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn btn-primary" href="#"> <i class="icon-folder-open icon-white"></i> บริการส่งเสริม</a>
+			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
 				<li><a href="#modal-fp" data-toggle="modal" data-name="service-fp"> <i class="icon-eye-open"></i>  วางแผนครอบครัว (Family Planing)</a></li>
 				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
 				<li><a href="#modal-anc" data-toggle="modal" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
-				<li class="divider"></li>
+			</ul>
+		</div>
+		<div class="btn-group">
+			<a class="btn btn-warning" href="#"> <i class="icon-check icon-white"></i> การคัดกรอง</a>
+			<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+				<span class="caret"></span>
+			</a>
+			<ul class="dropdown-menu">
 				<li><a href="#modal-ncd" data-toggle="modal" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดันโลหิตสูง</a></li>
 				
 				<li><a href="#modal-chronicfu" data-toggle="modal" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>

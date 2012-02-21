@@ -89,8 +89,9 @@
 							<li class="active"><a href="#"><i class="icon-share icon-white"></i>  การให้บริการหลัก</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-qrcode"></i> ระบบงานทันตกรรม</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-leaf"></i> ระบบงานแพทย์แผนไทย</a></li>
+							<li><a href="<?php echo base_url(); ?>refers"><i class="icon-leaf"></i> ระบบงานรับส่งต่อ (Refer)</a></li>
 							<li class="nav-header">ระบบงานส่งเสริมสุขภาพ</li>
-							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-folder-close"></i> บริการฝากครรภ์ (ANC)</a></li>
+							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-folder-close"></i> ทะเบียนฝากครรภ์ (ANC)</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-user"></i> ข้อมูลหญิงเจริญพันธ์ (Women)</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-file"></i> การดูแลเด็กหลังคลอด (PP)</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด (MCH)</a></li>

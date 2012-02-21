@@ -45,6 +45,7 @@
 			<table class="table table-striped" data-rel="tblservice-main">
         <thead>
           <tr>
+          	<th>วันที่มา</th>
             <th>เลขบัตรประชาชน</th>
             <th>ชื่อ - สกุล</th>
             <th>วันเกิด</th>
@@ -57,6 +58,7 @@
         <tbody>
         	<?php foreach($services as $row): ?>
 				<tr data-vn="<?php echo $row->vn; ?>">
+					<td><?php echo to_thai_date( $row->date_serv ); ?></td>
           <td><?php echo $row->cid; ?></td>
           <td><?php echo $row->fname .' '. $row->lname; ?></td>
           <td><?php echo to_thai_date( $row->birthdate ); ?></td>

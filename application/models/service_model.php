@@ -134,7 +134,7 @@ class Service_model extends CI_Model {
 												->join('insurances', 'insurances.id=visits.ins_id', 'left')
 												->join('doctors', 'doctors.id=visits.doctor_id', 'left')
 												->join('screenings', 'screenings.vn=visits.vn', 'left')
-												->order_by('visits.vn', 'DESC')
+												->order_by('visits.vn', 'ASC')
 												->get('visits')->result();
 		return $result;
 	}
