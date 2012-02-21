@@ -27,12 +27,21 @@ $(function(){
 	} );
 	//remove lab order item
 	$('a[data-name="remove-lab-order-item"]').live('click', function() {
-		var _id = $(this).attr("data-labitem");
+		var _id = $(this).attr("data-id");
 		
 		if ( confirm( 'คุณต้องการลบรายการนี้ใช่หรือไม่?') ) {
 			doRemoveLabOrderItem( _id);
 			$(this).parent().parent().remove();
 		}
+	});
+	// save lab result
+	$('input[data-name="lab-item-result"]').live('focusout', function(){
+		var _result = $(this).val(),
+		_id = $(this).attr('data-item');
+		
+		// save result
+		doLabResult(_id, _result);
+		
 	});
 	var getLabGroupList = function(){
 		// load order list
@@ -125,10 +134,10 @@ $(function(){
 							$('table[data-name="svtbl-lab-item-list"] > tbody').append(
 								'<tr>'
 									+ '<td>' + v.name  + '</td>'
-									+ '<td><input type="text" class="span1" name="item['+v.lab_item_id+']" value="' + value + '"></td>'
+									+ '<td><input type="text" data-name="lab-item-result" class="span1" data-item="'+v.id+'" value="' + value + '"></td>'
 									+ '<td>' + v.lab_unit + '</td>'
 									+ '<td>'
-									+ '<a href="#" class="btn" data-name="remove-lab-order-item" data-labitem="'+ v.id +'"><i class="icon-trash"></i></a>'
+									+ '<a href="#" class="btn" data-name="remove-lab-order-item" data-id="'+ v.id +'" title="ลบรายการแล็ป"><i class="icon-trash"></i></a>'
 									+ '</td>'
 								+ '</tr>'
 							);
@@ -212,6 +221,29 @@ $(function(){
       		alert('ลบรายการเรียบร้อยแล้ว');
       	} else {
       		alert(data.status);
+      	}
+      },
+      error: function(xhr, status, errorThrown) {
+				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
+			}
+		});
+	},
+	doLabResult = function( _id, _result ) {
+		$.ajax({
+			url: _base_url + 'lab/dolabresult',
+      dataType: 'json',
+      type: 'POST',
+      data: {
+      	id: _id,
+      	result: _result,
+        csrf_token: $.cookie('csrf_cookie_cloudhis')
+      },
+      success: function(data){
+      	if (data.success) {
+      		//console.log('บันทึกผลเรียบร้อย');
+      	} else {
+      		alert('เกิดข้อผิดพลาด\r\n' + data.status);
+      		console.log(data.status);
       	}
       },
       error: function(xhr, status, errorThrown) {

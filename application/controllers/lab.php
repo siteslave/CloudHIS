@@ -98,6 +98,26 @@ class Lab extends CI_Controller {
 			show_404();
 		}
 	}
+	
+	public function dolabresult()
+	{
+		$id = $this->input->post('id');
+		$result = $this->input->post('result');
+		if ( ! empty($id) ) {
+			$result = $this->LAB->_save_result($id, $result);
+			if ($result) {
+				$json = '{"success": true}';
+			} else {
+				$json = '{"success": false, "status": "database error."}';
+			}
+			
+			printjson($json);
+			
+		} else {
+			show_404();
+		}
+		
+	}
 }
 /* End of file lab.php */
 /* Location: ./application/controllers/lab.php */

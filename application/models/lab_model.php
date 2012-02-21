@@ -93,7 +93,11 @@ class Lab_model extends CI_Model {
 		$result = $this->db->where('id', $id)->delete('lab_results');
 		return $result;
 	}
-	
+	public function _save_result($id, $result)
+		{
+			$result = $this->db->where('id', $id)->set('lab_result', $result)->update('lab_results');
+			return $result;
+		}	
 }
 /* End of file lab_model.php */
 /* Location: ./application/models/lab_model.php */

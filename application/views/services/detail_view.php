@@ -1290,7 +1290,6 @@
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
-		<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  บันทึกผล LAB</a>
 	</div>
 </div>
 <!-- /lab result -->
