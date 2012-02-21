@@ -20,11 +20,9 @@ class Services extends CI_Controller {
 		$this->load->model('Epi_model', 'EPI');
 		$this->load->model('Anc_model', 'ANC');
 		$this->load->model('Ncd_model', 'NCD');
+		$this->load->model('Lab_model', 'LAB');
 	}
-	
-	function test_spark() {
-		//display_css(array('application.css'));
-	}
+
 	/**
 	* Main service page
 	*
@@ -1076,6 +1074,34 @@ class Services extends CI_Controller {
 				$json = '{"success": true}';	
 			} else {
 				$json = '{"success": false, "status": "Database error."}';
+			}
+			printjson($json);
+		} else {
+			show_404();
+		}
+	}
+	/**
+	* Save lab orders
+	*
+	* @url			POST /services/dolaborder
+	* @params 	$id
+	**/
+	public function dolaborder() {
+		$vn	= $this->input->post('vn');
+
+		if ( ! empty( $vn ) ) {
+			$group_id = $this->input->post('group_id');
+			// check duplicate
+			$c = $this->LAB->_check_order_duplicate($group_id, $vn);
+			if (count($c)) {
+				$json = '{"success": false, "status": "รายการซ้ำ : รายการนี้ถูกสั่งแล้วสำหรับบริการในครั้งนี้"}';
+			} else {
+				$result = $this->LAB->_save_order($vn, $group_id);		
+				if ( $result ) {
+					$json = '{"success": true}';	
+				} else {
+					$json = '{"success": false, "status": "Database error."}';
+				}
 			}
 			printjson($json);
 		} else {

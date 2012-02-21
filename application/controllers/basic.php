@@ -302,5 +302,18 @@ class Basic extends CI_Controller {
 			printjson($json);
 		}
 	}
-
+	/**
+	* Get Lab order list
+	* 
+	* @method 	POST
+	* @url 			/basic/getlaborders
+	* @return 	json
+	*
+	**/
+	public function getlaborders()
+	{
+		$result = $this->Basic->_getlab_orders_list();
+		$json 	= json_encode($result);
+		printjson($json);
+	}
 }
