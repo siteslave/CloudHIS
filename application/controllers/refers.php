@@ -13,7 +13,6 @@ class Refers extends CI_Controller {
 		parent::__construct();
 		// load model
 		$this->load->model('Refer_model', 'Refer');
-		
 		$this->layout->setLayout('services_layout');
 	}
 		
