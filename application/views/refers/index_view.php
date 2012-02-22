@@ -101,8 +101,8 @@
 			</div>
 				<button type="button" class="btn btn-primary" data-name="svrefer-btn-save-register-out"><i class="icon-plus-sign icon-white"></i> บันทึกส่งต่อ</button> 
 				<button type="reset" class="btn" data-name="svrefer-btn-clear-register"><i class="icon-refresh"></i> ยกเลิก</button>
+			</form>
 		</div> <!-- /svrefer-register-detail-panel -->
-		</form>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>

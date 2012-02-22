@@ -10,3 +10,5 @@ application/logs/*
 
 system/*
 user_guide/*
+
+.komodoproject
