@@ -64,15 +64,15 @@
 						      <b class="caret"></b>
 						    </a>
 						    <ul class="dropdown-menu">
-						      <li><a href="#"><i class="icon-user"></i> ข้อมูลส่วนตัว</a></li>
-						      <li><a href="#"><i class="icon-time"></i>  ประวัติการใช้งาน</a></li>
-						      <li><a href="#"><i class="icon-edit"></i>  เปลี่ยนรหัสผ่าน</a></li>
+						      <li><a href="<?php echo base_url();?>users/info"><i class="icon-user"></i> ข้อมูลส่วนตัว</a></li>
+						      <li><a href="<?php echo base_url();?>users/log"><i class="icon-time"></i>  ประวัติการใช้งาน</a></li>
+						      <li><a href="<?php echo base_url();?>users/changepass"><i class="icon-edit"></i>  เปลี่ยนรหัสผ่าน</a></li>
 						      <li class="divider"></li>
-						      <li><a href="#"><i class="icon-off"></i> ออกจากระบบ</a></li>
+						      <li><a href="<?php echo base_url();?>users/logout"><i class="icon-off"></i> ออกจากระบบ</a></li>
 						    </ul>
 						  </li>
 						</ul>
-						<p class="navbar-text pull-right">Logged in as <a href="#">Username</a></p>
+						<p class="navbar-text pull-right">Logged in as <a href="#"><?php echo $this->session->userdata('fullname'); ?></a></p>
 					</div>
 				</div>		
 			</div>	

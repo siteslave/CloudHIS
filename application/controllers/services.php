@@ -11,6 +11,10 @@ class Services extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		
+		if(! $this->session->userdata('logged')){
+				redirect('users', 'refresh');
+		}
 		// set layout
 		$this->layout->setLayout('services_layout');
 		// load model

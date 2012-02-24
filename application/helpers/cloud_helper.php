@@ -83,3 +83,10 @@
 			return $result->date_serv;
 		}
 	}
+	
+	if ( ! function_exists('show_brand') ) {
+		function show_brand( ) {
+			return 'CloudHIS';
+		}
+	}
+	

@@ -11,6 +11,10 @@ class Refers extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+    
+    if(! $this->session->userdata('logged')){
+				redirect('users', 'refresh');
+		}
 		// load model
 		$this->load->model('Refer_model', 'Refer');
 		$this->layout->setLayout('services_layout');
