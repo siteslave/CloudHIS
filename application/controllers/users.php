@@ -15,7 +15,11 @@ class Users extends CI_Controller {
 		$this->load->model('User_model', 'Users');
 	}
 	public function index() {
-		$this->login();
+		if(! $this->session->userdata('logged')){
+				$this->login();
+		} else {
+			$this->layout->view('users/index_view');
+		}
 	}
   /**
    * @url POST /users/login
@@ -42,11 +46,11 @@ class Users extends CI_Controller {
 					'logged'   			=> TRUE
 				);
 				$this->session->set_userdata($data_session);
-				// logging
-				log_message('info', 'Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR'].' [Success]');
+				log_message('info', '[SUCCESS] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
 
 				$json = '{"success": true}';
 			} else {
+				log_message('info', '[FAILED] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
 				$json = '{"success": false}';
 			}
 			// render json
@@ -60,7 +64,7 @@ class Users extends CI_Controller {
 	
 	public function logout() {
 		$user_name = $this->session->userdata('username');
-		log_message('info', 'Loggout for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR'].'  [Success]');
+		log_message('info', '[SUCCESS] Logout for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
 		$this->session->sess_destroy();
 
 		redirect('users');  
