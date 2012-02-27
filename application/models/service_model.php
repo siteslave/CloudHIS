@@ -20,9 +20,9 @@ class Service_model extends CI_Model {
 	public function _save($cid, $clinic_id, $date_serv, $hmain_code,
 												$hsub_code, $ins_expire, $ins_start,
 												$ins_code, $ins_id, $intime, $location_id,
-												$pttype_id, $service_place_id, $time_serv){
+												$pttype_id, $service_place_id, $time_serv, $pcucode){
 		// execute query
-		$result = $this->db->set('pcucode', $this->session->userdata('pcucode'))
+		$result = $this->db->set('pcucode', $pcucode)
 		 										->set('cid', $cid)
 		 										->set('clinic_id', $clinic_id)
 		 										->set('date_serv', $date_serv)
@@ -124,7 +124,7 @@ class Service_model extends CI_Model {
 	public function _getList($date)
 	{
 		$result = $this->db->select(array(
-												'people.cid', 'people.fname', 'people.lname',
+												'people.cid', 'people.fname', 'people.lname','year(current_date()) - year(birthdate) as age',
 												'people.hn', 'people.sex', 'people.birthdate',
 												'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
 												'clinics.name as clinic_name', 'insurances.name as ins_name', 

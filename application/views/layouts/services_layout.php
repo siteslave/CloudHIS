@@ -2,9 +2,21 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Enterprise CloudHIS</title>
 	<!--[if lt IE 9]> <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
-	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap.min.css" />
+	 <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+    </style>
+	 
+	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/ui/jquery-ui.css" />
 	
 	<script type="text/javascript">
@@ -12,6 +24,7 @@
 	</script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.ui.datepicker-th.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.tablesorter.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.numeric.js"></script>
@@ -72,7 +85,7 @@
 						    </ul>
 						  </li>
 						</ul>
-						<p class="navbar-text pull-right">Logged in as <a href="#"><?php echo $this->session->userdata('fullname'); ?></a></p>
+						<p class="navbar-text pull-right">Logged in as <a href="#"><?php echo get_user_fullname( $this->session->userdata('user_name') ); ?></a></p>
 					</div>
 				</div>		
 			</div>	
@@ -89,16 +102,16 @@
 							<li class="active"><a href="#"><i class="icon-share icon-white"></i>  การให้บริการหลัก</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-qrcode"></i> ระบบงานทันตกรรม</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-leaf"></i> ระบบงานแพทย์แผนไทย</a></li>
-							<li><a href="<?php echo base_url(); ?>refers"><i class="icon-leaf"></i> ระบบงานรับส่งต่อ (Refer)</a></li>
+							<li><a href="<?php echo base_url(); ?>refers"><i class="icon-leaf"></i> ระบบงานรับส่งต่อ</a></li>
 							<li class="nav-header">ระบบงานส่งเสริมสุขภาพ</li>
-							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-folder-close"></i> ทะเบียนฝากครรภ์ (ANC)</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-user"></i> ข้อมูลหญิงเจริญพันธ์ (Women)</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-file"></i> การดูแลเด็กหลังคลอด (PP)</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด (MCH)</a></li>
-							<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (Home Health Care)</a></li>
+							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-folder-close"></i> ทะเบียนฝากครรภ์</a></li>
+							<li><a href="<?php echo base_url(); ?>"><i class="icon-user"></i> ข้อมูลหญิงเจริญพันธ์</a></li>
+							<li><a href="<?php echo base_url(); ?>"><i class="icon-file"></i> การดูแลเด็กหลังคลอด</a></li>
+							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด</a></li>
+							<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (HHC)</a></li>
 							<li class="nav-header">ระบบงานคัดกรอง</li>
 							<li><a href="<?php echo base_url(); ?>ncd"><i class="icon-th-list"></i> ทะเบียนผู้ป่วยโรคเรื้อรัง</a></li>
-							<li><a href="<?php echo base_url(); ?>ncd/screening"><i class="icon-th-list"></i> คัดกรองเบาหวานความดันโลหิตสูง</a></li>
+							<li><a href="<?php echo base_url(); ?>ncd/screening"><i class="icon-th-list"></i> คัดกรองเบาหวานความดัน</a></li>
 							<li><a href="<?php echo base_url(); ?>"><i class="icon-th"></i> คัดกรองมะเร็งปากมดลูก</a></li>
 						</ul>
 					</div><!-- /wel -->	

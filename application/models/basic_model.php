@@ -391,6 +391,18 @@ class Basic_model extends CI_Model {
 		$result = $this->db->order_by('name', 'desc')->get('lab_groups')->result();
 		return $result;
 	}
+	/**
+	 * Get Refer cause
+	 * @return array() Refer cause list
+	 **/
+	public function _get_refer_cause_dropdown() {
+		$query = $this->db->get('refer_causes');
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */

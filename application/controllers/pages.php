@@ -16,9 +16,6 @@ class Pages extends CI_Controller {
 		}
 		//set layout
 		$this->layout->setLayout('default_layout');
-		// load spark
-		//$this->load->spark('assets/0.6.3');
-
 	}
 	//default action
 	public function index(){

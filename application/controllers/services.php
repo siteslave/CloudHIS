@@ -83,20 +83,21 @@ class Services extends CI_Controller {
 				$ins_start = to_mysql_date( $ins_start );
 			}
 			
-			$ins_code			= $this->input->post('ins_code');
-			$ins_id				= $this->input->post('ins_id');
-			$intime				= $this->input->post('intime');
-			$location_id		= $this->input->post('location_id');
-			$pttype_id			= $this->input->post('pttype_id');
+			$ins_code					= $this->input->post('ins_code');
+			$ins_id						= $this->input->post('ins_id');
+			$intime						= $this->input->post('intime');
+			$location_id			= $this->input->post('location_id');
+			$pttype_id				= $this->input->post('pttype_id');
 			$service_place_id	= $this->input->post('service_place_id');
-			$time_serv			= $this->input->post('time_serv');
+			$time_serv				= $this->input->post('time_serv');
+			$pcucode 					= get_user_hospital_name( $this->session->userdata('user_name') );
 			
 			// save service register
 			$result = $this->Services->_save( 
 				$cid, $clinic_id, to_mysql_date( $date_serv ), $hmain_code,
 				$hsub_code, $ins_expire, $ins_start,
 				$ins_code, $ins_id, $intime, $location_id,
-				$pttype_id, $service_place_id, $time_serv );
+				$pttype_id, $service_place_id, $time_serv, $pcucode );
 			// check if result is success.
 			if( $result ) {
 				$json = '{"success": true}';
@@ -119,15 +120,15 @@ class Services extends CI_Controller {
 			$data['rows'] = $this->Services->_getDetail($vn);
 			// if id not match return error 404
 			if( count($data['rows']) ) {
-				$data['screenings'] = $this->Services->_getScreening($vn);
+				$data['screenings'] 	= $this->Services->_getScreening($vn);
 				// basic data
-				$data['allergics'] 	= $this->Basic->_get_allergics_dropdown();
-				$data['diag_types']	= $this->Basic->_get_diagtype_dropdown();
-				$data['appoints']		= $this->Basic->_get_appoint_dropdown();
-				$data['fptypes']		= $this->Basic->_get_fptype_dropdown();
-				$data['fpplaces']		= $this->Basic->_get_fpplace_dropdown();
+				$data['allergics'] 		= $this->Basic->_get_allergics_dropdown();
+				$data['diag_types']		= $this->Basic->_get_diagtype_dropdown();
+				$data['appoints']			= $this->Basic->_get_appoint_dropdown();
+				$data['fptypes']			= $this->Basic->_get_fptype_dropdown();
+				$data['fpplaces']			= $this->Basic->_get_fpplace_dropdown();
 				$data['vccplaces']		= $this->Basic->_get_vccplace_dropdown();
-				$data['vcctypes']		= $this->Basic->_get_vcctype_dropdown();
+				$data['vcctypes']			= $this->Basic->_get_vcctype_dropdown();
 				// screening
 				$data['smokes']				= $this->Basic->_get_smoke_dropdown();
 				$data['alcohols']			= $this->Basic->_get_alcohol_dropdown();

@@ -135,20 +135,31 @@ $(function() {
 				if( data.success ) {
 					//console.log(data.rows);
 					$('table[data-name="tblAppointList"] > tbody').empty();
-					
-					$.each(data.rows, function(i, v){
+					if(data.rows) {
 						$('table[data-name="tblAppointList"] > tbody').append(
 							'<tr>' 
-							+ '<td>' + toThaiDate( v.date_serv ) + '</td>'
-							+ '<td>' + toThaiDate( v.appoint_date ) + '</td>'
-							+ '<td>' + v.appoint_name  + '</td>'
-							+ '<td>' + v.appoint_diag + ' ' + v.diag_name + '</td>' 
-							+ '<td><a href="#" data-name="remove-appoint" data-appoint="' + v.id + '" class="btn" title="ลบทิ้ง"><i class="icon-trash"></i></a></td>'
+							+ '<td colspan="5"> ไม่พบรายการนัด </td>'
 							+ '</tr>'
 						);
-					});
+					} else {
+						$.each(data.rows, function(i, v){
+							$('table[data-name="tblAppointList"] > tbody').append(
+								'<tr>' 
+								+ '<td>' + toThaiDate( v.date_serv ) + '</td>'
+								+ '<td>' + toThaiDate( v.appoint_date ) + '</td>'
+								+ '<td>' + v.appoint_name  + '</td>'
+								+ '<td>' + v.appoint_diag + ' ' + v.diag_name + '</td>' 
+								+ '<td><a href="#" data-name="remove-appoint" data-appoint="' + v.id + '" class="btn" title="ลบทิ้ง"><i class="icon-trash"></i></a></td>'
+								+ '</tr>'
+							);
+						});
+					}
 				} else {
-					alert( data.status );
+					$('table[data-name="tblAppointList"] > tbody').append(
+						'<tr>' 
+						+ '<td colspan="5"> ไม่พบรายการนัด </td>'
+						+ '</tr>'
+					);
 				}
 			},
 			error: function(xhr, status, errorThrown) {
@@ -157,7 +168,7 @@ $(function() {
 		});
 	}
 	
-	$('a[data-name="show-appoint"]').click( function() {
+	$('a[data-name="service-appoint"]').click( function() {
 		getAppointmentList();
 	});
 //

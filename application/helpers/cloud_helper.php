@@ -89,4 +89,65 @@
 			return 'CloudHIS';
 		}
 	}
-	
+	/**
+	 * Get Hospital code for user session
+	 * @return string Hospital code in session data.
+	 * @param  string $user_name User name
+	 **/
+	if (! function_exists('get_user_hospital_code')) {
+		function get_user_hospital_code( $user_name ) {
+			$ci =& get_instance();
+			
+			$result = $ci->db->select('pcucode')
+			   								->where('user_name', $user_name)
+			   								->get('users')
+			   								->row();
+			return $result->pcucode;
+		}
+	}
+	/**
+	 * Get User id for user session
+	 * @return int User id in session data.
+	 **/
+	if (! function_exists('get_user_id')) {
+		function get_user_id( $user_name ) {
+			$ci =& get_instance();
+			
+			$result = $ci->db->select('id')
+			   								->where('user_name', $user_name)
+			   								->get('users')
+			   								->row();
+			return $result->id;
+		}
+	}
+	/**
+	 * Get User fullname
+	 * @return string User name.
+	 **/
+	if (! function_exists('get_user_fullname')) {
+		function get_user_fullname( $user_name ) {
+			$ci =& get_instance();
+			
+			$result = $ci->db->select('concat(fname, " ", lname) as fullname', FALSE)
+			   								->where('user_name', $user_name)
+			   								->get('users')
+			   								->row();
+			return $result->fullname;
+		}
+	}
+	/**
+	 * Get Hospital name
+	 * @return string full hospital name.
+	 **/
+	if (! function_exists('get_user_hospital_name')) {
+		function get_use_hospital_name( $user_name ) {
+			$ci =& get_instance();
+			
+			$result = $ci->db->select('hospitals.name')
+			   								->join('hospitals', 'hospitals.code=users.pcucode', 'left')
+                        ->where('users.user_name', $user_name)
+			   								->get('users')
+			   								->row();
+			return $result->name;
+		}
+	}

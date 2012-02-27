@@ -34,17 +34,8 @@ class Users extends CI_Controller {
 			// check login
 			$result = $this->Users->dologin($user_name, $user_pass);
 			if($result) {
-				$users = $this->Users->get_userdetail($user_name);
-				$data_session = array(
-					'user_id' 			=> $users['id'],
-					'username' 			=> $user_name,
-					'fullname' 			=> $users['fullname'],
-					'last_login' 		=> $users['last_login'],
-					'pcucode' 			=> $users['pcucode'],
-					'license_no' 		=> $users['license_no'],
-					'hospital_name' => $users['hospital_name'],
-					'logged'   			=> TRUE
-				);
+				//$users = $this->Users->get_userdetail($user_name);
+				$data_session = array('user_name' => $user_name, 'logged' => TRUE);
 				$this->session->set_userdata($data_session);
 				log_message('info', '[SUCCESS] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
 

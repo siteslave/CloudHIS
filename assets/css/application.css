@@ -13,5 +13,5 @@ html, body {
 ::webkit-selection{ background-color: #E13300; color: white; }
 
 body {
-  padding-top: 55px; /* 40px to make the container go all the way to the bottom of the topbar */
+  /*padding-top: 55px;*/ /* 40px to make the container go all the way to the bottom of the topbar */
 }

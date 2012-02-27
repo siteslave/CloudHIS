@@ -35,7 +35,7 @@ $(function(){
 	$( 'button[data-name="btn-save-anc"]' ).click( function() {
 		var _vn 	= $('input[data-name="vn"]').val(),
 		_anc_place= $('input[data-name="anc-service-place-code"]').val(),
-		_gravida 	= $('select[data-name="anc-gravida"]').val(),
+		_gravida 	= $('input[data-name="anc-gravida"]').val(),
 		_ga 			= $('input[data-name="anc-ga"]').val(),
 		_anc_res	= $('select[data-name="anc-res"]').val();
 		
@@ -44,7 +44,7 @@ $(function(){
 		} else if( ! _anc_place ) {
 			toggleAlertANC('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>สถานที่ตรวจ</code>',  'alert alert-error');
 		} else if( ! _ga ) {
-			toggleAlertANC('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>สถานที่รับวัคซีน</code>',  'alert alert-error');
+			toggleAlertANC('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>อายุครรภ์</code>',  'alert alert-error');
 		} else { // save anc
 			doSaveANC( _vn, _anc_place, _gravida, _ga, _anc_res );
 		}
