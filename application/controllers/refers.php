@@ -114,32 +114,82 @@ class Refers extends CI_Controller {
 			$refer_type 	= $this->input->post('refer_type');
 			$to_hospital 	= $this->input->post('to_hospital');
 			$treatment 		= $this->input->post('treatment');
-			$user_id 			= get_user_id( $this->session->userdata('user_id') );
+			$user_id 			= get_user_id();
 			
+      $data = array(
+              'appoint_date'  => $appoint_date,
+              'diag'          => $diag,
+              'other_detail'  => $other_detail,
+              'refer_cause'   => $refer_cause,
+              'refer_date'    => $refer_date,
+              'refer_type'    => $refer_type,
+              'to_hospital'   => $to_hospital,
+              'treatment'     => $treatment,
+              'user_id'       => $user_id,
+              'owner'         => get_user_hospital_code()
+              );
+              
 			if ( ! $this->Refer->_check_exist( $vn ) )
       {
-				// create new refer out
-				$result = $this->Refer->_save_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id );
+        $data['vn'] = $vn;
         
+				$result = $this->Refer->_save_refer_out( $data );
+
 				if ( $result )
         {
+          // logging
+          $logs = array(
+                        'log_level' => 'info',
+                        'log_message' => '[REFEROUT] Create new refer out for vn: ' . $vn,
+                        'log_agent' => get_user_agent(),
+                        'log_ip' => $_SERVER['REMOTE_ADDR']
+                        );
+          logging( $logs );
 					$json = '{"success": true, "status": "New"}';
 				}
         else
         {
+        // logging
+        $logs = array(
+                      'log_level' => 'error',
+                      'log_message' => '[REFEROUT] Create new refer out for vn: ' . $vn,
+                      'log_agent' => get_user_agent(),
+                      'log_ip' => $_SERVER['REMOTE_ADDR']
+                      );
+        logging( $logs );
+        
 					$json = '{"success": false, "status": "Database error"}';
 				}
 			}
       else
-      { 
-				$result = $this->Refer->_update_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id );
+      {
+        
+				$result = $this->Refer->_update_refer_out( $vn, $data );
         
 				if ( $result )
         {
+          // logging
+          $logs = array(
+                        'log_level' => 'info',
+                        'log_message' => '[REFEROUT] Update refer for vn: ' . $vn,
+                        'log_agent' => get_user_agent(),
+                        'log_ip' => $_SERVER['REMOTE_ADDR']
+                        );
+          logging( $logs );
+          
 					$json = '{"success": true, "status": "Update"}';
 				}
         else
         {
+          // logging
+          $logs = array(
+                        'log_level' => 'error',
+                        'log_message' => '[REFEROUT] Update refer out for vn: ' . $vn,
+                        'log_agent' => get_user_agent(),
+                        'log_ip' => $_SERVER['REMOTE_ADDR']
+                        );
+          logging( $logs );
+          
 					$json = '{"success": false, "status": "Database error"}';
 				}
 			}
@@ -207,10 +257,28 @@ class Refers extends CI_Controller {
       
       if ( $result )
       {
+        // logging
+        $logs = array(
+                      'log_level' => 'info',
+                      'log_message' => '[REFEROUT] Get detail for refer id: ' . $id,
+                      'log_agent' => get_user_agent(),
+                      'log_ip' => $_SERVER['REMOTE_ADDR']
+                      );
+        logging( $logs );
+        
         $json = '{"success": true, "rows": ' . json_encode( $result ) . '}';
       }
       else
       {
+        // logging
+        $logs = array(
+                      'log_level' => 'error',
+                      'log_message' => '[REFEROUT] Get detail for refer id: ' . $id ,
+                      'log_agent' => get_user_agent(),
+                      'log_ip' => $_SERVER['REMOTE_ADDR']
+                      );
+        logging( $logs );
+        
         $json = '{"success": false}';
       }
       
@@ -231,7 +299,10 @@ class Refers extends CI_Controller {
   public function get_refer_out_list()
   {
     $refer_date = $this->input->post('refer_date');
-    $result = $this->Refer->_get_refer_out_list( $refer_date );
+    $refer_date = to_mysql_date( $refer_date );
+    $pcucode    = get_user_hospital_code();
+    
+    $result = $this->Refer->_get_refer_out_list( $pcucode, $refer_date );
     
     if ( $result )
     {

@@ -124,7 +124,7 @@
 				<div class="tab-pane" id="tabrefero-register-detail-1">
 					<div class="row">
 						<div class="span2">
-							<label for="">วันที่ส่งต่อ</label>
+							<label for="">วันที่ส่งต่อ</label>
 							<input type="text" class="span2" data-name="svrefero-register-refer-date">
 						</div>
 					</div>
@@ -161,7 +161,7 @@
 							</select>
 						</div>
 						<div class="span5">
-							<label for="">สถานพยาบาลปลายทาง</label>
+							<label for="">สถานพยาบาลปลายทาง</label>
 							<input type="text" data-name="svrefero-register-tohosp-name" class="span5" placeholder=" พิมพ์ชื่อหรือรหัสหน่วยบริการ..">
 							<input type="hidden" data-name="svrefero-register-tohosp-code">
 						</div>

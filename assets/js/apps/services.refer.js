@@ -51,7 +51,8 @@ Refer.Out.getReferList = function( refer_date )
 							+ '<td>' + v.age + '</td>'
 							+ '<td>' + v.to_hospital_name + '</td>'
 							+ '<td>'
-							+ '<a href="#" class="btn" data-name="remove-anc" data-anc="'+ v.id +'"><i class="icon-trash"></i></a>'
+							+ '<a href="#" title="แก้ไขข้อมูลการส่งต่อ" class="btn" data-name="refero-info" data-id="'+ v.id +'"><i class="icon-edit"></i></a> '
+							+ '<a href="#" title="ยกเลิกการส่งต่อ" class="btn" data-name="refero-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
 							+ '</td>'
 						+ '</tr>'
 					);

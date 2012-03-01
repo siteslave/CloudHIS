@@ -39,21 +39,38 @@ class Users extends CI_Controller {
 				$users = $this->Users->get_userdetail($user_name);
 				$data_session = array(
 															'user_name' => $user_name,
-															'logged' => TRUE,
+															'logged' => TRUE
+															/*
 															'user_fullname' => $users['fullname'],
 															'user_id' => $users['id'],
 															'user_hospital_name' => $users['hospital_name'],
-															'user_pcucode' => $users['pcucode']);
+															'user_pcucode' => $users['pcucode']
+															*/
+															);
 				
 				$this->session->set_userdata($data_session);
+				// logging
+				$logs = array(
+											'log_level' => 'info',
+											'log_message' => '[LOGGING] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR'],
+											'log_agent' => get_user_agent(),
+											'log_ip' => $_SERVER['REMOTE_ADDR']
+											);
+				logging( $logs );
 				
-				log_message('info', '[SUCCESS] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
-
 				$json = '{"success": true}';
 			}
 			else
 			{
-				log_message('info', '[FAILED] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
+				// logging
+				$logs = array(
+											'log_level' => 'error',
+											'log_message' => '[LOGGING] Login for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR'],
+											'log_agent' => get_user_agent(),
+											'log_ip' => $_SERVER['REMOTE_ADDR']
+											);
+				logging( $logs );
+				
 				$json = '{"success": false}';
 			}
 			// render json
@@ -66,8 +83,17 @@ class Users extends CI_Controller {
   }
 	
 	public function logout() {
-		$user_name = $this->session->userdata('username');
-		log_message('info', '[SUCCESS] Logout for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR']);
+		$user_name = $this->session->userdata('user_name');
+		
+		// logging
+		$logs = array(
+									'log_level' => 'info',
+									'log_message' => '[LOGGING] Logout for ' . $user_name . ' from '. $_SERVER['REMOTE_ADDR'],
+									'log_agent' => get_user_agent(),
+									'log_ip' => $_SERVER['REMOTE_ADDR']
+									);
+		logging( $logs );
+		
 		$this->session->sess_destroy();
 
 		redirect('users');  

@@ -56,31 +56,12 @@ class Refer_model extends CI_Model {
 	/**
 	 * Save new refer out detail
 	 *
-	 * @param string $vn Visit number
-	 * @param string $diag Diagnosis code
-	 * @param string $treatment Basic treatment
-	 * @param string $refer_cause Cause to refer
-	 * @param date $refer_date Date to refer
-	 * @param string $refer_type Type of refer
-	 * @param date $appoint_date Appoint date
-	 * @param string $other_detail Other detail
-	 * @param string $to_hospital The destination hospital code
-	 * @param int $user_id ID of user
+	 * @param array $data The set of refer data
 	 * @return array The result set
 	 **/
-	public function _save_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id )
+	public function _save_refer_out( $data )
 	{
-		$result = $this->db->set('vn', $vn)
-		 										->set('diag', $diag)
-		 										->set('treatment', $treatment)
-		 										->set('refer_cause', $refer_cause)
-		 										->set('refer_date', $refer_date)
-		 										->set('refer_type', $refer_type)
-		 										->set('appoint_date', $appoint_date)
-		 										->set('other_detail', $other_detail)
-		 										->set('to_hospital', $to_hospital)
-		 										->set('user_id', $user_id)
-			 									->insert('refer_out');
+		$result = $this->db->insert( 'refer_out', $data );
 		return $result;
 	}
 	/**
@@ -93,19 +74,17 @@ class Refer_model extends CI_Model {
 		$result = $this->db->where('vn', $vn)->get('refer_out')->result();
 		return count( $result ) > 0 ? TRUE : FALSE;
 	}
-	public function _update_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id )
+	/**
+	 * Update refer detail
+	 *
+	 * @param string $vn Visit number
+	 * @param array $data The set of refer data
+	 * @return bool
+	 **/
+	public function _update_refer_out( $vn, $data )
 	{
-		$result = $this->db->where('vn', $vn)
-		 										->set('diag', $diag)
-		 										->set('treatment', $treatment)
-		 										->set('refer_cause', $refer_cause)
-		 										->set('refer_date', $refer_date)
-		 										->set('refer_type', $refer_type)
-		 										->set('appoint_date', $appoint_date)
-		 										->set('other_detail', $other_detail)
-		 										->set('to_hospital', $to_hospital)
-		 										->set('user_id', $user_id)
-			 									->update('refer_out');
+		$result = $this->db->where( 'vn', $vn )
+			 								->update( 'refer_out', $data );
 		return $result;
 	}
 	
@@ -158,9 +137,8 @@ class Refer_model extends CI_Model {
 	 * @param date $refer_date
 	 * @return array Result set
 	 **/
-	public function _get_refer_out_list( $refer_date )
+	public function _get_refer_out_list( $pcucode, $refer_date )
 	{
-		$user_name = $this->session->userdata('user_name');
 		
 		$result = $this->db->select( array(
 																			'visits.date_serv', 'visits.time_serv',
@@ -168,12 +146,12 @@ class Refer_model extends CI_Model {
 																			'year(current_date()) - year(people.birthdate) as age', 'hospitals.name as to_hospital_name',
 																			'refer_out.id', 'refer_out.refer_date'
 																			 ), FALSE )
-												->where('refer_out.refer_date', to_mysql_date( $refer_date ))
-												//->where('visits.pcucode', $this->session->userdata('pcucode'))
-												->join('visits', 'visits.vn=refer_out.vn')
-												->join('hospitals', 'hospitals.code=refer_out.to_hospital', 'left')
-												->join('people', 'people.cid=visits.cid')
-												->get('refer_out')
+												->where( 'refer_out.refer_date', $refer_date )
+												->where( 'refer_out.owner', $pcucode )
+												->join( 'visits', 'visits.vn=refer_out.vn' )
+												->join( 'hospitals', 'hospitals.code=refer_out.to_hospital', 'left' )
+												->join( 'people', 'people.cid=visits.cid' )
+												->get( 'refer_out' )
 												->result();
 		return $result;
 	}

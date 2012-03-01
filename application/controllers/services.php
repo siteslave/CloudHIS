@@ -90,7 +90,7 @@ class Services extends CI_Controller {
 			$pttype_id				= $this->input->post('pttype_id');
 			$service_place_id	= $this->input->post('service_place_id');
 			$time_serv				= $this->input->post('time_serv');
-			$pcucode 					= get_user_hospital_name( $this->session->userdata('user_name') );
+			$pcucode 					= get_user_hospital_name();
 			
 			// save service register
 			$result = $this->Services->_save( 
@@ -555,7 +555,7 @@ class Services extends CI_Controller {
 	**/
 	public function removeappoint()
 	{
-		$vn 				= $this->input->post('vn');
+		$vn = $this->input->post('vn');
 		$id	= $this->input->post('id');
 
 		if ( ! empty( $vn ) || ! empty( $id )  ) {
@@ -922,7 +922,7 @@ class Services extends CI_Controller {
 		$bpl2 = $this->input->post('bpl2');
 		$bslevel = $this->input->post('bslevel');
 		$bstest = $this->input->post('bstest');
-		$screen_place = '11053';
+		$screen_place = get_user_hospital_code();
 		$screen_year = '2555';
 		// vn not empty
 		if( ! empty($date_exam) ) {
