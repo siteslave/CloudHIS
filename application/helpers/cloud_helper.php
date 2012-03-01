@@ -110,11 +110,11 @@
 	 * @return int User id in session data.
 	 **/
 	if (! function_exists('get_user_id')) {
-		function get_user_id( $user_name ) {
+		function get_user_id() {
 			$ci =& get_instance();
 			
 			$result = $ci->db->select('id')
-			   								->where('user_name', $user_name)
+			   								->where('user_name', $ci->session->userdata('user_name'))
 			   								->get('users')
 			   								->row();
 			return $result->id;
@@ -125,11 +125,11 @@
 	 * @return string User name.
 	 **/
 	if (! function_exists('get_user_fullname')) {
-		function get_user_fullname( $user_name ) {
+		function get_user_fullname() {
 			$ci =& get_instance();
 			
 			$result = $ci->db->select('concat(fname, " ", lname) as fullname', FALSE)
-			   								->where('user_name', $user_name)
+			   								->where('user_name', $ci->session->userdata('user_name'))
 			   								->get('users')
 			   								->row();
 			return $result->fullname;

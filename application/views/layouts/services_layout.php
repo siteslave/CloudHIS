@@ -85,7 +85,8 @@
 						    </ul>
 						  </li>
 						</ul>
-						<p class="navbar-text pull-right">Logged in as <a href="#"><?php echo get_user_fullname( $this->session->userdata('user_name') ); ?></a></p>
+						<p class="navbar-text pull-right">Logged in as <a href="#">
+						<?php echo $this->session->userdata('user_fullname'); ?></a></p>
 					</div>
 				</div>		
 			</div>	

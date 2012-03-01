@@ -31,9 +31,9 @@ class User_model extends CI_Model {
    **/
   public function get_userdetail($user_name) {
     $result = $this->db->select(array(
-                                      'users.fullname', 'users.id', 'users.pcucode', 'users.last_login',
+                                      'concat(users.fname, " ", users.lname) as fullname', 'users.id', 'users.pcucode', 'users.last_login',
                                       'hospitals.name', 'users.license_no', 'users.user_type'
-                                      ))
+                                      ), FALSE)
                         ->join('hospitals', 'hospitals.code=users.pcucode', 'left')
                         ->where('users.user_name', $user_name)
                         ->limit(1)

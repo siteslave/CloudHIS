@@ -1,5 +1,7 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
+ * The referal system
+ * 
  * @package		CloudHIS
  * @author		Satit Rianpit
  * @copyright	Copyright (c) 2008 - 2012, EllisLab, Inc. (http://ellislab.com/)
@@ -12,10 +14,11 @@ class Refers extends CI_Controller {
 	{
 		parent::__construct();
     
-    if(! $this->session->userdata('logged')){
-				redirect('users', 'refresh');
+    if(! $this->session->userdata('logged'))
+    {
+			redirect('users', 'refresh');
 		}
-		// load model
+    
 		$this->load->model('Refer_model', 'Refer');
     $this->load->model('Basic_model', 'Basic');
     
@@ -30,75 +33,216 @@ class Refers extends CI_Controller {
 	public function search_patient_service()
 	{
 		$query = $this->input->post('query');
-		if( ! empty($query) ) {
+    
+		if( ! empty($query) )
+    {
 			$date_serv = $this->input->post('date_serv');
 			$result = $this->Refer->_search_patient_service($query, $date_serv);
 		
-			if ($result) {
+			if ($result)
+      {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
-			} else {
+			}
+      else
+      {
 				$json = '{"success": false, "status": "Database error."}';
 			}
+      
 			printjson($json);
-		} else {
+      
+		}
+    else
+    {
 			show_404();
 		}
 	}
 	public function getregister_service()
 	{
 		$vn = $this->input->post('vn');
-		if( ! empty($vn) ) {
+    
+		if( ! empty($vn) )
+    {
 			$result = $this->Refer->_get_register_service($vn);
-			if ($result) {
+      
+			if ($result)
+      {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
-			} else {
+			}
+      else
+      {
 				$json = '{"success": false}';
 			}
-			printjson($json);
-		} else {
+      
+			printjson( $json );
+      
+		}
+    else
+    {
 			show_404();
 		}
 	}
+  /**
+   * @method json doout() Create new refer out
+   * 
+   * Save refer data
+   * 
+   * @param string  $vn Visit number
+   * @param date  $appoint_date Appoint date
+   * @param string $diag Diagnosis
+   * @param string $other_detail Other detail for mor information
+   * @param string $refer_cause The cause to refer
+   * @param date $refer_date Refer date
+   * @param string $refer_type Type of refer
+   * @param string $to_hospital Hospital code for destination hospital
+   * @param string $treatment Basic Treatment
+   * @param string $user_id The id of user
+   * @return json
+   **/
 	public function doout()
 	{
 		$vn = $this->input->post('vn');
 		
-		if( ! empty($vn) ) {
+		if( ! empty( $vn ) )
+    {
 			$appoint_date = $this->input->post('appoint_date');
-			$appoint_date = !empty($appoint_date) ? to_mysql_date($appoint_date) : null;
-			$diag = $this->input->post('diag');
+			$appoint_date = ! empty( $appoint_date ) ? to_mysql_date( $appoint_date ) : null;
+			$diag 				= $this->input->post('diag');
 			$other_detail = $this->input->post('other_detail');
-			$refer_cause = $this->input->post('refer_cause');
-			$refer_date = $this->input->post('refer_date');
-			$refer_date = !empty($refer_date) ? to_mysql_date($refer_date) : null;
-			$refer_type = $this->input->post('refer_type');
-			$to_hospital = $this->input->post('to_hospital');
-			$treatment = $this->input->post('treatment');
-			$user_id = get_user_id( $this->session->userdata('user_name') );
+			$refer_cause 	= $this->input->post('refer_cause');
+			$refer_date 	= $this->input->post('refer_date');
+			$refer_date 	= ! empty( $refer_date ) ? to_mysql_date( $refer_date  ) : null;
+			$refer_type 	= $this->input->post('refer_type');
+			$to_hospital 	= $this->input->post('to_hospital');
+			$treatment 		= $this->input->post('treatment');
+			$user_id 			= get_user_id( $this->session->userdata('user_id') );
 			
-			if ( ! $this->Refer->_check_exist( $vn ) ) {
-				// create
+			if ( ! $this->Refer->_check_exist( $vn ) )
+      {
+				// create new refer out
 				$result = $this->Refer->_save_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id );
-				if ( $result ) {
+        
+				if ( $result )
+        {
 					$json = '{"success": true, "status": "New"}';
-				} else {
-					$json = '{"success": false, "status": "Database error"}';
 				}
-			} else { // if exist update.
-				// update
-				$result = $this->Refer->_update_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id );
-				if ( $result ) {
-					$json = '{"success": true, "status": "Update"}';
-				} else {
+        else
+        {
 					$json = '{"success": false, "status": "Database error"}';
 				}
 			}
-
-			
+      else
+      { 
+				$result = $this->Refer->_update_refer_out( $vn, $appoint_date, $diag, $other_detail, $refer_cause, $refer_date, $refer_type, $to_hospital, $treatment, $user_id );
+        
+				if ( $result )
+        {
+					$json = '{"success": true, "status": "Update"}';
+				}
+        else
+        {
+					$json = '{"success": false, "status": "Database error"}';
+				}
+			}
+      
 			printjson($json);
 			
-		} else {
+		}
+    else
+    {
 			show_404();
 		}
 	}
+  /**
+   * @method json checkout() Check refer out exist
+   * 
+   * Check refer out exist
+   * 
+   * @param string $vn The visit number
+   * @return int The referal id
+   * 
+   **/
+  public function checkout()
+  {
+    $vn = $this->input->post('vn');
+    
+    if ( ! empty ($vn) )
+    {
+      /**
+       * Check referout with $vn if exist the function return refer_id
+       * if don't exist it return FALSE
+       **/
+      $result = $this->Refer->_check_referout_exist( $vn );
+      
+      if ( $result )
+      {
+        $json = '{"success": true, "refer_id": ' . $result->id . '}';
+      }
+      else
+      {
+        $json = '{"success": false}';
+      }
+    }
+    else
+    {
+      $json = '{"success": false, "status": "No vn defined."}';
+    }
+    
+    printjson( $json );
+    
+  }
+  
+  /**
+   * Get refer out detail
+   *
+   * @param int $id The refer out id
+   * @return array The result set
+   **/
+  public function get_refer_out_detail()
+  {
+    $id = $this->input->post( 'id' );
+    
+    if ( ! empty( $id ) )
+    {
+      $result = $this->Refer->_get_refer_out_detail( $id );
+      
+      if ( $result )
+      {
+        $json = '{"success": true, "rows": ' . json_encode( $result ) . '}';
+      }
+      else
+      {
+        $json = '{"success": false}';
+      }
+      
+      printjson( $json );
+    }
+    else
+    {
+      show_404();  
+    }
+  }
+  
+  /**
+   * Get refer out list
+   *
+   * @param date $refer_date
+   * @return mixed The result set
+   **/
+  public function get_refer_out_list()
+  {
+    $refer_date = $this->input->post('refer_date');
+    $result = $this->Refer->_get_refer_out_list( $refer_date );
+    
+    if ( $result )
+    {
+      $json = '{"success": true, "rows": ' . json_encode( $result ) . '}';
+    }
+    else
+    {
+      $json = '{"success": false}';
+    }
+    
+    printjson( $json );
+    
+  }
 }

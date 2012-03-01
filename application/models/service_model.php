@@ -249,7 +249,7 @@ class Service_model extends CI_Model {
 	{
 		$result = $this->db->select(array(
 											'procedures.code', 'icd9.name', 'procedures.price',
-											'users.fullname', 'users.id'))
+											'concat(users.fname, " ", users.lname) as fullname', 'users.id'), FALSE)
 											->where('procedures.vn', $vn)
 											->join('icd9', 'icd9.code=procedures.code', 'left')
 											->join('users', 'users.id=procedures.user_id', 'left')

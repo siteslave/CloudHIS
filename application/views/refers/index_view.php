@@ -1,10 +1,10 @@
-<input type="hidden" data-name="svrefero-vn">
+﻿<input type="hidden" data-name="svrefero-vn">
 <input type="hidden" data-name="svrefero-cid">
 <input type="hidden" data-name="svrefero-dateserv">		
 <ul class="breadcrumb">
   <li><a href="<?php echo base_url(); ?>">หน้าหลัก</a><span class="divider">/</span></li>
   <li><a href="<?php echo base_url(); ?>services">การให้บริการ</a><span class="divider">/</span></li>
-  <li class="active">ข้อมูลการรับส่งต่อ (Refer)</li>
+  <li class="active">ระบบงานรับส่งต่อ (Refer)</li>
 </ul>
 
 <ul class="nav nav-pills">
@@ -28,16 +28,16 @@
 				<div class="row">
 					<div class="span5">
 						<form action="#" class="form-inline">
-						<label for="">วันที่</label>
-						<input type="text" class="span2">
-						<button class="btn btn-primary" type="button"><i class="icon-zoom-in icon-white"></i> แสดงรายการ</button>
+						<label for="">วันที่ส่งต่อ</label>
+						<input type="text" class="span2" data-name="svrefero-date-list">
+						<button class="btn btn-primary" type="button" data-name="svrefero-btn-getlist"><i class="icon-zoom-in icon-white"></i> </button>
 						</form>
 					</div>
 					<div class="span3">
 						<div class="btn-group">
 							<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
 								<i class="icon-th icon-white"></i>
-								เมนูระบบงานหลัก
+								เมนูใช้งาน
 								<span class="caret"></span>
 							</a>
 							<ul class="dropdown-menu">
@@ -51,11 +51,12 @@
 		<table class="table table-striped" data-name="tblrefer-out-list">
 	    <thead>
 		    <tr>
-		    <th>เลขที่เอกสาร</th>
+		    <th>เลขที่</th>
+				<th>วันที่ส่งต่อ</th>
 		    <th>เลขบัตรประชาชน</th>
 		    <th>ชื่อ - สกุล</th>
-		    <th>อายุ</th>
-		    <th>สถานที่ส่งต่อ</th>
+		    <th>อายุ (ปี)</th>
+		    <th>ส่งต่อไปที่</th>
 		    </tr>
 		    </thead>
 	    <tbody></tbody>
@@ -71,13 +72,13 @@
 <div class="modal hide fade" data-name="modal-refer-out-new">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>ลงทะเบียนส่งต่อ (Refer Out)</h3>
+		<h3>บันทึกข้อมูลการส่งต่อ (Refer Out)</h3>
 	</div>
 	<div class="modal-body">
 		<div class="alert alert-info" data-name="alert-refer-out-register">
-			<h4>บันทึกข้อมูลการให้บริการส่งต่อ</h4>
+			<h4>ข้อแนะนำ</h4>
 			<p>
-				กรุณากรอกข้อมูลให้ถูกต้อง และสมบูรณ์
+				กรุณาบันทึกข้อมูลให้ถูกต้อง และ สมบูรณ์
 			</p>
 		</div>
 		
@@ -85,7 +86,7 @@
 			<form action="#" class="form-inline">
 				<label for="">วันที่รับบริการ</label>
 				<input type="text" data-name="svrefero-search-patient-date" class="span1">
-				<input type="text" data-name="svrefero-search-patient" class="span3" placeholder="พิมพ์ชื่อ หรือ เลขบัตรประชาชน ">
+				<input type="text" data-name="svrefero-search-patient" class="span3" placeholder="พิมพ์ชื่อหรือเลขบัตรประชาชนเพื่อค้นหา">
 				<button type="button" class="btn btn-primary" data-name="svrefer-btn-get-register-detail"><i class="icon-zoom-in icon-white"></i> ลงทะเบียน &rarr;</button>
 			</form>
 		</div>
@@ -93,7 +94,7 @@
 			<form action="#">
 			<!-- display register information -->
 			<ul class="nav nav-pills">
-				<li class="active"><a data-name="svrrefotab-patient-detail" data-toggle="tab" href="#tabrefero-register-patient-detail"><i class="icon-user icon-white"></i> ข้อมูลทั่วไปและการรับบริการ</a></li>
+				<li class="active"><a data-name="svrrefotab-patient-detail" data-toggle="tab" href="#tabrefero-register-patient-detail"><i class="icon-user icon-white"></i> เข้อมูลการรับบริการ</a></li>
 				<li><a data-toggle="tab" href="#tabrefero-register-detail-1"><i class="icon-share icon-white"></i> ข้อมูลการส่งต่อ</a></li>
 				<li><a data-toggle="tab" href="#tabrefero-register-detail-2"><i class="icon-eye-open icon-white"></i> การให้การรักษาเบื้องต้น</a></li>
 			</ul>
@@ -115,7 +116,7 @@
 							<input type="text" data-name="svrefer-register-visit-fullname" class="span4">
 						</div>
 						<div class="span4">
-							<label for="">สิทธิการรักษา</label>
+							<label for="">สิทธิ์การรักษา</label>
 							<input type="text" data-name="svrefer-register-visit-right" class="span4">
 						</div>
 					</div>
@@ -123,13 +124,13 @@
 				<div class="tab-pane" id="tabrefero-register-detail-1">
 					<div class="row">
 						<div class="span2">
-							<label for="">วันที่ส่ง</label>
+							<label for="">วันที่ส่งต่อ</label>
 							<input type="text" class="span2" data-name="svrefero-register-refer-date">
 						</div>
 					</div>
 					<div class="row">
 						<div class="span3">
-							<label for="">เหตุผลการส่งต่อ</label>
+							<label for="">สาเหตุการส่งต่อ</label>
 							<select data-name="svrefero-register-cause" class="span3">
 								<?php 
 								$i = 1;
@@ -145,8 +146,8 @@
 							</select>
 						</div>
 						<div class="span5">
-							<label for="">การวินิจฉัย</label>
-							<input type="text" data-name="svrefero-register-diag" class="span5" placeholder="พิมพ์รหัส หรือ ชื่อ การวินิจฉัย เพื่อค้นหา...">
+							<label for="">การวินิจฉัยเบื้องต้น</label>
+							<input type="text" data-name="svrefero-register-diag" class="span5" placeholder=" พิมพ์รหัสหรือชื่อ icd-10...">
 							<input type="hidden" data-name="svrefero-register-diag-code">
 						</div>
 					</div><!-- /row -->
@@ -154,14 +155,14 @@
 						<div class="span3">
 							<label for="">ประเภทการส่งต่อ</label>
 							<select data-name="svrefero-register-type" class="span3">
-								<option value="2">ในเครือข่าย CUP</option>
+								<option value="2">ภายใน CUP</option>
 								<option value="1">ในจังหวัด</option>
 								<option value="2">นอกจังหวัด</option>
 							</select>
 						</div>
 						<div class="span5">
-							<label for="">ส่งต่อไปที่</label>
-							<input type="text" data-name="svrefero-register-tohosp-name" class="span5" placeholder="พิมพ์ชื่อ หรือ รหัส สถานบริการ เพื่อค้นหา...">
+							<label for="">สถานพยาบาลปลายทาง</label>
+							<input type="text" data-name="svrefero-register-tohosp-name" class="span5" placeholder=" พิมพ์ชื่อหรือรหัสหน่วยบริการ..">
 							<input type="hidden" data-name="svrefero-register-tohosp-code">
 						</div>
 					</div> <!-- /row -->
@@ -169,29 +170,29 @@
 				<div class="tab-pane" id="tabrefero-register-detail-2">
 					<div class="row">
 						<div class="span4">
-							<label for="">การให้การรักษาเบื้องต้น</label>
+							<label for="">การรักษาเบื้องต้น</label>
 							<textarea data-name="svrefero-register-treatment" class="span4" rows="2"></textarea>
 						</div>
 						<div class="span4">
-							<label for="">รายละเอียดอื่นๆ</label>
+							<label for="">ข้อมูลอื่นๆ</label>
 							<textarea data-name="svrefero-other-detail" class="span4" rows="2"></textarea>
 						</div>
 					</div>
 					<div class="row">
 						<div class="span4">
-							<label for="">วันที่นัดผู้ป่วยเข้ารับบริการที่สถานบริการ</label>
+							<label for="">วันนัดเข้ารับบริการที่สถานบริการรับส่งต่อ</label>
 							<input type="text" data-name="svrefero-appoint-date" class="span2">
 						</div>
 					</div>
 				</div>
 			</div>
-				<button type="button" class="btn btn-primary" data-name="svrefero-btn-save-register"><i class="icon-plus-sign icon-white"></i> บันทึกส่งต่อ</button> 
-				<button type="reset" class="btn" data-name="svrefero-btn-clear-register"><i class="icon-refresh"></i> ยกเลิก</button>
+				<button type="button" class="btn btn-primary" data-name="svrefero-btn-save-register"><i class="icon-plus-sign icon-white"></i> บันทึกข้อมูลการส่งต่อ </button> 
+				<button type="reset" class="btn" data-name="svrefero-btn-clear-register"><i class="icon-refresh"></i> ยกเลิกรายการ</button>
 			</form>
 		</div> <!-- /svrefer-register-detail-panel -->
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
 	</div>
 </div>
 <!-- /new refer out -->
