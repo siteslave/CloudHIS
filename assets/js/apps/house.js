@@ -15,8 +15,9 @@ $(function() {
     changeMonth: true,
     changeYear: true
   });
+
   var House = {};
-  
+
   /**
    * Select house list
    **/
@@ -32,7 +33,7 @@ $(function() {
       },
       success: function(data){
       	$('select[data-name="house-sel-house"]').empty();
-        
+
 				$.each(data.rows, function(i, v){
 					$('select[data-name="house-sel-house"]').append(
 						'<option value="' + v.id + '">' + v.address + '</option>'
@@ -62,11 +63,11 @@ $(function() {
 				{
 					$( 'table[data-name="house-tbl-people-list"] > tbody' ).empty();
 					$( 'a[data-name="house-btn-add-person-to-house"]' ).fadeIn( 'slow' );
-										
+
 					$.each(data.rows, function(i, v){
 						var fullname = v.fname + ' ' + v.lname,
 						sex = v.sex == '1' ? 'ชาย' : 'หญิง';
-						
+
 						$( 'table[data-name="house-tbl-people-list"] > tbody' ).append(
 								'<tr>'
 									+ '<td>' + v.cid  + '</td>'
@@ -77,32 +78,32 @@ $(function() {
 									+ '<td>'
 									+ '<a href="#" class="btn" data-name="detail-person" data-cid="'+ v.cid +'"><i class="icon-edit"></i></a>'
 									+ '</td>'
-								+ '</tr>'																														 
+								+ '</tr>'
 						);
-						
+
 					});
 				}
 				else
 				{
 					$( 'table[data-name="house-tbl-people-list"] > tbody' ).empty();
 					$( 'a[data-name="house-btn-add-person-to-house"]' ).fadeOut( 'slow' );
-				
+
 					$( 'table[data-name="house-tbl-people-list"] > tbody' ).append(
 							'<tr>'
 								+ '<td colspan="6">ไม่พบรายการ</td>'
-							+ '</tr>'																														 
+							+ '</tr>'
 					);
 				}
       },
       error: function(xhr, status, errorThrown) {
 				$( 'table[data-name="house-tbl-people-list"] > tbody' ).empty();
-				
+
 					$( 'a[data-name="house-btn-add-person-to-house"]' ).fadeOut( 'slow' );
-					
+
 					$( 'table[data-name="house-tbl-people-list"] > tbody' ).append(
 							'<tr>'
 								+ '<td colspan="6">ไม่สามารถแสดงรายการได้ : การเชื่อมต่อมีปัญหา</td>'
-							+ '</tr>'																														 
+							+ '</tr>'
 					);
 			}
 		});
@@ -122,7 +123,7 @@ $(function() {
       },
       success: function(data){
       	$('select[data-name="house-sel-house"]').empty();
-        
+
 				$.each(data.rows, function(i, v){
 					$('select[data-name="house-sel-house"]').append(
 						'<option value="' + v.id + '">' + v.address + '</option>'
@@ -134,7 +135,7 @@ $(function() {
 			}
 		});
   };
-	
+
 	/**
 	 * Get house list
 	 *
@@ -152,13 +153,13 @@ $(function() {
         village_code: village_code
       },
       success: function(data){
-				
+
 				if( data.success )
 				{
 					// set data
 					var x = 1;
 					$( 'table[data-name="house-tbl-address-list"] > tbody' ).empty();
-					
+
 					$.each(data.rows, function(i, v){
 						$( 'table[data-name="house-tbl-address-list"] > tbody' ).append(
 							'<tr>'
@@ -170,7 +171,7 @@ $(function() {
 								+ '<td>'
 								+ '<a href="#" class="btn" data-name="detail-house" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
 								+ '</td>'
-							+ '</tr>'																														 
+							+ '</tr>'
 						);
 						x++;
 					});
@@ -225,12 +226,12 @@ $(function() {
 				move_in_date: obj.move_in_date,
 				discharge_status_id: obj.discharge_status_id,
 				discharge_date: obj.discharge_date,
-				labor_id: obj.labor_id,				
+				labor_id: obj.labor_id,
 				village_code: obj.village_code,
 				type_area_id: obj.type_area_id
       },
       success: function(data){
-				
+
 				if( data.success )
 				{
 					alert( 'บันทึกข้อมูลเรียบร้อยแล้ว' );
@@ -246,21 +247,80 @@ $(function() {
 				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
 			}
 		});
-	}
-	
+	};
+	/**
+	* Update person
+	*
+	* @param	{Mixed} ojb Person detail
+	*
+	**/
+	House.updatePerson = function( obj )
+	{
+    $.ajax({
+			url: _base_url + 'people/doupdate',
+      dataType: 'json',
+      type: 'POST',
+      data: {
+        csrf_token: $.cookie('csrf_cookie_cloudhis'),
+				cid: obj.cid,
+				fname: obj.fname,
+				lname: obj.lname,
+				sex: obj.sex,
+				birthdate: obj.birthdate,
+				blood_group_id: obj.blood_group_id,
+				marry_status_id: obj.marry_status_id,
+				title_id: obj.title_id,
+				address: obj.address,
+				house_id: obj.house_id,
+				occupation_id: obj.occupation_id,
+				race_id: obj.race_id,
+				nation_id: obj.nation_id,
+				religion_id: obj.religion_id,
+				education_id: obj.education_id,
+				family_status: obj.family_status_id,
+				father_cid: obj.father_cid,
+				mother_cid: obj.mother_cid,
+				couple_cid: obj.couple_cid,
+				move_in_date: obj.move_in_date,
+				discharge_status_id: obj.discharge_status_id,
+				discharge_date: obj.discharge_date,
+				labor_id: obj.labor_id,
+				village_code: obj.village_code,
+				type_area_id: obj.type_area_id
+      },
+
+      success: function(data){
+
+				if( data.success )
+				{
+					alert( 'บันทึกข้อมูลเรียบร้อยแล้ว' );
+					$( 'input[data-name="house-btn-new-reset"]' ).trigger( 'click' );
+					$( 'div[data-name="house-modal-new-person"]' ).modal('hide');
+				}
+				else
+				{
+					alert( data.statusText );
+				}
+      },
+      error: function(xhr, status, errorThrown) {
+				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
+			}
+		});
+	};
+
   // get address
   $( 'select[data-name="house-sel-village"]' ).change(function(){
     var village_code = $( this ).val();
-		
+
 		$( 'table[data-name="house-tbl-people-list"] > tbody' ).empty();
-		
+
     House.getList( village_code );
   });
-  
+
   // get people list
   $( 'button[data-name="house-btn-get-people-list"]' ).click(function(){
 		var house_id = $( 'select[data-name="house-sel-house"]' ).val();
-		
+
 		if ( ! house_id )
 		{
 			alert( 'กรุณาเลือกหลังคาเรือน' );
@@ -269,11 +329,11 @@ $(function() {
 		{
 			House.getPeopleList( house_id );
 		}
-     
+
   });
 	$('select[data-name="house-sel-house"]').live( 'change', function(){
 		var house_id = $( this ).val();
-		
+
 		if ( ! house_id )
 		{
 			alert( 'กรุณาเลือกหลังคาเรือน' );
@@ -283,11 +343,11 @@ $(function() {
 			House.getPeopleList( house_id );
 		}
 	});
-	
+
 	// save new person
 	$( 'a[data-name="house-btn-save-new-person"]' ).click(function(){
 		person = new Object();
-		
+
 		person.cid = $( 'input[data-name="house-person-new-cid"]' ).val();
 		person.fname = $( 'input[data-name="house-person-new-fname"]' ).val();
 		person.lname = $( 'input[data-name="house-person-new-lname"]' ).val();
@@ -315,13 +375,13 @@ $(function() {
 		person.amp = $( 'select[data-name="house-person-new-amp"]' ).val();
 		person.tmb = $( 'select[data-name="house-person-new-tmb"]' ).val();
 		person.moo = $( 'select[data-name="house-person-new-moo"]' ).val();
-		
+
 		person.village_code = person.chw + person.amp + person.tmb + person.moo;
-		
+
 		person.type_area_id = $( 'select[data-name="house-person-new-typearea"]' ).val();
-	
+
 		// check data
-		
+
 		if ( ! person.cid )
 		{
 			alert( 'ไม่พบเลขบัตรประชาชน' );
@@ -373,15 +433,15 @@ $(function() {
 		village_code = $( this ).attr( 'data-village-code' );
 		House.getHouseList( village_code );
 	});
-	
+
 	// register new person
 	$( 'a[data-name="house-btn-add-person-to-house"]' ).live('click', function(){
 		House.modal.showRegisterPerson();
 	});
-	
+
 	/** display modal **/
 	House.modal = {};
-	
+
 	House.modal.showHouse = function()
 	{
 		$('div[data-name="house-modal-house-list"]').modal('show').css({
@@ -403,13 +463,13 @@ $(function() {
 			}
 		});
 	}
-  
+
   $( 'select[data-name="house-person-new-chw"]' ).change(function(){
     $.ajax({
       url: _base_url + 'basic/get_amp_dropdown',
       dataType: 'json',
       type: 'POST',
-      data: 
+      data:
       {
         chw: $( this ).val(),
         csrf_token: $.cookie('csrf_cookie_cloudhis')
@@ -421,7 +481,7 @@ $(function() {
           $('select[data-name="house-person-new-amp"]').empty();
           $('select[data-name="house-person-new-tmb"]').empty();
           $('select[data-name="house-person-new-moo"]').empty();
-        
+
           $.each(data.rows, function(i, v)
           {
             $('select[data-name="house-person-new-amp"]').append(
@@ -434,19 +494,19 @@ $(function() {
           $('select[data-name="house-person-new-amp"]').empty();
           $('select[data-name="house-person-new-tmb"]').empty();
           $('select[data-name="house-person-new-moo"]').empty();
-          
+
           alert( 'ไม่สามารถแสดงรายการได้\r\n' + data.statusText );
         }
       },
-      error: function(xhr, status, errorThrown) 
+      error: function(xhr, status, errorThrown)
       {
         $('select[data-name="house-person-new-amp"]').empty();
         $('select[data-name="house-person-new-tmb"]').empty();
         $('select[data-name="house-person-new-moo"]').empty();
-        
+
 				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
 			}
-    });	
+    });
   });
 
   $( 'select[data-name="house-person-new-amp"]' ).change(function(){
@@ -454,7 +514,7 @@ $(function() {
       url: _base_url + 'basic/get_tmb_dropdown',
       dataType: 'json',
       type: 'POST',
-      data: 
+      data:
       {
         chw: $( 'select[data-name="house-person-new-chw"]' ).val(),
         amp: $( this ).val(),
@@ -466,7 +526,7 @@ $(function() {
         {
           $('select[data-name="house-person-new-tmb"]').empty();
           $('select[data-name="house-person-new-moo"]').empty();
-        
+
           $.each(data.rows, function(i, v)
           {
             $('select[data-name="house-person-new-tmb"]').append(
@@ -478,18 +538,18 @@ $(function() {
         {
           $('select[data-name="house-person-new-tmb"]').empty();
           $('select[data-name="house-person-new-moo"]').empty();
-          
+
           alert( 'ไม่สามารถแสดงรายการได้\r\n' + data.statusText );
         }
       },
-      error: function(xhr, status, errorThrown) 
+      error: function(xhr, status, errorThrown)
       {
         $('select[data-name="house-person-new-tmb"]').empty();
         $('select[data-name="house-person-new-moo"]').empty();
-        
+
 				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
 			}
-    });	
+    });
   });
 
   $( 'select[data-name="house-person-new-tmb"]' ).change(function(){
@@ -497,7 +557,7 @@ $(function() {
       url: _base_url + 'basic/get_moo_dropdown',
       dataType: 'json',
       type: 'POST',
-      data: 
+      data:
       {
         chw: $( 'select[data-name="house-person-new-chw"]' ).val(),
         amp: $( 'select[data-name="house-person-new-amp"]' ).val(),
@@ -509,7 +569,7 @@ $(function() {
         if ( data.success )
         {
           $('select[data-name="house-person-new-moo"]').empty();
-        
+
           $.each(data.rows, function(i, v)
           {
             $('select[data-name="house-person-new-moo"]').append(
@@ -523,12 +583,12 @@ $(function() {
           alert( 'ไม่สามารถแสดงรายการได้\r\n' + data.statusText );
         }
       },
-      error: function(xhr, status, errorThrown) 
+      error: function(xhr, status, errorThrown)
       {
         $('select[data-name="house-person-new-moo"]').empty();
 				alert('Error: ' + xhr.status + '- ' + xhr.statusText);
 			}
-    });	
+    });
   });
-  
+
 });

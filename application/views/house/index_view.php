@@ -80,11 +80,11 @@
 <!-- modal -->
 <!-- house list -->
 <div class="modal hide fade" data-name="house-modal-house-list">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>รายการบ้านในหมู่บ้าน</h3>
-	</div>
-	<div class="modal-body">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>รายการบ้านในหมู่บ้าน</h3>
+  </div>
+  <div class="modal-body">
     <table class="table table-striped" data-name="house-tbl-address-list">
       <thead>
         <tr>
@@ -98,25 +98,23 @@
       </thead>
       <tbody></tbody>
     </table>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
-	</div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
+  </div>
 </div>
 <!-- / house list -->
 <!-- new person -->
 <div class="modal hide fade" data-name="house-modal-new-person">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>เพิ่มคนในบ้าน</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-refer-out-register">
-			<h4>ข้อแนะนำ</h4>
-			<p>
-				กรุณาบันทึกข้อมูลให้ถูกต้อง และ สมบูรณ์
-			</p>
-		</div>
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>เพิ่มคนในบ้าน</h3>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-info" data-name="alert-refer-out-register">
+      <h4>ข้อแนะนำ</h4>
+        กรุณาบันทึกข้อมูลให้ถูกต้อง และ สมบูรณ์
+    </div>
     <div class="tabbable">
       <ul class="nav nav-pills">
         <li class="active">
@@ -358,11 +356,11 @@
       <input type="reset" style="display:none" data-name="house-btn-new-reset">
     </form>
     </div>
-	</div>
-	<div class="modal-footer">
+  </div>
+  <div class="modal-footer">
     <a href="#" class="btn btn-primary" data-name="house-btn-save-new-person"><i class="icon-plus-sign icon-white"></i>  บันทึกรายการ</a>
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
-	</div>
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
+  </div>
 </div>
 <!-- / new person -->
 <!-- /modal -->
