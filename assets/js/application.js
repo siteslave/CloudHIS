@@ -9,11 +9,24 @@ var addCommas = function (nStr)
 		x1 = x1.replace(rgx, '$1' + ',' + '$2');
 	}
 	return x1 + x2;
-}
+},
 // convert mysql date to thai date
-var toThaiDate = function( d ) {
+toThaiDate = function( d )
+{
 	var _d = d.split('-'),
 					_y = parseInt(_d[0]) + 543,
+					_m = _d[1],
+					_d = _d[2],
+						
+					_date = _d + '/' + _m + '/' + _y ;
+					
+	return _date;
+},
+// convert mysql data to system date
+toSystemDate = function( d )
+{
+		var _d = d.split('-'),
+					_y = _d[0],
 					_m = _d[1],
 					_d = _d[2],
 						

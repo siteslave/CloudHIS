@@ -316,4 +316,102 @@ class Basic extends CI_Controller {
 		$json 	= json_encode($result);
 		printjson($json);
 	}
+  
+	/**
+	* Get Ampur dropdown
+	* 
+	* @param  string $chw
+	* @return json
+	*
+	**/
+	public function get_amp_dropdown()
+	{
+		$chw = $this->input->post('chw');
+		
+		if( empty($chw) ) 
+    {
+			show_404();
+		} 
+    else 
+    {
+			$result = $this->Basic->_get_amp_dropdown( $chw );
+      if ( $result )
+      {
+        $json = '{"success": true, "rows": '. json_encode( $result ) . '}';
+      }
+      else
+      {
+        $json = '{"success": false, "statusText": "ไม่พบข้อมูล"}';
+      }
+      
+			printjson( $json );
+		}
+	}
+	/**
+	* Get Tambon dropdown
+	* 
+	* @param  string $chw
+  * @param  string $amp
+	* @return json
+	*
+	**/
+	public function get_tmb_dropdown()
+	{
+		$chw = $this->input->post('chw');
+		$amp = $this->input->post('amp');
+    
+		if( empty( $chw ) || empty( $amp ) ) 
+    {
+			show_404();
+		} 
+    else 
+    {
+			$result = $this->Basic->_get_tmb_dropdown( $chw, $amp );
+      if ( $result )
+      {
+        $json = '{"success": true, "rows": '. json_encode( $result ) . '}';
+      }
+      else
+      {
+        $json = '{"success": false, "statusText": "ไม่พบข้อมูล"}';
+      }
+      
+			printjson( $json );
+		}
+	}
+	/**
+	* Get Mooban dropdown
+	* 
+	* @param  string $chw
+  * @param  string $amp
+  * @param  string $tmb
+  *
+	* @return json
+	*
+	**/
+	public function get_moo_dropdown()
+	{
+		$chw = $this->input->post('chw');
+		$amp = $this->input->post('amp');
+    $tmb = $this->input->post('tmb');
+    
+		if( empty( $chw ) || empty( $amp ) ) 
+    {
+			show_404();
+		} 
+    else 
+    {
+			$result = $this->Basic->_get_moo_dropdown( $chw, $amp, $tmb );
+      if ( $result )
+      {
+        $json = '{"success": true, "rows": '. json_encode( $result ) . '}';
+      }
+      else
+      {
+        $json = '{"success": false, "statusText": "ไม่พบข้อมูล"}';
+      }
+      
+			printjson( $json );
+		}
+	}
 }

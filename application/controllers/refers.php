@@ -316,4 +316,156 @@ class Refers extends CI_Controller {
     printjson( $json );
     
   }
+  /**
+   * Remove refer out
+   *
+   * @param int $id The refer out id
+   **/
+  public function remove_out()
+  {
+    $id = $this->input->post( 'id' );
+    
+    if( ! empty ( $id ) )
+    {
+      // check owner
+      $pcucode = get_user_hospital_code();
+      $chk = $this->Refer->_check_refer_out_owner( $id, $pcucode );
+      
+      if ( $chk )
+      {
+        $result = $this->Refer->_remove_refer_out( $id );
+      
+        if( $result )
+        {
+          $json = '{"success": true}';
+        }
+        else
+        {
+          $json = '{"success": false, "status": "database error."}';
+        }
+      }
+      else
+      {
+        $json = '{"success": false, "status": "คุณไม่มีสิทธิในการลบข้อมูลการส่งต่อนี้"}';
+      }
+      
+      printjson( $json );
+    }
+    else
+    {
+      show_404();
+    }
+  }
+  /**
+   * Get refer in list
+   *
+   * @param date $refer_date
+   * @param string $approve
+   * @return array The result set
+   **/
+  public function get_refer_in_list()
+  {
+    // get pcucode for current user
+    $pcucode = get_user_hospital_code();
+    // confirm status
+    $confirm_status = $this->input->post('confirm_status');
+    $refer_date = $this->input->post( 'refer_date' );
+    
+    // if $refer_date is empty return current date.
+    $refer_date = ! empty ($refer_date) ? to_mysql_date( $refer_date ) : date('Y-m-d');
+    // if $current_status is empty return 'N'
+    $confirm_status = ! empty ( $confirm_status ) ? $confirm_status : 'N';
+    
+    $result = $this->Refer->_get_refer_in_list( $pcucode, $refer_date, $confirm_status );
+    if( $result )
+    {
+      $json = '{"success": true, "rows": ' . json_encode($result) . ' }';
+    }
+    else
+    {
+      $json = '{"success": false}';
+    }
+    
+    printjson( $json );
+
+  }
+  /**
+   * Save refer confirmation
+   *
+   * @param int $refer_id The Refer-out id
+   * @param date $confirm_date
+   * @param string $other_detail
+   **/
+  public function doconfirm()
+  {
+    $refer_id = $this->input->post( 'refer_id' );
+    $confirm_date = $this->input->post( 'confirm_date' );
+    $other_detail = $this->input->post( 'other_detail' );
+    
+    $confirm_date = ! empty( $confirm_date ) ? to_mysql_date( $confirm_date ) : null;
+    
+    if ( ! empty ( $refer_id ) )
+    {
+      // do save
+      
+      $user_id = get_user_id();
+      
+      date_default_timezone_set('Asia/Bangkok');
+      
+      $data = array(
+                    'confirm_date' => $confirm_date,
+                    'confirm_detail' => $other_detail,
+                    'confirm_user_id' => $user_id,
+                    'confirm_status' => 'Y',
+                    'confirm_datetime' => date('Y-m-d H:i:s')
+                    );
+      
+      $result = $this->Refer->_save_confirm( $refer_id,  $data);
+      
+      if ( $result )
+      {
+        $json = '{"success": true}';
+      }
+      else
+      {
+        $json = '{"success": false, "statusText": "Database error"}';
+      }
+      
+      printjson( $json );
+    }
+    else
+    {
+      show_404();
+    }
+  }
+  /**
+   * Get confirm detail
+   *
+   * @param int $id
+   **/
+  public function get_confirm()
+  {
+    $refer_id = $this->input->post( 'id' );
+    
+    if ( ! empty($refer_id) )
+    {
+      $result = $this->Refer->_get_confirm( $refer_id );
+      
+      if ( $result )
+      {
+        $json = '{"success": true, "rows": ' . json_encode($result) . '}';
+      }
+      else
+      {
+        $json = '{"success": false, "statusText": "Database error"}';
+      }
+      
+      printjson( $json );
+    }
+    else
+    {
+      show_404();
+    }
+    
+  }
 }

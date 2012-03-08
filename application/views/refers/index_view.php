@@ -10,13 +10,13 @@
 <ul class="nav nav-pills">
   <li class="active">
     <a href="#tab-refer-list" data-toggle="tab">
-    	<i class="icon-th icon-white"></i>
+    	<i class="icon-share icon-white"></i>
     	ทะเบียนส่งต่อ (Refer Out)
   	</a>
   </li>
   <li>
     <a href="#tab-refer-list2" data-toggle="tab">
-    	<i class="icon-th icon-white"></i>
+    	<i class="icon-download icon-white"></i>
     	ทะเบียนรับ (Refer In)
   	</a>
   </li>
@@ -51,19 +51,42 @@
 		<table class="table table-striped" data-name="tblrefer-out-list">
 	    <thead>
 		    <tr>
-		    <th>เลขที่</th>
-				<th>วันที่ส่งต่อ</th>
-		    <th>เลขบัตรประชาชน</th>
-		    <th>ชื่อ - สกุล</th>
-		    <th>อายุ (ปี)</th>
-		    <th>ส่งต่อไปที่</th>
+					<th>เลขที่</th>
+					<th>วันที่ส่งต่อ</th>
+					<th>เลขบัตรประชาชน</th>
+					<th>ชื่อ - สกุล</th>
+					<th>อายุ (ปี)</th>
+					<th>ส่งต่อไปที่</th>
 		    </tr>
 		    </thead>
 	    <tbody></tbody>
     </table>
 	</div><!-- /tab-refer-list -->
 	<div class="tab-pane" id="tab-refer-list2">
-		
+		<div class="btn-toolbar">
+				<div class="row">
+					<div class="span5">
+						<form action="#" class="form-inline">
+						<label for="">วันที่ส่งต่อ</label>
+						<input type="text" class="span2" data-name="svreferi-date-list">
+						<button class="btn btn-primary" type="button" data-name="svreferi-btn-getlist"><i class="icon-zoom-in icon-white"></i> </button>
+						</form>
+					</div>
+				</div>
+		</div><!-- /btn-toolbar -->
+		<table class="table table-striped" data-name="tblrefer-in-list">
+	    <thead>
+		    <tr>
+					<th>เลขที่</th>
+					<th>วันที่ส่งต่อ</th>
+					<th>เลขบัตรประชาชน</th>
+					<th>ชื่อ - สกุล</th>
+					<th>ส่งมาจาก</th>
+					<th>สถานะ</th>
+		    </tr>
+		    </thead>
+	    <tbody></tbody>
+    </table>
 	</div><!-- /tab-refer-list2 -->
 </div>
 
@@ -131,7 +154,7 @@
 					<div class="row">
 						<div class="span3">
 							<label for="">สาเหตุการส่งต่อ</label>
-							<select data-name="svrefero-register-cause" class="span3">
+							<select data-name="svrefero-register-refer-cause" class="span3">
 								<?php 
 								$i = 1;
 								foreach($refer_causes as $key => $value){
@@ -196,5 +219,51 @@
 	</div>
 </div>
 <!-- /new refer out -->
+<!-- confirm  -->
+<div class="modal hide fade" data-name="modal-refer-in-confirm">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>บันทึกข้อมูลการลงทะเบียนรับ</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-info" data-name="alert-refer-out-register">
+			<h4>คำเตือน</h4>
+			<p>
+				เมื่อท่านได้ทำการยืนยันการรับส่งต่อแล้ว โปรแกรมจะสร้าง Visit ให้ท่านโดยอัตโนมัติในวันที่ยืนยันการรับ
+			</p>
+		</div>
+		<input type="hidden" data-name="svrefer-confirm-refer-id"> 
+		<label for="">วันที่รับ</label>
+		<input type="text" class="span2" data-name="svrefer-confirm-date" required="required">
+		<label for="">รายละเอียดเพิ่มเติม</label>
+		<textarea data-name="svrefer-confirm-other-detail" rows="2" class="span5"></textarea>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn btn-primary" data-name="btnrefer-confirm-save"><i class="icon-plus-sign icon-white"></i> ยืนยันการรับ </button> 
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
+	</div>
+</div>
+<!-- / confirm -->
+<!-- refer detail  -->
+<div class="modal hide fade" data-name="modal-refer-in-confirm-detail">
+	<div class="modal-header">
+		<a class="close" data-dismiss="modal">&times;</a>
+		<h3>บันทึกข้อมูลการลงทะเบียนรับ</h3>
+	</div>
+	<div class="modal-body">
+		<label for="">วันที่รับ</label>
+		<input type="text" class="span2" data-name="svrefer-confirm-detail-date">
+		<label for="">รายละเอียดเพิ่มเติม</label>
+		<textarea data-name="svrefer-confirm-detail-other" rows="2" class="span5"></textarea>
+		<label for="">ผู้บันทึกข้อมูล</label>
+		<input type="text" data-name="svrefer-confirm-detail-user" class="span3">
+		<label for="">วันที่บันทึก</label>
+		<input type="text" class="span2" data-name="svrefer-confirm-detail-date-update">
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่างๆ</a>
+	</div>
+</div>
+<!-- / refer detail -->
 <!-- /modal -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.refer.js"></script>

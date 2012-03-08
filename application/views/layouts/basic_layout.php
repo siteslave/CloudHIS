@@ -97,32 +97,17 @@
 				<div class="span3">
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
-							<li class="nav-header">เมนูหลัก</li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-home"></i> หน้าหลัก</a></li>
-							<li class="active"><a href="#"><i class="icon-share icon-white"></i>  การให้บริการหลัก</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-qrcode"></i> ระบบงานทันตกรรม</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-leaf"></i> ระบบงานแพทย์แผนไทย</a></li>
-							<li><a href="<?php echo base_url(); ?>refers"><i class="icon-leaf"></i> ระบบงานรับส่งต่อ</a></li>
-							<li class="nav-header">ระบบงานส่งเสริมสุขภาพ</li>
-							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-folder-close"></i> ทะเบียนฝากครรภ์</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-user"></i> ข้อมูลหญิงเจริญพันธ์</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-file"></i> การดูแลเด็กหลังคลอด</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-eye-open"></i> การดูแลมารดาหลังคลอด</a></li>
-							<li><a href="#"><i class="icon-home"></i>  เยี่ยมบ้าน (HHC)</a></li>
-							<li class="nav-header">ระบบงานคัดกรอง</li>
-							<li><a href="<?php echo base_url(); ?>ncd"><i class="icon-th-list"></i> ทะเบียนผู้ป่วยโรคเรื้อรัง</a></li>
-							<li><a href="<?php echo base_url(); ?>ncd/screening"><i class="icon-th-list"></i> คัดกรองเบาหวานความดัน</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-th"></i> คัดกรองมะเร็งปากมดลูก</a></li>
+							<li class="nav-header">ข้อมูลพื้นฐาน</li>
+							<li class="active"><a href="#"><i class="icon-home icon-white"></i> ประชากร และ หมู่บ้าน</a></li>
+							<li><a href="<?php echo base_url(); ?>ncds"><i class="icon-qrcode"></i> ทะเบียนผู้ป่วยเรื้อรัง</a></li>
 						</ul>
 					</div><!-- /wel -->	
 					<div class="well sidebar-nav">
 						<ul class="nav nav-list">
 							<li class="nav-header">อื่นๆ</li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-home"></i> หน้าหลัก</a></li>
-							<li class="active"><a href="#"><i class="icon-share icon-white"></i>  การให้บริการหลัก</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-qrcode"></i> ระบบงานทันตกรรม</a></li>
-							<li><a href="<?php echo base_url(); ?>"><i class="icon-leaf"></i> ระบบงานแพทย์แผนไทย</a></li>
-						</ul>
+							<li><a href="<?php echo base_url(); ?>services"><i class="icon-home"></i> การให้บริการ</a></li>
+							<li><a href="<?php echo base_url(); ?>refers"><i class="icon-share"></i>  ระบบงานรับส่งต่อ</a></li>
+							<li><a href="<?php echo base_url(); ?>anc"><i class="icon-qrcode"></i> ข้อมูลการฝากครรภ์</a></li>
 					</div><!-- /wel -->	
 				</div><!-- /span3 -->	
 				

@@ -125,7 +125,7 @@ class Service_model extends CI_Model {
 	{
 		$result = $this->db->select(array(
 												'people.cid', 'people.fname', 'people.lname','year(current_date()) - year(birthdate) as age',
-												'people.hn', 'people.sex', 'people.birthdate',
+												'people.sex', 'people.birthdate',
 												'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
 												'clinics.name as clinic_name', 'insurances.name as ins_name', 
 												'doctors.name as doctor_name', 'screenings.cc'))
@@ -148,7 +148,7 @@ class Service_model extends CI_Model {
 	{
 		$result = $this->db->select(array(
 												'people.cid', 'people.fname', 'people.lname',
-												'people.hn', 'people.sex', 'people.birthdate',
+												'people.sex', 'people.birthdate',
 												'year(current_date()) - year(people.birthdate) as age',
 												'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
 												'visits.service_place_id',
