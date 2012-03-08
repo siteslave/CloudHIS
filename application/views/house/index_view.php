@@ -52,12 +52,12 @@
           <div class="span4">
             <label for="">เลขที่</label>
             <select data-name="house-sel-house" class="span2"></select>
-            
+
           </div>
         </div>
-        
+
       </form>
-      
+
       <table class="table table-striped" data-name="house-tbl-people-list">
         <thead>
           <tr>
@@ -142,7 +142,7 @@
             <div class="span2">
               <label for="">คำนำ</label>
               <select class="span2" data-name="house-person-new-title">
-                <?php 
+                <?php
                   foreach( $titles as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -174,7 +174,7 @@
             <div class="span2">
               <label for="">หมู่เลือด</label>
               <select data-name="house-person-new-blood-group" class="span2" >
-                <?php 
+                <?php
                   foreach( $blood_groups as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -187,7 +187,7 @@
             <div class="span2">
               <label for="">สถานะ</label>
               <select data-name="house-person-new-marry" class="span2" >
-                <?php 
+                <?php
                   foreach( $married_status as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -198,7 +198,7 @@
             <div class="span4">
               <label for="">อาชีพ</label>
               <select data-name="house-person-new-occupation" class="span4" >
-                <?php 
+                <?php
                   foreach( $occupations as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -211,7 +211,7 @@
             <div class="span3">
               <label for="">เชื้อชาติ</label>
               <select data-name="house-person-new-race" class="span3" >
-                <?php 
+                <?php
                   foreach( $races as $k => $v )
                   {
                     if ( $k == 98 ) echo '<option value="' . $k . '" selected="selected">' . $v . '</option>';
@@ -223,7 +223,7 @@
             <div class="span3">
               <label for="">สัญชาติ</label>
               <select data-name="house-person-new-nation" class="span3" >
-                <?php 
+                <?php
                   foreach( $nations as $k => $v )
                   {
                     if ( $k == 98 ) echo '<option value="' . $k . '" selected="selected">' . $v . '</option>';
@@ -237,7 +237,7 @@
             <div class="span3">
               <label for="">การศึกษา</label>
               <select data-name="house-person-new-education" class="span3" >
-                <?php 
+                <?php
                   foreach( $educations as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -248,7 +248,7 @@
             <div class="span3">
               <label for="">ศาสนา</label>
               <select data-name="house-person-new-religion" class="span3" >
-                <?php 
+                <?php
                   foreach( $religions as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -263,7 +263,7 @@
             <div class="span3">
               <label for="">จังหวัด</label>
               <select data-name="house-person-new-chw" class="span3" >
-                <?php 
+                <?php
                   foreach( $changwats as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -277,9 +277,9 @@
             </div>
             <div class="span3">
               <label for="">หมู่บ้าน</label>
-              <select data-name="house-person-new-moo" class="span3"></select>  
+              <select data-name="house-person-new-moo" class="span3"></select>
               <label for="">บ้านเลขที่</label>
-              <input type="text" class="span2" data-name="house-person-new-address"> 
+              <input type="text" class="span2" data-name="house-person-new-address">
             </div>
           </div>
         </div>
@@ -287,15 +287,15 @@
           <div class="row">
             <div class="span2">
               <label for="">CID บิดา</label>
-              <input type="text" class="span2" data-name="house-person-new-father-cid"> 
+              <input type="text" class="span2" data-name="house-person-new-father-cid">
             </div>
             <div class="span2">
               <label for="">CID มารดา</label>
-              <input type="text" class="span2" data-name="house-person-new-mother-cid"> 
+              <input type="text" class="span2" data-name="house-person-new-mother-cid">
             </div>
             <div class="span2">
               <label for="">CID คู่สมรส</label>
-              <input type="text" class="span2" data-name="house-person-new-couple-cid"> 
+              <input type="text" class="span2" data-name="house-person-new-couple-cid">
             </div>
           </div>
           <div class="row">
@@ -309,7 +309,7 @@
             <div class="span3">
               <label for="">ความเป็นต่างด้าว</label>
               <select data-name="house-person-new-labor" class="span3" >
-                <?php 
+                <?php
                   foreach( $labor_types as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
@@ -321,16 +321,16 @@
           <div class="row">
             <div class="span2">
               <label for="">วันที่ย้ายเข้า</label>
-              <input type="text" class="span2" data-name="house-person-new-movein-date" /> 
+              <input type="text" class="span2" data-name="house-person-new-movein-date" />
             </div>
             <div class="span2">
               <label for="">วันที่จำหน่าย</label>
-              <input type="text" class="span2" data-name="house-person-new-discharge-date" /> 
+              <input type="text" class="span2" data-name="house-person-new-discharge-date" />
             </div>
             <div class="span3">
               <label for="">สถานะการจำหน่าย</label>
               <select data-name="house-person-new-discharge-status" class="span2">
-                <?php 
+                <?php
                   foreach( $discharge_status as $k => $v )
                   {
                     if ( $k == 4 ) echo '<option value="' . $k . '" selected="selected">' . $v . '</option>';
@@ -344,7 +344,7 @@
             <div class="span4">
               <label for="">สถานะบุคคล</label>
               <select data-name="house-person-new-typearea" class="span4" >
-                <?php 
+                <?php
                   foreach( $type_areas as $k => $v )
                   {
                     echo '<option value="' . $k . '">' . $v . '</option>';
