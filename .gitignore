@@ -12,3 +12,6 @@ system/*
 user_guide/*
 
 .komodoproject
+.ppg
+.pnps
+.pnproj
