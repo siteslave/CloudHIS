@@ -4,6 +4,60 @@ toggleAlert = function (title, msg, c){
 	$('#alert-block p').html(msg);
 }
 $( function() {
+	
+	// order lab
+	$('a[data-name="service-lab-order"]').click(function(){
+		serviceModal.showLabOrder();
+	});
+	// lab result
+	$('a[data-name="service-lab-result"]').click(function(){
+		serviceModal.showLabResult();
+	});
+	// chronic follow up
+	$('a[data-name="service-chronicfu"]').click(function(){
+		serviceModal.showChronicFu();
+	});
+	// ncd screen
+	$('a[data-name="service-ncd"]').click(function(){
+		serviceModal.showNcd();
+	});
+	// ANC
+	$('a[data-name="service-anc"]').click(function(){
+		serviceModal.showAnc();
+	});
+	// EPI
+	$('a[data-name="service-epi"]').click(function(){
+		serviceModal.showEpi();
+	});
+	// FP
+	$('a[data-name="service-fp"]').click(function(){
+		serviceModal.showFp();
+	});
+	// 506
+	$('a[data-name="service-506"]').click(function(){
+		serviceModal.showSurveil();
+	});
+	// Appoint
+	$('a[data-name="service-appoint"]').click(function(){
+		serviceModal.showAppoint();
+	});
+	// Income
+	$('a[data-name="btnsv-add-income"]').click(function(){
+		serviceModal.showIncome();
+	});
+	// Drug
+	$('a[data-name="btnsv-add-drug"]').click(function(){
+		serviceModal.showDrug();
+	});
+	// Procedure
+	$('a[data-name="btnsv-add-procedure"]').click(function(){
+		serviceModal.showProcedure();
+	});
+	// Diag
+	$('a[data-name="btnsv-add-diag"]').click(function(){
+		serviceModal.showDiag();
+	});
+	// end modal
 	$( 'a[data-name="btnSaveScreen"]' ).click( function() {
 		checkScreening();
 	} );
@@ -393,5 +447,112 @@ $( function() {
 		  }	
 		});// ajax
 	};
+	// show modal	
+	var serviceModal = {
+		showProcedure: function() {
+			$('div[data-name="modal-procedure"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showDiag: function() {
+			$('div[data-name="modal-diag"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showDrug: function() {
+			$('div[data-name="modal-drug"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showIncome: function() {
+			$('div[data-name="modal-income"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showAppoint: function() {
+			$('div[data-name="modal-appoint"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showSurveil: function() {
+			$('div[data-name="modal-506"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showFp: function() {
+			$('div[data-name="modal-fp"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showEpi: function() {
+			$('div[data-name="modal-epi"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showAnc: function() {
+			$('div[data-name="modal-anc"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showNcd: function() {
+			$('div[data-name="modal-ncd"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showChronicFu: function() {
+			$('div[data-name="modal-chronicfu"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showLabResult: function() {
+			$('div[data-name="modal-lab-result"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		},
+		showLabOrder: function() {
+			$('div[data-name="modal-lab-order"]').modal('show').css({
+        width: 770,
+        'margin-left': function () {
+            return -($(this).width() / 2);
+        }
+    	});
+		}
+	} // end Modal
 	
 } );

@@ -143,7 +143,11 @@ $(function(){
 							);
 						});
       	} else {
-      		alert(data.status);
+					$('table[data-name="svtbl-lab-item-list"] > tbody').append(
+						'<tr>'
+							+ '<td colspan="5">ไม่พบประวัติการสั่ง LAB</td>'
+						+ '</tr>'
+					);
       	}
       },
       error: function(xhr, status, errorThrown) {
@@ -177,7 +181,11 @@ $(function(){
 							);
 						});
       	} else {
-      		alert(data.status);
+					$('table[data-name="svtbl-lab-order-history"] > tbody').append(
+						'<tr>'
+							+ '<td colspan="5">ไม่พบประวัติการสั่ง LAB</td>'
+						+ '</tr>'
+					);
       	}
       },
       error: function(xhr, status, errorThrown) {

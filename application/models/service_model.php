@@ -20,9 +20,9 @@ class Service_model extends CI_Model {
 	public function _save($cid, $clinic_id, $date_serv, $hmain_code,
 												$hsub_code, $ins_expire, $ins_start,
 												$ins_code, $ins_id, $intime, $location_id,
-												$pttype_id, $service_place_id, $time_serv){
+												$pttype_id, $service_place_id, $time_serv, $pcucode){
 		// execute query
-		$result = $this->db->set('pcucode', '11053')
+		$result = $this->db->set('pcucode', $pcucode)
 		 										->set('cid', $cid)
 		 										->set('clinic_id', $clinic_id)
 		 										->set('date_serv', $date_serv)
@@ -124,17 +124,17 @@ class Service_model extends CI_Model {
 	public function _getList($date)
 	{
 		$result = $this->db->select(array(
-																			'people.cid', 'people.fname', 'people.lname',
-																			'people.hn', 'people.sex', 'people.birthdate',
-																			'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
-																			'clinics.name as clinic_name', 'insurances.name as ins_name', 
-																			'doctors.name as doctor_name', 'screenings.cc'))
+												'people.cid', 'people.fname', 'people.lname','year(current_date()) - year(birthdate) as age',
+												'people.sex', 'people.birthdate',
+												'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
+												'clinics.name as clinic_name', 'insurances.name as ins_name', 
+												'doctors.name as doctor_name', 'screenings.cc'))
 												->join('people', 'people.cid=visits.cid')
 												->join('clinics', 'clinics.id=visits.clinic_id', 'left')
 												->join('insurances', 'insurances.id=visits.ins_id', 'left')
 												->join('doctors', 'doctors.id=visits.doctor_id', 'left')
 												->join('screenings', 'screenings.vn=visits.vn', 'left')
-												->order_by('visits.vn', 'DESC')
+												->order_by('visits.vn', 'ASC')
 												->get('visits')->result();
 		return $result;
 	}
@@ -147,12 +147,12 @@ class Service_model extends CI_Model {
 	public function _getDetail($vn)
 	{
 		$result = $this->db->select(array(
-																		'people.cid', 'people.fname', 'people.lname',
-																		'people.hn', 'people.sex', 'people.birthdate',
-																		'year(current_date()) - year(people.birthdate) as age',
-																		'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
-																		'visits.service_place_id',
-																		'clinics.name as clinic_name', 'insurances.name as ins_name'))
+												'people.cid', 'people.fname', 'people.lname',
+												'people.sex', 'people.birthdate',
+												'year(current_date()) - year(people.birthdate) as age',
+												'visits.date_serv', 'visits.time_serv', 'visits.vn', 'visits.ins_code',
+												'visits.service_place_id',
+												'clinics.name as clinic_name', 'insurances.name as ins_name'))
 												->join('people', 'people.cid=visits.cid')
 												->join('clinics', 'clinics.id=visits.clinic_id', 'left')
 												->join('insurances', 'insurances.id=visits.ins_id', 'left')
@@ -248,8 +248,8 @@ class Service_model extends CI_Model {
 	public function _get_procedure($vn)
 	{
 		$result = $this->db->select(array(
-																			'procedures.code', 'icd9.name', 'procedures.price',
-																			'users.fullname', 'users.id'))
+											'procedures.code', 'icd9.name', 'procedures.price',
+											'concat(users.fname, " ", users.lname) as fullname', 'users.id'), FALSE)
 											->where('procedures.vn', $vn)
 											->join('icd9', 'icd9.code=procedures.code', 'left')
 											->join('users', 'users.id=procedures.user_id', 'left')
@@ -303,7 +303,7 @@ class Service_model extends CI_Model {
 											->set('qty', $qty)
 											->set('price', $price)
 											->set('usage_id', $usage_id)
-												->insert('drugs');
+											->insert('drugs');
 		return $result;
 	}
 	/** check drug exist **/
@@ -320,8 +320,8 @@ class Service_model extends CI_Model {
 	public function _get_drugs($vn)
 	{
 		$result = $this->db->select(array(
-																			'drugitems.name as drug_name', 'drugusages.name1 as usage_name',
-																			'drugs.price', 'drugs.qty', 'drugs.drug_id'
+											'drugitems.name as drug_name', 'drugusages.name1 as usage_name',
+											'drugs.price', 'drugs.qty', 'drugs.drug_id'
 																			))
 											->where('drugs.vn', $vn)
 											->join('drugitems', 'drugitems.id=drugs.drug_id', 'left')
@@ -351,9 +351,8 @@ class Service_model extends CI_Model {
 	public function _get_income($vn)
 	{
 		$result = $this->db->select(array(
-																			'incomes.name', 'incomes.unit', 'income_visits.income_id',
-																			'income_visits.price', 'income_visits.qty'
-																			))
+											'incomes.name', 'incomes.unit', 'income_visits.income_id',
+											'income_visits.price', 'income_visits.qty'))
 											->where('income_visits.vn', $vn)
 											->join('incomes', 'incomes.id=income_visits.income_id', 'left')
 		                  ->get('income_visits')->result();
@@ -427,10 +426,9 @@ class Service_model extends CI_Model {
 	public function _get_appoint( $cid )
 	{
 		$result = $this->db->select(array(
-																	'icd10.name as diag_name', 'visits.date_serv', 'visits.time_serv','appoint_visits.appoint_date', 
-																	'appoint_visits.appoint_diag', 'appoint_visits.id',
-																	'appoint_visits.appoint_date', 'appoints.name as appoint_name'
-																	))
+									'icd10.name as diag_name', 'visits.date_serv', 'visits.time_serv','appoint_visits.appoint_date', 
+									'appoint_visits.appoint_diag', 'appoint_visits.id',
+									'appoint_visits.appoint_date', 'appoints.name as appoint_name'))
 									->where('visits.cid', $cid)
 									->join('icd10', 'icd10.code=appoint_visits.appoint_diag', 'left')
 									->join('appoints' ,'appoints.id=appoint_visits.appoint_id', 'left')
@@ -495,7 +493,7 @@ class Service_model extends CI_Model {
 	public function _get_surveil_list($cid)
 	{
 		/*
-		select v.vn, v.date_serv, s.code_506, vs.tname, s.diag_code, sp.name, s.death_date
+select v.vn, v.date_serv, s.code_506, vs.tname, s.diag_code, sp.name, s.death_date
 from visits v
 join surveil_visits s on s.vn=v.vn
 left join surveils vs on vs.id=s.code_506
@@ -503,10 +501,9 @@ left join surveil_patient_status sp on sp.id=s.patient_status
 where v.cid='3440400559995'
 		*/
 		$result = $this->db->select(array(
-																			'visits.date_serv', 'surveils.tname', 'surveil_visits.diag_code',
-																			'surveil_visits.ill_date','surveil_patient_status.name as status_name',
-																			'surveil_visits.death_date', 'icd10.name as diag_name'
-																			))
+												'visits.date_serv', 'surveils.tname', 'surveil_visits.diag_code',
+												'surveil_visits.ill_date','surveil_patient_status.name as status_name',
+												'surveil_visits.death_date', 'icd10.name as diag_name'))
 												->where('visits.cid', $cid)
 												->join('visits', 'visits.vn=surveil_visits.vn')
 												->join('surveils', 'surveils.id=surveil_visits.code_506', 'left')

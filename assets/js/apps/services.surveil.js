@@ -1,7 +1,7 @@
 $(function() {	
 	$('input[data-name="surveil-death-date"]').datepicker({ dateFormat: 'd/m/yy' });
 	$('input[data-name="surveil-date"]').datepicker({ dateFormat: 'd/m/yy' });
-	$('a[data-name="show-506"]').click(function() {
+	$('a[data-name="service-506"]').click(function() {
 		var _cid = $('input[data-name="cid"]').val();
 		getSurveilList( _cid ) ;
 	});

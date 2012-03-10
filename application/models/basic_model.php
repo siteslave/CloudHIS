@@ -391,6 +391,208 @@ class Basic_model extends CI_Model {
 		$result = $this->db->order_by('name', 'desc')->get('lab_groups')->result();
 		return $result;
 	}
+	/**
+	 * Get Refer cause
+	 * @return array() Refer cause list
+	 **/
+	public function _get_refer_cause_dropdown() {
+		$query = $this->db->get('refer_causes');
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get title
+	 * @return array() Title list
+	 **/
+	public function _get_title_dropdown() {
+		$query = $this->db->where( 'active', 'Y' )->get( 'titles' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get blood group
+	 * @return array() Blood group list
+	 **/
+	public function _get_blood_group_dropdown() {
+		$query = $this->db->get( 'blood_groups' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get married status
+	 * @return array()
+	 **/
+	public function _get_married_dropdown() {
+		$query = $this->db->get( 'married_status' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get occupation
+	 * @return array()
+	 **/
+	public function _get_occupation_dropdown() {
+		$query = $this->db->get( 'occupations' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get race
+	 * @return array()
+	 **/
+	public function _get_race_dropdown() {
+		$query = $this->db->get( 'races' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get nation
+	 * @return array()
+	 **/
+	public function _get_nation_dropdown() {
+		$query = $this->db->get( 'nations' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get nation
+	 * @return array()
+	 **/
+	public function _get_education_dropdown() {
+		$query = $this->db->get( 'educations' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get nation
+	 * @return array()
+	 **/
+	public function _get_religion_dropdown() {
+		$query = $this->db->get( 'religions' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get changwat
+	 * @return array()
+	 **/
+	public function _get_chw_dropdown() {
+		$result = $this->db->where( 'amp', '00' )
+                      ->where( 'tmb', '00' )
+                      ->where( 'moo', '00' )
+                      ->get( 'catms' )
+                      ->result();
+
+		return $result;
+	}
+	/**
+	 * Get amp
+	 * @return array()
+	 **/
+	public function _get_amp_dropdown( $chw ) {
+		$result = $this->db->where( 'chw', $chw )
+                      ->where( 'amp <>', '00' )
+                      ->where( 'tmb', '00' )
+                      ->where( 'moo', '00' )
+                      ->order_by( 'name' )
+                      ->get( 'catms' )
+                      ->result();
+
+    return $result;
+	}
+	/**
+	 * Get tambon
+	 * @return array()
+	 **/
+	public function _get_tmb_dropdown( $chw, $amp ) {
+		$result = $this->db->where( 'chw', $chw )
+                      ->where( 'amp', $amp )
+                      ->where( 'tmb <>', '00' )
+                      ->where( 'moo', '00' )
+                      ->order_by( 'name' )
+                      ->get( 'catms' )
+                      ->result();
+
+    return $result;
+	}
+	/**
+	 * Get mooban
+	 * @return array()
+	 **/
+	public function _get_moo_dropdown( $chw, $amp, $tmb ) {
+		$result = $this->db->where( 'chw', $chw )
+                      ->where( 'amp', $amp )
+                      ->where( 'tmb', $tmb )
+                      ->where( 'moo <>', '00' )
+                      ->order_by( 'moo' )
+                      ->get( 'catms' )
+                      ->result();
+
+    return $result;
+	}
+	/**
+	 * Get discharge status
+	 * @return array()
+	 **/
+	public function _get_discharge_status_dropdown() {
+		$query = $this->db->get( 'discharge_status' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get type area
+	 * @return array()
+	 **/
+	public function _get_type_area_dropdown() {
+		$query = $this->db->get( 'type_areas' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
+	/**
+	 * Get labor type
+	 * @return array()
+	 **/
+	public function _get_labor_type_dropdown() {
+		$query = $this->db->get( 'labor_types' );
+
+		foreach ($query->result_array() as $row) {
+			$result[$row['id']] = $row['name'];
+		}
+		return $result;
+	}
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */

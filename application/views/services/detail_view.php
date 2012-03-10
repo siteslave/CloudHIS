@@ -1,103 +1,104 @@
 <?php foreach ($rows as $row); ?>
 <?php foreach ($screenings as $sc); ?>
-<ul class="breadcrumb">
-  <li><a href="<?php echo base_url(); ?>">หน้าหลัก</a><span class="divider">/</span></li>
-  <li><a href="<?php echo base_url(); ?>services">การให้บริการ</a><span class="divider">/</span></li>
-  <li class="active">บันทึกการให้บริการ</li>
-</ul>
 
-<div class="patient-detail">
+<ul class="nav nav-pills">
+	<li class="active"><a data-toggle="tab" href="#svdetail-patient-info"><i class="icon-user icon-white"></i> ข้อมูลการรับบริการ</a></li>
+	<li><a data-toggle="tab" href="#svdetail-patient-history"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="svdetail-patient-info">
 		<div class="rows">
 			<div class="span2">
 				<?php echo img(array(
 												'src' => 'assets/img/no_person.jpg',
-												'width' => '75',
-												'height' => '100'
+												'width' => '60',
+												'height' => '75'
 											)); 
 					?>
 			</div>
-			<div class="span4">
-				<strong>เลขที่รับบริการ</strong> :  <?php echo $row->vn; ?> <br />
+			<div class="span3">
 				<input type="hidden" data-name="vn" value="<?php echo $row->vn; ?>" id="vn">
 				<input type="hidden" data-name="cid" value="<?php echo $row->cid; ?>">
 				<input type="hidden" data-name="date_serv" value="<?php echo $row->date_serv; ?>">
 				<input type="hidden" data-name="service_place_id" value="<?php echo $row->service_place_id; ?>">
-				<strong>เลขบัตรประชาชน</strong>: <?php echo $row->cid; ?> <br />
-				<strong>ชื่อ - สกุล</strong>: <?php echo $row->fname. ' '. $row->lname; ?> <br />
-				<strong>วันเกิด</strong>: <?php echo to_thai_date ( $row->birthdate ); ?>  <strong>อายุ</strong>: <?php echo $row->age; ?> ปี<br /> <br />
-				<a href="<?php echo base_url(); ?>people/detail/<?php echo $row->cid; ?>" class="btn btn-primary"><i class="icon-user icon-white"></i>  แก้ไขข้อมูล »</a>
+				<strong>บัตรประชาชน</strong>:
+				<?php echo $row->cid; ?> <br />
+				<strong>ชื่อ - สกุล</strong>: 
+				<?php echo $row->fname. ' '. $row->lname; ?> <br />
+				<strong>อายุ</strong>: <?php echo $row->age; ?> ปี
 			</div>
-			<div class="span5">
-				<strong>วันที่รับบริการ</strong>: <?php echo to_thai_date ( $row->date_serv ) . ' '. $row->time_serv; ?> <br />
-				<strong>แผนก</strong>: <?php echo $row->clinic_name; ?> <br />
-				<strong>สิทธิการรักษา</strong>: <?php echo $row->ins_name; ?> <br />
-				<strong>เลขที่สิทธิ</strong>: <?php echo $row->ins_code; ?> <br /> <br />
-				
-				<a href="<?php echo base_url(); ?>people/detail/<?php echo $row->cid; ?>" class="btn btn-success"><i class="icon-calendar icon-white"></i> ประวัติการรับบริการ  »</a>
+			<div class="span4">
+				<strong>วันที่</strong>: 
+				<?php echo to_thai_date ( $row->date_serv ) . ' '. $row->time_serv; ?> <br />
+				<strong>แผนก</strong>:
+				<?php echo $row->clinic_name; ?> <br />
+				<strong>สิทธิการรักษา</strong>:
+				<?php echo $row->ins_name; ?> <br />
 			</div>
 		</div>
-		<br />
-</div>
+	</div>
+	<div class="tab-pane" id="svdetail-patient-history">
+		<p>History</p>	
+	</div>
+</div><!-- /tab-content -->
 
-<div class="form-actions" style="height: 30px;">
+<div class="form-actions" style="min-height: 50px;">
 <div class="btn-toolbar">
 			<div class="btn-group">
-			<a class="btn btn-info" href="#"> <i class="icon-list icon-white"></i> ข้อมูล LAB</a>
 			<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-list icon-white"></i> ข้อมูล LAB
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#modal-lab-order" data-toggle="modal" data-name="service-lab-order"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
-				<li><a href="#modal-lab-result" data-toggle="modal" data-name="service-lab-result"><i class="icon-random"></i> รายงานผล LAB</a></li>
+				<li><a href="#" data-name="service-lab-order"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
+				<li><a href="#" data-name="service-lab-result"><i class="icon-random"></i> รายงานผล LAB</a></li>
 			</ul>
 		</div>
-		
 		<div class="btn-group">
-			<a class="btn btn-success" href="#"> <i class="icon-comment icon-white"></i> การให้บริการหลัก</a>
-			<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-folder-open icon-white"></i> บริการส่งเสริม
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#modal-506" data-name="show-506" data-toggle="modal"><i class="icon-fire"></i> บันทึก 506</a></li>
-				
-				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-tags"></i>  ลงทะเบียนนัด</a></li>
+				<li><a href="#" data-name="service-fp"><i class="icon-eye-open"></i>  วางแผนครอบครัว (Family Planing)</a></li>
+				<li><a href="#" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
+				<li><a href="#" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
 			</ul>
 		</div>
-		
 		<div class="btn-group">
-			<a class="btn btn-warning" href="#"> <i class="icon-th icon-white"></i> ข้อมูลส่งต่อ (Refer)</a>
 			<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-check icon-white"></i> การคัดกรอง
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#"><i class="icon-play-circle"></i>  ลงทะเบียนรับ</a></li>
-				<li><a href="#modal-506" data-name="show-506" data-toggle="modal"><i class="icon-share"></i> ลงทะเบียนส่งต่อ</a></li>
-				<li><a href="#modal-appoint" data-name="show-appoint" data-toggle="modal"><i class="icon-list"></i>  ทะเบียนส่งต่อ...</a></li>
+				<li><a href="#" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดัน</a></li>
+				
+				<li><a href="#" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง</a></li>
 			</ul>
 		</div>
 		<div class="btn-group">
-			<a class="btn btn-inverse" href="#"> <i class="icon-folder-open icon-white"></i> บริการส่งเสริมและคัดกรอง</a>
-			<a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+				<i class="icon-comment icon-white"></i> บริการอื่นๆ
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#modal-fp" data-toggle="modal" data-name="service-fp"> <i class="icon-eye-open"></i>  วางแผนครอบครัว (Family Planing)</a></li>
-				<li><a href="#modal-epi" data-toggle="modal" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
-				<li><a href="#modal-anc" data-toggle="modal" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
-				<li class="divider"></li>
-				<li><a href="#modal-ncd" data-toggle="modal" data-name="service-ncd"><i class="icon-check"></i>  ตรวจคัดกรองเบาหวานและความดันโลหิตสูง</a></li>
+				<li><a href="#" data-name="service-506"><i class="icon-fire"></i> บันทึกระบาดวิทยา (506)</a></li>
 				
-				<li><a href="#modal-chronicfu" data-toggle="modal" data-name="service-chronicfu"><i class="icon-lock"></i>  ตรวจติดตามผู้ป่วยโรคเรื้อรัง (Chronic FU)</a></li>
+				<li><a href="#" data-name="service-appoint" data-toggle="modal"><i class="icon-tags"></i>  ลงทะเบียนนัด (Appoint)</a></li>
 			</ul>
 		</div>
 	</div><!-- /btn-toolbar -->
 </div>
 
 <!-- alert -->
-<div id="alert-block" class="alert alert-info">
-	<!-- <a class="close" data-dismiss="alert" href="#">&times;</a> -->
-	<h4 class="alert-heading">คำแนะนำ</h4>
-	<p>กรุณากรอกข้อมูลให้ถูกต้องและสมบูรณ์ ไม่เช่นนั้นโปรแกรมจะไม่ทำการบันทึกข้อมูลการให้บริการของผู้รับบริการ</p>
+<div class="row">
+	<div class="span9">
+		<div id="alert-block" class="alert alert-info">
+			<!-- <a class="close" data-dismiss="alert" href="#">&times;</a> -->
+			<h4 class="alert-heading">คำแนะนำ</h4>
+			<p>กรุณากรอกข้อมูลให้ถูกต้องและสมบูรณ์ ไม่เช่นนั้นโปรแกรมจะไม่ทำการบันทึกข้อมูลการให้บริการของผู้รับบริการ</p>
+	</div>
+	</div>
 </div>
 <!-- /alert -->
 
@@ -127,43 +128,43 @@
 		<div class="row">
 			<div class="span2">
 				<label>น้ำหนัก</label>
-				<input data-name="weight" class="" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->weight : ''; ?>">
+				<input data-name="weight" class="" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->weight : ''; ?>">
 				<label>รอบเอว (ซม.)</label>
-				<input data-name="waistline" class="" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->waistline : ''; ?>">
+				<input data-name="waistline" class="" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->waistline : ''; ?>">
 				<label>BMI</label>
-				<input data-name="bmi" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->bmi : ''; ?>">
+				<input data-name="bmi" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bmi : ''; ?>">
 			</div>
 			<div class="span2">
 				<label>ส่วนสูง (ซม.)</label>
-				<input data-name="height" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->height : ''; ?>">
+				<input data-name="height" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->height : ''; ?>">
 				<label>ความดัน (บน)</label>
-				<input data-name="bp1" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->bp1 : ''; ?>">
+				<input data-name="bp1" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bp1 : ''; ?>">
 				<label>ความดัน (ล่าง)</label>
-				<input data-name="bp2" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->bp2 : ''; ?>">
+				<input data-name="bp2" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bp2 : ''; ?>">
 			</div>
 			<div class="span2">
 				<label>ชีพจร (m.)</label>
-				<input data-name="pulse" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->pulse : ''; ?>">
+				<input data-name="pulse" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->pulse : ''; ?>">
 				<label>อุณหภูมิ </label>
-				<input data-name="temperature" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->temperature : ''; ?>">
+				<input data-name="temperature" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->temperature : ''; ?>">
 				<label>DTX1</label>
-				<input data-name="dtx1" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->dtx1 : ''; ?>" >
+				<input data-name="dtx1" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->dtx1 : ''; ?>" >
 			</div>
 			
 			<div class="span2">
 				<label>หัวใจ (m.)</label>
-				<input data-name="heartbeat" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->heartbeat : ''; ?>">
+				<input data-name="heartbeat" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->heartbeat : ''; ?>">
 				<label>FBS</label>
-				<input data-name="fbs" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->fbs : ''; ?>">
+				<input data-name="fbs" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->fbs : ''; ?>">
 				<label>DTX2</label>
-				<input data-name="dtx2" style="width: 90px;" type="text" value="<?php echo ! empty($sc) ? $sc->dtx2 : ''; ?>">
+				<input data-name="dtx2" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->dtx2 : ''; ?>">
 			</div>
 				
 		</div><!-- /row -->
 		<div class="row">
-			<div class="span3">
+			<div class="span2">
 				<label for="cigarate">การสูบบุหรี่</label>
-				<select data-name="smoking" id="cigarate" style="width: 140px;">
+				<select data-name="smoking" id="cigarate" class="span2">
 						<?php 
 						$i = 1;
 						foreach($smokes as $key => $value){
@@ -181,9 +182,9 @@
 						?>
 				</select>
 			</div>
-			<div class="span3">
+			<div class="span2">
 				<label for="drink">การดื่่มสุรา</label>
-				<select data-name="drinking" id="drink" style="width: 140px;">
+				<select data-name="drinking" id="drink" class="span2">
 						<?php 
 						$i = 1;
 						foreach($alcohols as $key => $value){
@@ -202,9 +203,9 @@
 						?>
 				</select>
 			</div>
-			<div class="span3">
+			<div class="span2">
 				<label for="drug-error">การแพ้ยา</label>
-				<select data-name="allergic" id="drug-error" style="width: 140px;">
+				<select data-name="allergic" id="drug-error" class="span2">
 					<?php
 						$i = 1;
 						foreach ( $allergics as $key => $value ) {
@@ -227,7 +228,7 @@
 		<div class="row">
 			<div class="span3">
 				<label for="cc">อาการแรกรับ</label>
-				<textarea style="width: 610px;" rows="4" id="cc" data-name="cc"><?php echo ! empty($sc) ? $sc->cc : ''; ?></textarea>
+				<textarea class="span6" rows="4" id="cc" data-name="cc"><?php echo ! empty($sc) ? $sc->cc : ''; ?></textarea>
 			</div>
 		</div>
 		
@@ -284,9 +285,7 @@
 				?>
 			</tbody>
 		</table>
-		<div class="span2 offset9">
-			<a href="#modal-diag" data-toggle="modal" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
-		</div>
+			<a href="#" data-name="btnsv-add-diag" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
 	</div><!-- /tab-diag -->
 	<div class="tab-pane" id="tab-proced">
 		<table class="table table-striped" data-name="tblProced">
@@ -310,9 +309,7 @@
 				} ?>
 			</tbody>
 		</table>
-		<div class="span2 offset9">
-			<a href="#modal-proced" data-toggle="modal" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
-		</div>
+			<a href="#" data-name="btnsv-add-procedure" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
 	</div><!-- /tab-proced -->
 	<div class="tab-pane" id="tab-drug">
 		<table class="table table-striped" data-name="tblDrug">
@@ -343,9 +340,7 @@
 				?>
 			</tbody>
 		</table>
-		<div class="span2 offset9">
-			<a href="#modal-drug" data-toggle="modal" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
-		</div>
+			<a href="#" data-name="btnsv-add-drug" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
 	</div>
 	<div class="tab-pane" id="tab-income">
 		<table class="table table-striped" data-name="tblIncome">
@@ -376,15 +371,14 @@
 				?>
 			</tbody>
 		</table>
-		<div class="span2 offset9">
-			<a href="#modal-income" data-toggle="modal" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
-		</div>
+		<a href="#" data-name="btnsv-add-income" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
+		
 	</div>
 </div>
 
 <!-- end tab content -->
 <!--  add diag -->
-<div class="modal hide fade" id="modal-diag">
+<div class="modal hide fade" data-name="modal-diag">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการวินิจฉัย</h3>
@@ -415,13 +409,13 @@
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 		<a href="#" class="btn btn-primary" data-name="btn-save-diag"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
 <!-- /add diag -->
 <!-- add proced -->
-<div class="modal hide fade" id="modal-proced">
+<div class="modal hide fade" data-name="modal-procedure">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการให้หัตถการ</h3>
@@ -443,13 +437,13 @@
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 		<a href="#" class="btn btn-primary" data-name="btn-save-proced"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
 <!-- /add proced -->
 <!-- add drug -->
-<div class="modal hide fade" id="modal-drug">
+<div class="modal hide fade" data-name="modal-drug">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการให้จ่ายยา</h3>
@@ -469,13 +463,13 @@
 				<input type="text" class="input-xlarge" data-name="usage_name" placeholder="พิมพ์วิธีการใช้เพื่อค้นหา.." > 
 				<a href="#" class="btn"><i class="icon-plus-sign"></i></a>
 				<div class="row">
-					<div class="span3">
+					<div class="span2">
 						<label for="">ราคา</label>
-						<input type="number" class="input-small" data-name="drug_price" value="0.00" placeholder="0.00">  
+						<input type="number" class="span2" data-name="drug_price" value="0.00" placeholder="0.00">  
 					</div>
-					<div class="span3">
+					<div class="span2">
 						<label for="">จำนวน</label>
-						<input type="number" class="input-small" data-name="drug_qty" value="1" placeholder="0">
+						<input type="number" class="span2" data-name="drug_qty" value="1" placeholder="0">
 					</div>
 				</div>
 				<button data-name="btnreset" class="btn" type="reset" style="display: none;"><i class="icon-refresh"></i> ยกเลิก</button>
@@ -483,13 +477,13 @@
 		</p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 		<a href="#" class="btn btn-primary" data-name="btn-save-drug"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
+		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
 <!-- /add drug -->
 <!-- add income -->
-<div class="modal hide fade" id="modal-income">
+<div class="modal hide fade" data-name="modal-income">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลค่าใช้จ่าย</h3>
@@ -504,15 +498,15 @@
 				<label for="">รายการค่าใช้จ่าย</label>
 				<input type="hidden" data-name="income_id"> 
 				<input type="hidden" data-name="income_unit">
-				<input type="text" class="input-xlarge focused" data-name="income_name" placeholder="พิมพ์ชื่อค่าใช้จ่าย เพื่อค้นหา.." >
+				<input type="text" class="span6" data-name="income_name" placeholder="พิมพ์ชื่อค่าใช้จ่าย เพื่อค้นหา.." >
 				<div class="row">
-					<div class="span3">
+					<div class="span2">
 						<label for="">ราคา</label>
-						<input type="number" class="input-small" data-name="income_price" value="0.00" placeholder="0.00">  
+						<input type="number" class="span2" data-name="income_price" value="0.00" placeholder="0.00">  
 					</div>
-					<div class="span3">
+					<div class="span2">
 						<label for="">จำนวน</label>
-						<input type="number" class="input-small" data-name="income_qty" value="1" placeholder="0">
+						<input type="number" class="span2" data-name="income_qty" value="1" placeholder="0">
 					</div>
 				</div>
 				<button data-name="btnreset" class="btn" type="reset" style="display: none;"><i class="icon-refresh"></i> ยกเลิก</button>
@@ -526,7 +520,7 @@
 </div>
 <!-- /add income -->
 <!-- add appointment -->
-<div class="modal hide fade" id="modal-appoint" style="width: 780px;">
+<div class="modal hide fade" data-name="modal-appoint">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>รายละเอียดการนัดหมาย</h3>
@@ -544,7 +538,7 @@
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab-appoint-list">
-					<div style="overflow: auto; display:block; height: 190px;">
+					<div style="overflow: auto; display:block;">
 						<table class="table table-striped" data-name="tblAppointList">
 							<thead>
 								<tr>
@@ -566,7 +560,7 @@
 						<input type="hidden" data-name="appoint_diag_code" autocomplete="off">
 						<input type="text" data-name="appoint_diag_name" class="input-xlarge" placeholder="รหัสการวินิจฉัยโรค (ICD10-TM) ควรเป็นรหัส Z..">
 						<label for="">กิจกรรมการนัด</label>
-						<select data-name="appoint_id" style="width: 270px;">
+						<select data-name="appoint_id" class="span3">
 							<?php
 								foreach ($appoints as $key => $value) {
 									echo '<option value="'.$key.'">'.$value.'</option>';
@@ -591,7 +585,7 @@
 <!-- /add appoinment -->
 
 <!-- add 506 -->
-<div class="modal hide fade" id="modal-506" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-506">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลโรคเฝ้าระวัง (Surveil)</h3>
@@ -607,6 +601,7 @@
 				<li class="active"><a href="#tab-surveil-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการป่วย</a></li>
 				<li><a href="#tab-surveil-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
 			</ul>
+			<form action="#">
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab-surveil-list">
 					<table class="table table-striped" data-name="tblSurveilList">
@@ -634,19 +629,19 @@
 								<div class="row">
 									<div class="span4">
 										<label for="">รหัสการวินิจฉัย</label>
-										<input type="text" class="input-xlarge" data-name="surveil_diag_name" placeholder="พิมพ์รหัส icd-10 เพื่อค้นหา...">
+										<input type="text" class="span4" data-name="surveil_diag_name" placeholder="พิมพ์รหัส icd-10 เพื่อค้นหา...">
 										<input type="hidden" data-name="surveil_diag_code">
 									</div>
 									<div class="span4">
 										<label for="">รหัส 506</label>
-										<input type="text" class="input-xlarge" data-name="surveil_506_name" placeholder="พิมพ์รหัส 506 เพื่อค้นหา...">
+										<input type="text" class="span4" data-name="surveil_506_name" placeholder="พิมพ์รหัส 506 เพื่อค้นหา...">
 										<input type="hidden" data-name="surveil_506_code">
 									</div>
 								</div>
 								<div class="row">
 									<div class="span2">
 										<label>วันที่เริ่มป่วย</label>
-										<input type="text" class="input-small" data-name="surveil-date">
+										<input type="text" class="span2" data-name="surveil-date">
 									</div>
 									<div class="span4">
 										<label>สภาพผู้ป่วย</label>
@@ -659,18 +654,18 @@
 									</div>
 									<div class="span2">
 										<label>วันที่เสียชีวิต</label>
-										<input type="text" class="input-small" data-name="surveil-death-date">
+										<input type="text" class="span2" data-name="surveil-death-date">
 									</div>
 								</div>
 								<div class="row">
 									<div class="span4">
 									<label>ชนิดของเชื้อโรค</label>
-									<input type="text" class="input-xlarge" data-name="surveil-organism">
+									<input type="text" class="span4" data-name="surveil-organism" placeholder="พิมพ์ชนิดของเชื่อโรค เพื่อค้นหา...">
 									<input type="hidden" data-name="surveil-organism-code">
 									</div>
 									<div class="span4">
 										<label>สาเหตุการป่วย</label>
-										<input type="text" class="input-xlarge" data-name="surveil-complication">
+										<input type="text" class="span4" data-name="surveil-complication" placeholder="พิมพ์สาเหตุการเจ็บป่วย เพื่อค้นหา...">
 										<input type="hidden" data-name="surveil-complication-code">
 									</div>
 								</div>
@@ -680,30 +675,29 @@
 									<div class="span4">
 										<label for="">จังหวัด</label>
 										<input type="hidden" data-name="chw_code"></input> 
-										<input type="text" class="input-xlarge" data-name="chw_name" placeholder="พิมพ์ชื่อจังหวัด เพื่อค้นหา.." >
+										<input type="text" class="span4" data-name="chw_name" placeholder="พิมพ์ชื่อจังหวัด เพื่อค้นหา.." >
 										<label for="">อำเภอ</label>
 										<input type="hidden" data-name="amp_code"> 
-										<input type="text" class="input-xlarge" data-name="amp_name" placeholder="พิมพ์ชื่ออำเภอ เพื่อค้นหา.." >
+										<input type="text" class="span4" data-name="amp_name" placeholder="พิมพ์ชื่ออำเภอ เพื่อค้นหา.." >
 										<label for="">ตำบล</label>
 										<input type="hidden" data-name="tmb_code"> 
-										<input type="text" class="input-xlarge" data-name="tmb_name" placeholder="พิมพ์ชื่อตำบล เพื่อค้นหา.." >
+										<input type="text" class="span4" data-name="tmb_name" placeholder="พิมพ์ชื่อตำบล เพื่อค้นหา.." >
 									</div>
 									<div class="span4">
 										<label for="">หมู่บ้าน</label>
 										<select data-name="mooban"></select>  
 										<label for="">บ้านเลขที่</label>
-										<input type="text" class="input-small" data-name="address"> 
-										<br />
-										<button type="button" class="btn btn-primary" data-name="btn-save-surveil"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
-										<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+										<input type="text" class="span2" data-name="address"> 
 									</div>
 								</div>
-				
 							</div>
 						</div>
 					</div>
-					</div>
+				</div>
 			</div>
+			<button type="button" class="btn btn-primary" data-name="btn-save-surveil"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
+			<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+			</form>
 		</div>
 		</p>
 	</div>
@@ -714,7 +708,7 @@
 <!-- /add 506 -->
 
 <!-- add fp -->
-<div class="modal hide fade" id="modal-fp" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-fp">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลการวางแผนครอบครัว (Family Planing)</h3>
@@ -787,16 +781,16 @@
 								}
 								?>
 							</select>
-						</div>
-						<div class="span4">
-							<label for="">จำนวน</label>
-							<input type="number" class="input-small" data-name="fp-drug-amount">
 							<label class="checkbox">
 								<input type="checkbox" data-name="fp-add-income" checked="checked"> โอนค่าใช้จ่าย
 							</label>
 							<label class="checkbox">
 								<input type="checkbox" data-name="fp-add-drug" checked="checked"> โอนรายการยา
 							</label>
+						</div>
+						<div class="span4">
+							<label for="">จำนวน</label>
+							<input type="number" class="input-small" data-name="fp-drug-amount">
 						</div>
 					</div>
 					<button type="button" class="btn btn-primary" data-name="btn-save-fp"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
@@ -813,7 +807,7 @@
 </div>
 <!-- /add fp -->
 <!-- add epi -->
-<div class="modal hide fade" id="modal-epi" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-epi">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>ยันทึกงานสร้างเสริมภูมิคุ้มกันโรค (EPI)</h3>
@@ -898,7 +892,7 @@
 </div>
 <!-- /add epi -->
 <!-- add anc -->
-<div class="modal hide fade" id="modal-anc" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-anc">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลการฝากครรภ์ (ANC)</h3>
@@ -937,32 +931,22 @@
 				<div class="tab-pane" id="tab-anc-new">
 				<form>
 					<div class="row">
-						<div class="span4">
+						<div class="span5">
 							<label for="">สถานที่ตรวจ</label>
-							<input type="text" data-name="anc-service-place-name" class="input-xlarge">		
+							<input type="text" data-name="anc-service-place-name" class="span5">		
 							<input type="hidden" data-name="anc-service-place-code">		
-						</div>
-						<div class="span4">
-							<label for="">ครรภ์ที่</label>
-							<select data-name="anc-gravida" class="span1">
-								<?php 
-								for($i=1; $i<=12; $i++){
-									if ($i == 1) {
-										echo '<option value="'.$i.'" selected="selected">'.$i.'</option>';
-									} else {
-										echo '<option value="'.$i.'">'.$i.'</option>';
-									}
-								}
-								?>
-							</select>	
 						</div>
 					</div>
 					<div class="row">
-						<div class="span4">
-							<label for="">อายุครรภ์</label>
-							<input type="text" data-name="anc-ga" class="span1">
+						<div class="span2">
+							<label for="">ครรภ์ที่</label>
+							<input type="number" data-name="anc-gravida" class="span2">
 						</div>
-						<div class="span4">
+						<div class="span2">
+							<label for="">อายุครรภ์</label>
+							<input type="number" data-name="anc-ga" class="span2">
+						</div>
+						<div class="span2">
 							<label for="">ผลการตรวจ</label>
 							<select data-name="anc-res" class="span2">
 								<option value="1" selected="selected">ปกติ</option>
@@ -984,7 +968,7 @@
 </div>
 <!-- /add anc -->
 <!-- add ncd -->
-<div class="modal hide fade" id="modal-ncd" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-ncd">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลการคัดกรองเบาหวานความดัน</h3>
@@ -1054,17 +1038,17 @@
 						?>
 							</select>
 						</div>
-						<div class="span2">
+						<div class="span3">
 							<label for="">เบาหวานในญาติสายตรง</label>
-							<select data-name="ncd-dmfamily" class="span2">
+							<select data-name="ncd-dmfamily" class="span3">
 								<option value="1" selected="selected">มีประวัติ</option>
 								<option value="2">ไม่มี</option>
 								<option value="2">ไม่ทราบ</option>
 							</select>
 						</div>
-						<div class="span2">
+						<div class="span3">
 							<label for="">ความดันสูงในญาติสายตรง</label>
-							<select data-name="ncd-htfamily" class="span2">
+							<select data-name="ncd-htfamily" class="span3">
 								<option value="1" selected="selected">มีประวัติ</option>
 								<option value="2">ไม่มี</option>
 								<option value="2">ไม่ทราบ</option>
@@ -1137,7 +1121,7 @@
 </div>
 <!-- /add ncd -->
 <!-- chronic fu  -->
-<div class="modal hide fade" id="modal-chronicfu" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-chronicfu" style="width: 700px;">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลการตรวจติดตามผู้ป่วยโรคเรื้อรัง (เบาหวาน, ความดันโลหิตสูง)</h3>
@@ -1226,7 +1210,7 @@
 </div>
 <!-- /chronic fu -->
 <!-- lab order  -->
-<div class="modal hide fade" id="modal-lab-order">
+<div class="modal hide fade" data-name="modal-lab-order">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>สั่ง LAB</h3>
@@ -1240,7 +1224,9 @@
 			<div class="tab-content">
 				<div class="tab-pane active" id="svtab-lab-order-new">
 					<label for="">รายการ LAB Groups</label>
-					<select data-name="lab-group-list" class="span6"></select>
+					<select data-name="lab-group-list" class="span5"></select>
+					<br />
+					<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  สั่ง LAB</a>
 				</div>
 				<div class="tab-pane" id="svtab-lab-order-history">
 				<table class="table table-stripped" data-name="svtbl-lab-order-history">
@@ -1258,12 +1244,11 @@
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
-		<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  สั่ง LAB</a>
 	</div>
 </div>
 <!-- /lab order -->
 <!-- lab result  -->
-<div class="modal hide fade" id="modal-lab-result" style="width: 700px;">
+<div class="modal hide fade" data-name="modal-lab-result">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>สั่ง LAB</h3>
