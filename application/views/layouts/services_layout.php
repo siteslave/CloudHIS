@@ -56,6 +56,18 @@
 						      <li><a href="<?php echo base_url(); ?>drugs"><i class="icon-tags"></i> ข้อมูลยาและเวชภัณฑ์</a></li>
 						    </ul>
 						  </li>
+							<li class="dropdown active" id="menu-services">
+						    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-services">
+						      การให้บริการ
+						      <b class="caret"></b>
+						    </a>
+						    <ul class="dropdown-menu">
+						      <li><a href="<?php echo base_url(); ?>services"><i class="icon-home"></i> การให้บริการหลัก</a></li>
+						      <li><a href="<?php echo base_url(); ?>refers"><i class="icon-tags"></i> ระบบงานรับส่งต่อ</a></li>
+						      <li><a href="<?php echo base_url(); ?>ttms"><i class="icon-tags"></i> ระบบงานแผทย์แผนไทย</a></li>
+						      <li><a href="<?php echo base_url(); ?>dents"><i class="icon-tags"></i> ระบบงานทันตกรรม</a></li>
+						    </ul>
+						  </li>
   						<li class="dropdown" id="menu-tools">
 						    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu-tools">
 						      เครื่องมือ
