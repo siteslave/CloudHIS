@@ -37,7 +37,7 @@ class House extends CI_Controller {
     $data['nations'] = $this->Basic->_get_nation_dropdown();
     $data['educations'] = $this->Basic->_get_education_dropdown();
     $data['religions'] = $this->Basic->_get_religion_dropdown();
-    $data['changwats'] = $this->Basic->_get_changwat_dropdown();
+    //$data['changwats'] = $this->Basic->_get_changwat_dropdown();
     $data['discharge_status'] = $this->Basic->_get_discharge_status_dropdown();
     $data['type_areas'] = $this->Basic->_get_type_area_dropdown();
     $data['labor_types'] = $this->Basic->_get_labor_type_dropdown();

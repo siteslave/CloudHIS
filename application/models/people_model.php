@@ -44,7 +44,7 @@ class People_model extends CI_Model {
 	{
 		$result = $this->db->select( array(
 																			'people.fname', 'people.lname', 'people.sex', 'people.cid',
-																			'people.birthdate',
+																			'people.birthdate', 'people.id',
 																			'year(current_date()) - year(people.birthdate) as age'), TRUE )
 												->where( 'house_id', $house_id )
 												->get( 'people' )
@@ -52,28 +52,37 @@ class People_model extends CI_Model {
 		return $result;
 	}
 	
-	/**
+	/*********************************************************************
 	 * Save new person
 	 *
 	 * @param mixed $data Person detail
-	 *
-	 **/
+	 ********************************************************************/
 	public function _dosave( $data )
 	{
 		$result = $this->db->insert( 'people', $data );
 		
 		return $result;
 	}
-	/**
+	/*********************************************************************
 	 * Check if cid exist
 	 *
 	 * @param string $cid
-	 *
-	 **/
+	 ********************************************************************/
 	public function _check_exist( $cid )
 	{
 		$result = $this->db->where( 'cid', $cid )->count_all_results( 'people' );
 		
 		return $result == 0 ? FALSE : TRUE;
+	}
+	/*********************************************************************
+	* Get person detail for edit
+	*
+	* @param  int $id  Person id
+	* @return bool
+	*********************************************************************/
+	public function _get_detail( $id )
+	{
+	  $result = $this->db->where( 'id', $id )->get( 'people' )->result();
+	  return $result;
 	}
 }

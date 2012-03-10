@@ -503,15 +503,13 @@ class Basic_model extends CI_Model {
 	 * Get changwat
 	 * @return array()
 	 **/
-	public function _get_changwat_dropdown() {
-		$query = $this->db->where( 'amp', '00' )
+	public function _get_chw_dropdown() {
+		$result = $this->db->where( 'amp', '00' )
                       ->where( 'tmb', '00' )
                       ->where( 'moo', '00' )
-                      ->get( 'catms' );
+                      ->get( 'catms' )
+                      ->result();
 
-		foreach ($query->result_array() as $row) {
-			$result[$row['chw']] = $row['name'];
-		}
 		return $result;
 	}
 	/**

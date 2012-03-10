@@ -317,13 +317,26 @@ class Basic extends CI_Controller {
 		printjson($json);
 	}
   
-	/**
+	/*********************************************************************
+	* Get Changwat dropdown
+	* 
+	* @return json
+	**********************************************************************/
+	public function get_chw_dropdown()
+	{
+			$result = $this->Basic->_get_chw_dropdown();
+			
+      if ( $result ) $json = '{"success": true, "rows": '. json_encode( $result ) . '}';
+      else $json = '{"success": false, "statusText": "ไม่พบข้อมูล"}';
+      
+			printjson( $json );
+	}
+	/*********************************************************************
 	* Get Ampur dropdown
 	* 
 	* @param  string $chw
 	* @return json
-	*
-	**/
+	**********************************************************************/
 	public function get_amp_dropdown()
 	{
 		$chw = $this->input->post('chw');

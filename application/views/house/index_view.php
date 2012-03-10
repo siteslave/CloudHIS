@@ -1,6 +1,6 @@
 <ul class="nav nav-pills">
-  <li class="active"><a href="#house" data-toggle="tab"><i class="icon-home icon-white"></i> หมู่บ้านในเขตรับผิดชอบ</a></li>
-  <li><a href="#people" data-toggle="tab"><i class="icon-user icon-white"></i> ประชากรในเขตรับผิดชอบ</a></li>
+  <li class="active"><a href="#house" data-toggle="tab" ><i class="icon-home icon-white"></i> หมู่บ้านในเขตรับผิดชอบ</a></li>
+  <li><a href="#people" data-toggle="tab" data-name="house-tab-people-list"><i class="icon-user icon-white"></i> ประชากรในเขตรับผิดชอบ</a></li>
 </ul>
 <div class="tab-content">
   <div class="tab-pane active" id="house">
@@ -39,20 +39,11 @@
         <div class="row">
           <div class="span3">
             <label for="">เลือกหมู่บ้าน</label>
-            <select data-name="house-sel-village" class="span3">
-            <option value="">---</option>
-            <?php
-            foreach( $villages_dropdown as $k => $v )
-            {
-              echo '<option value="' . $k . '">' . $v . '</option>';
-            }
-            ?>
-            </select>
+            <select data-name="house-sel-village" class="span3"></select>
           </div>
           <div class="span4">
             <label for="">เลขที่</label>
             <select data-name="house-sel-house" class="span2"></select>
-
           </div>
         </div>
 
@@ -66,6 +57,7 @@
             <th>เพศ</th>
             <th>วันเกิด</th>
             <th>อายุ (ปี)</th>
+            <th><th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -118,7 +110,7 @@
     <div class="tabbable">
       <ul class="nav nav-pills">
         <li class="active">
-          <a href="#house-person-new-basic1" data-toggle="tab">ข้อมูลทั่วไป</a>
+          <a href="#house-person-new-basic1" data-name="house-person-new-basic1" data-toggle="tab">ข้อมูลทั่วไป</a>
         </li>
         <li>
           <a href="#house-person-new-basic2" data-toggle="tab">ที่อยู่ตามทะเบียนบ้าน</a>
@@ -128,6 +120,7 @@
         </li>
       </ul>
       <form>
+      <input type="hidden" data-name="update">
       <div class="tab-content">
         <div class="tab-pane active" id="house-person-new-basic1">
           <div class="row">
@@ -150,11 +143,11 @@
             </div>
             <div class="span2">
               <label for="">ชื่อ</label>
-              <input type="text" data-name="house-person-new-fname" class="span2" />
+              <input type="text" data-name="house-person-new-fname" class="span2" autocomplete="off" />
             </div>
             <div class="span2">
               <label for="">สกุล</label>
-              <input type="text" data-name="house-person-new-lname" class="span2" />
+              <input type="text" data-name="house-person-new-lname" class="span2" autocomplete="off" />
             </div>
           </div>
           <div class="row">
@@ -260,14 +253,7 @@
           <div class="row">
             <div class="span3">
               <label for="">จังหวัด</label>
-              <select data-name="house-person-new-chw" class="span3" >
-                <?php
-                  foreach( $changwats as $k => $v )
-                  {
-                    echo '<option value="' . $k . '">' . $v . '</option>';
-                  }
-                ?>
-              </select>
+              <select data-name="house-person-new-chw" class="span3" ></select>
               <label for="">อำเภอ</label>
               <select data-name="house-person-new-amp" class="span3" ></select>
               <label for="">ตำบล</label>
@@ -353,7 +339,7 @@
           </div>
         </div>
       </div>
-      <input type="reset" style="display:none" data-name="house-btn-new-reset">
+      <input type="reset" style="display: none;" data-name="house-btn-new-reset">
     </form>
     </div>
   </div>

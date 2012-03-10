@@ -19,7 +19,7 @@ class Village_model extends CI_Model {
     $sql = '
       select v.*,
       (select count(h.id) from house h where h.village_code=v.village_code) as total_house
-      from villages v
+      from villages v where v.owner_code="'. $owner_code .'"
     ';
 		$result = $this->db->query( $sql )->result();
 		return $result;
@@ -37,6 +37,17 @@ class Village_model extends CI_Model {
 		return $result;
 	}
   
+  /*********************************************************************
+  * Get village list
+  *********************************************************************/
+  public function _get_village( $owner_code )
+  {
+    $result = $this->db->where( 'owner_code', $owner_code )
+                      ->order_by( 'village_code' )
+                      ->get( 'villages' )
+                      ->result();
+    return $result;
+  }
   /**
    * Get house in village
    *
