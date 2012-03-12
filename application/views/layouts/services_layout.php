@@ -29,6 +29,8 @@
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.tablesorter.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.numeric.js"></script>
 	<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/underscore-min.js"></script>
+	
   <script type="text/javascript" src="<?php echo base_url() ?>assets/js/application.js"></script>
   <link rel="stylesheet/less" type="text/css" href="<?php echo base_url(); ?>assets/css/application.less">
 </head>
