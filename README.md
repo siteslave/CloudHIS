@@ -4,6 +4,6 @@ CloudHIS Enterprise software for PCU
 ----------------
 * Apache + MySQL + PHP 5.3.x 
 * CodeIgniter 2.x
-* Twitter Bootstrap 2.0
+* Twitter Bootstrap 2.0.2
 * jQuery and jQuery UI
 * LESS Dynamic CSS
