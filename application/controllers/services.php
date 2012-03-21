@@ -47,10 +47,10 @@ class Services extends CI_Controller {
 	**/
 	public function register()
 	{
-		$data['pttypes']	= $this->Basic->_get_pttypes_dropdown();
-		$data['clinics']	= $this->Basic->_get_clinics_dropdown();
-		$data['locations']	= $this->Basic->_get_locations_dropdown();
-		$data['places']		= $this->Basic->_get_places_dropdown();
+		$data['pttypes']    = $this->Basic->_get_pttypes_dropdown();
+		$data['clinics']    = $this->Basic->_get_clinics_dropdown();
+		$data['locations']  = $this->Basic->_get_locations_dropdown();
+		$data['places']	    = $this->Basic->_get_places_dropdown();
 
 		$this->layout->view('/services/register_view', $data);
 	}

@@ -14,8 +14,10 @@
       .sidebar-nav {
         padding: 9px 0;
       }
+      #loading { background: url(<?php echo base_url();?>assets/img/ajax-loader.gif) no-repeat center; }
+
     </style>
-	 
+    
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap-responsive.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/ui/jquery-ui.css" />
 	
@@ -35,6 +37,7 @@
   <link rel="stylesheet/less" type="text/css" href="<?php echo base_url(); ?>assets/css/application.less">
 </head>
 	<body>
+	  <div id="#loader" style="display: none;"></div>
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -145,6 +148,21 @@
 				</div><!-- /row-fluid -->	
 			</div><!-- /row-fluid -->	
 		</div> <!-- /container-fluid -->
-		<script type="text/javascript" src="<?php echo base_url() ?>assets/js/less.min.js"></script>
+		<script src="<?php echo base_url() ?>assets/js/less.min.js"></script>
+		<script>
+      $(function(){
+        jQuery.ajaxSetup({
+          beforeSend: function() {
+             $('#loader').show()
+          },
+          complete: function(){
+             $('#loader').hide()
+          },
+          success: function() {}
+        });
+
+      });
+    </script>
+    
 	</body>
 </html>

@@ -60,9 +60,12 @@
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#" data-name="service-fp"><i class="icon-eye-open"></i>  วางแผนครอบครัว (Family Planing)</a></li>
+				<li><a href="#" data-name="service-fp"><i class="icon-eye-open"></i>  วางแผนครอบครัว (FP)</a></li>
 				<li><a href="#" data-name="service-epi"><i class="icon-random"></i>  สร้างเสริมภูมิคุ้มกันโรค (EPI)</a></li>
 				<li><a href="#" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
+				<li class="divider"></li>
+				<li><a href="#" data-name="service-pp"><i class="icon-lock"></i>  ดุแลเด็กหลังคลอด (PP)</a></li>
+				<li><a href="#" data-name="service-mch"><i class="icon-book"></i>  ดูแลแม่หลังคลอด (MCH)</a></li>
 			</ul>
 		</div>
 		<div class="btn-group">
@@ -1278,6 +1281,33 @@
 	</div>
 </div>
 <!-- /lab result -->
+<!-- mch  -->
+<div class="modal hide fade" data-name="modal-mch">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ข้อมูลการดูแลแม่ก่อนและหลังคลอด</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#tab-mch-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มการบริการ</a></li>
+        <li><a href="#tab-mch-history" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab-mch-new">
+          new
+        </div>
+        <div class="tab-pane" id="tab-mch-history">
+          history
+        </div>
+      </div>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+<!-- /mch -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
@@ -1289,3 +1319,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.mch.js"></script>
