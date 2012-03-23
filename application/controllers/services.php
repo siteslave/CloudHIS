@@ -259,7 +259,7 @@ class Services extends CI_Controller {
 			// check if principle diag exist
 			if ( $diag_type == '1') {
 				$c = count( $this->Services->_checkPrincipleExist($vn) );
-				if ( $c == 0) {
+				if ( $c == 0 ) {
 					// check if double diag
 					$double_diag = count( $this->Services->_checkDoubleDiag($vn, $diag_code, $diag_type) );
 					if( $double_diag == 0 ) {
