@@ -242,28 +242,28 @@ $(function() {
 	$('input[data-name="tmb_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/gettmb',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-									chw_code: $('input[data-name="chw_code"]').val(),
-									amp_code: $('input[data-name="amp_code"]').val(),
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        code: i.tmb
-	                    }
-	                }));
-	            },
-							error: function(xhr, status, errorThrown) {
-								alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
-							}
-       	 	});
+          url: _base_url + 'basic/gettmb',
+          dataType: 'json',
+          type: 'POST',
+          data: {
+              query: request.term,
+							chw_code: $('input[data-name="chw_code"]').val(),
+							amp_code: $('input[data-name="amp_code"]').val(),
+              csrf_token: $.cookie('csrf_cookie_cloudhis')
+          },
+          success: function(data){
+              response($.map(data, function(i){
+                  return {
+                      label: i.name,
+                      value: i.name,
+                      code: i.tmb
+                  }
+              }));
+          },
+					error: function(xhr, status, errorThrown) {
+						alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
+					}
+   	 	});
 		},
 		minLength: 2,
 		select: function(event, ui){
@@ -275,23 +275,23 @@ $(function() {
 	$('input[data-name="surveil_diag_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/search_diag',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.code + ' ' + i.name,
-	                        value: i.name,
-	                        code: i.code
-	                    }
-	                }));
-	            }
-       	 	});
+          url: _base_url + 'basic/search_diag',
+          dataType: 'json',
+          type: 'POST',
+          data: {
+              query: request.term,
+              csrf_token: $.cookie('csrf_cookie_cloudhis')
+          },
+          success: function(data){
+              response($.map(data, function(i){
+                  return {
+                      label: i.code + ' ' + i.name,
+                      value: i.name,
+                      code: i.code
+                  }
+              }));
+          }
+   	 	});
 		},
 		minLength: 2,
 		select: function(event, ui){
@@ -302,23 +302,23 @@ $(function() {
 	$('input[data-name="surveil_506_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/search_surveil',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.tname,
-	                        value: i.tname,
-	                        id: i.id
-	                    }
-	                }));
-	            }
-       	 	});
+          url: _base_url + 'basic/search_surveil',
+          dataType: 'json',
+          type: 'POST',
+          data: {
+              query: request.term,
+              csrf_token: $.cookie('csrf_cookie_cloudhis')
+          },
+          success: function(data){
+              response($.map(data, function(i){
+                  return {
+                      label: i.tname,
+                      value: i.tname,
+                      id: i.id
+                  }
+              }));
+          }
+   	 	});
 		},
 		minLength: 2,
 		select: function(event, ui){
@@ -329,23 +329,23 @@ $(function() {
 	$('input[data-name="surveil-complication"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/search_surveil_comp',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        id: i.id
-	                    }
-	                }));
-	            }
-       	 	});
+          url: _base_url + 'basic/search_surveil_comp',
+          dataType: 'json',
+          type: 'POST',
+          data: {
+              query: request.term,
+              csrf_token: $.cookie('csrf_cookie_cloudhis')
+          },
+          success: function(data){
+              response($.map(data, function(i){
+                  return {
+                      label: i.name,
+                      value: i.name,
+                      id: i.id
+                  }
+              }));
+          }
+   	 	});
 		},
 		minLength: 2,
 		select: function(event, ui){
@@ -356,31 +356,30 @@ $(function() {
 	$('input[data-name="surveil-organism"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/search_surveil_organ',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        id: i.id
-	                    }
-	                }));
-	            }
-       	 	});
+          url: _base_url + 'basic/search_surveil_organ',
+          dataType: 'json',
+          type: 'POST',
+          data: {
+              query: request.term,
+              csrf_token: $.cookie('csrf_cookie_cloudhis')
+          },
+          success: function(data){
+              response($.map(data, function(i){
+                  return {
+                      label: i.name,
+                      value: i.name,
+                      id: i.id
+                  }
+              }));
+          }
+   	 	});
 		},
 		minLength: 2,
 		select: function(event, ui){
 			$('input[data-name="surveil-organism-code"]').val(ui.item.id);
 		}
 	});
-	// save data
-	// params $vn, $code_506, $diag_code, $ill_date, $ill_address, $ill_moo, $ill_tmb, $ill_amp, $ill_chw, $patient_status, $death_date, $comp, $organ
+	
 	$('button[data-name="btn-save-surveil"]').click(function() {
 		SURV.doCheck();	
 	});

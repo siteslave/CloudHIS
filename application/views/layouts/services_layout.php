@@ -69,8 +69,8 @@
 						    <ul class="dropdown-menu">
 						      <li><a href="<?php echo base_url(); ?>services"><i class="icon-home"></i> การให้บริการหลัก</a></li>
 						      <li><a href="<?php echo base_url(); ?>refers"><i class="icon-tags"></i> ระบบงานรับส่งต่อ</a></li>
-						      <li><a href="<?php echo base_url(); ?>ttms"><i class="icon-tags"></i> ระบบงานแผทย์แผนไทย</a></li>
-						      <li><a href="<?php echo base_url(); ?>dents"><i class="icon-tags"></i> ระบบงานทันตกรรม</a></li>
+									<li><a href="<?php echo base_url(); ?>ttms"><i class="icon-tags"></i> ระบบงานแผทย์แผนไทย</a></li>
+									<li><a href="<?php echo base_url(); ?>dents"><i class="icon-tags"></i> ระบบงานทันตกรรม</a></li>
 						    </ul>
 						  </li>
   						<li class="dropdown" id="menu-tools">
@@ -160,7 +160,6 @@
           },
           success: function() {}
         });
-
       });
     </script>
     

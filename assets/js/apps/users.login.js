@@ -20,7 +20,12 @@ USER.checkLogin = function()
 		USER.doLogin( _user_name, _user_pass );
 	}
 };
-/** do login **/
+/**
+ * Logging in
+ * @param {String} _u User name
+ * @param {String} _p Password
+ *
+ **/
 USER.doLogin = function( _u, _p ) {
   $.ajax({
 		url: _base_url + 'users/login',
@@ -48,7 +53,7 @@ USER.doLogin = function( _u, _p ) {
 	  }	
 	});// ajax
 };
-  
+
 $(function() {
 	$('button[data-name="btnuser-login"]').click(function(){
 		$(this).button('loading');

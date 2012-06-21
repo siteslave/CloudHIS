@@ -65,7 +65,8 @@
 				<li><a href="#" data-name="service-anc"><i class="icon-envelope"></i>  ฝากครรภ์ (ANC)</a></li>
 				<li class="divider"></li>
 				<li><a href="#" data-name="service-pp"><i class="icon-lock"></i>  ดุแลเด็กหลังคลอด (PP)</a></li>
-				<li><a href="#" data-name="service-mch"><i class="icon-book"></i>  ดูแลแม่หลังคลอด (MCH)</a></li>
+				<li><a href="#" data-name="service-mch-pre"><i class="icon-book"></i>  ตรวจก่อนคลอด</a></li>
+				<li><a href="#" data-name="service-mch-post"><i class="icon-book"></i>  ดูแลแม่หลังคลอด</a></li>
 			</ul>
 		</div>
 		<div class="btn-group">
@@ -397,7 +398,7 @@
 				<input class="input-small" type="text" disabled="disabled" data-name="diag_code" autocomplete="off"> 
 				<input type="text" class="input-xlarge focused" data-name="diag_name" placeholder="พิมพ์รายละเอียด หรือ รหัส icd10..." autocomplete="off">
 				<label for="">ประเภทการวินิจฉัย</label>
-				<select data-name="diag_type" id="diag_type" style="width: 385px;">
+				<select data-name="diag_type" id="diag_type" class="span2">
 					<?php
 						foreach ($diag_types as $key => $value) {
 							if ($key == '1')
@@ -1281,11 +1282,11 @@
 	</div>
 </div>
 <!-- /lab result -->
-<!-- mch  -->
-<div class="modal hide fade" data-name="modal-mch">
+<!-- post mch  -->
+<div class="modal hide fade" data-name="modal-mch-post">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>ข้อมูลการดูแลแม่ก่อนและหลังคลอด</h3>
+    <h3>ข้อมูลการดูแลแม่หลังคลอด</h3>
   </div>
   <div class="modal-body">
     <p>
@@ -1307,7 +1308,71 @@
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
   </div>
 </div>
-<!-- /mch -->
+<!-- /post mch -->
+<!-- pre mch  -->
+<div class="modal hide fade" data-name="modal-mch-pre">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ข้อมูลการดูแลแม่ก่อนคลอด</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#tab-premch-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มการบริการ</a></li>
+        <li><a href="#tab-premch-history" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab-premch-new">
+          <form action="#">
+						<div class="row">
+							<div class="span2">
+								<label for="">Albumin</label>
+								<select data-name="pre-mch-place" class="span2">
+									<option valu="Normal">Normal</option>
+									<option valu="+1">+1</option>
+									<option valu="+2">+2</option>
+									<option valu="+3">+3</option>
+									<option valu="+4">+4</option>
+									<option valu="Trace">Trace</option>
+								</select>
+							</div>
+							<div class="span2">
+								<label for="">ระดับมดลูก</label>
+								<select data-name="pre-mch-place" class="span2">
+									<option valu="0">SP</option>
+									<option valu="1">1/3 มากกว่า SP</option>
+									<option valu="2">2/3 มากกว่า SP</option>
+									<option valu="3">ระดับสะดือ</option>
+									<option valu="4">1/4 มากกว่าสะดือ</option>
+									<option valu="5">2/4 มากกว่าสะดือ</option>
+									<option valu="6">3/4 มากกว่าสะดือ</option>
+								</select>
+							</div>
+							<div class="span2">
+								<label for="">ระดับน้ำตาบ</label>
+								<select data-name="pre-mch-sugar" class="span2">
+									<option valu="Normal">Normal</option>
+									<option valu="+1">+1</option>
+									<option valu="+2">+2</option>
+									<option valu="+3">+3</option>
+									<option valu="+4">+4</option>
+									<option valu="Trace">Trace</option>
+								</select>
+							</div>
+						</div>
+					</form>
+        </div>
+        <div class="tab-pane" id="tab-premch-history">
+          history
+        </div>
+      </div>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+<!-- /pre mch -->
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
