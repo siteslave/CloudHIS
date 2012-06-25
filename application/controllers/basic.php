@@ -26,13 +26,15 @@ class Basic extends CI_Controller {
 	public function search_diag()
 	{
 		$query = $this->input->post('query');
+
 		if( empty($query) ) {
-			show_404();
+			$json = '{"success": false, "msg": "No query found."}';
 		} else {
 			$result = $this->Basic->_search_icd( $query );
 			$json = json_encode($result);
-			printjson($json);
 		}
+
+    printjson($json);
 	}
 	/**
 	* Search icd9
@@ -86,12 +88,15 @@ class Basic extends CI_Controller {
 		$query = $this->input->post('query');
 		
 		if( empty($query) ) {
-			show_404();
+			$json = '{"success": flase, "msg": "No query found!"}';
 		} else {
 			$result = $this->Basic->_search_drug($query);
-			$json 	= json_encode($result);
-			printjson($json);
+			$rows 	= json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
 		}
+
+    printjson($json);
+
 	}
 	/**
 	* Search Drug
@@ -126,32 +131,30 @@ class Basic extends CI_Controller {
 		$query = $this->input->post('query');
 		
 		if( empty($query) ) {
-			show_404();
+		  $json = '{"success": false, "msg": "No query found!"}';
 		} else {
 			$result = $this->Basic->_search_usage($query);
-			$json 	= json_encode($result);
-			printjson($json);
+			$rows 	= json_encode($result);
+
+      $json = '{"success": true, "rows": '.$rows.'}';
 		}
+
+    printjson($json);
+
 	}
-	/**
-	* Search Drug Usage
-	* 
-	* @method 	POST
-	* @url 			/basic/search_usage
-	* @return 	json
-	*
-	**/
+
 	public function search_income()
 	{
 		$query = $this->input->post('query');
 		
 		if( empty($query) ) {
-			show_404();
+			$json = '{"success": false, "msg": "No query found!"}';
 		} else {
 			$result = $this->Basic->_search_income($query);
-			$json 	= json_encode($result);
-			printjson($json);
+			$rows 	= json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
 		}
+    printjson($json);
 	}
 	/**
 	* Get Changwat
@@ -427,4 +430,57 @@ class Basic extends CI_Controller {
 			printjson( $json );
 		}
 	}
+
+  public function get_smokings()
+  {
+    $result = $this->Basic->_get_smokings();
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '. $rows .'}';
+
+    printjson( $json );
+  }
+
+  public function get_drinkings()
+  {
+    $result = $this->Basic->_get_drinkings();
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '. $rows .'}';
+
+    printjson( $json );
+  }
+  public function get_allergics()
+  {
+    $result = $this->Basic->_get_allergics();
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '. $rows .'}';
+
+    printjson( $json );
+  }
+
+  public function get_diag_type_list()
+  {
+    $result = $this->Basic->_get_diag_types();
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '.$rows.'}';
+
+    printjson($json);
+  }
+
+  public function get_doctor_list_visit()
+  {
+    $pcucode = $this->session->userdata('pcucode');
+
+    $result = $this->Basic->_get_doctor_list_visit( $pcucode );
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '.$rows.'}';
+
+    printjson($json);
+  }
+
+
 }

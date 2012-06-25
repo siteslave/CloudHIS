@@ -1,140 +1,293 @@
-toggleAlertIncome = function (title, msg, c){
-	$('div[data-name="alert-income"]').removeClass().addClass(c);
-	$('div[data-name="alert-income"] h4').html(title);
-	$('div[data-name="alert-income"] p').html(msg);
-}
+var INCOME = {};
+
+INCOME.doSave = function( items ) {
+
+	$.ajax({
+		url: _base_url + 'services/doincome',
+		dataType: 'json',
+		type: 'POST',
+		
+		data: {
+			csrf_token: $.cookie('csrf_cookie_cloudhis'),
+			vn: items.vn,
+			income_id: items.income_id,
+			price: items.price,
+			qty: items.qty
+		},
+		
+		success: function(data)
+		{
+			if(data.success)
+			{
+        alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+
+        INCOME.getList();
+
+        $('div[data-name="modal-income"]').modal('hide');
+			}
+			else
+			{
+				alert('เกิดข้อผิดพลาด: ' + data.msg);
+			}
+		  
+		},
+		error: function(xhr, status, errorThrown){
+      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+	  }	
+	});
+};
+
+INCOME.doUpdate = function( items ) {
+
+  $.ajax({
+    url: _base_url + 'services/doupdate_income',
+    dataType: 'json',
+    type: 'POST',
+
+    data: {
+      csrf_token: $.cookie('csrf_cookie_cloudhis'),
+      id: items.id,
+      income_id: items.income_id,
+      price: items.price,
+      qty: items.qty
+    },
+
+    success: function(data)
+    {
+      if(data.success)
+      {
+        alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+        INCOME.getList();
+        $('div[data-name="modal-income"]').modal('hide');
+      }
+      else
+      {
+        alert('เกิดข้อผิดพลาด: ' + data.msg);
+      }
+
+    },
+    error: function(xhr, status, errorThrown){
+      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+    }
+  });
+};
+
+INCOME.doRemove = function( id ) {
+	$.ajax({
+		url: _base_url + 'services/remove_income',
+		dataType: 'json',
+		type: 'POST',
+		
+		data: {
+			csrf_token: $.cookie('csrf_cookie_cloudhis'),
+			id: id
+		},
+		
+		success: function(data){
+			if(data.success){
+        alert('ลบรายการเรียบร้อยแล้ว');
+        INCOME.getList();
+
+			}else{
+        alert('เกิดข้อผิดพลาด: ' + data.msg);
+			}
+		},
+		error: function(xhr, status, errorThrown){
+      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+	  }
+	});
+};
+
+INCOME.showSearchIncome= function()
+{
+  $('div[data-name="mdlSearchIncome"]').modal('show').css({
+    width: 640,
+    'margin-left': function () {
+      return -($(this).width() / 2);
+    }
+  });
+};
+INCOME.showIncome = function() {
+  $('div[data-name="modal-income"]').modal('show').css({
+    width: 700,
+    'margin-left': function () {
+      return -($(this).width() / 2);
+    }
+  });
+};
+
+INCOME.doSearch = function( query )
+{
+  $.ajax({
+    url: _base_url + 'basic/search_income',
+    dataType: 'json',
+    type: 'POST',
+    data: {
+      csrf_token: $.cookie('csrf_cookie_cloudhis'),
+      query: query
+    },
+
+    success: function(data){
+
+      $('table[data-name="tblIncomeSearchResult"] > tbody').empty();
+
+      $.each(data.rows, function(i, v){
+        i++;
+        $('table[data-name="tblIncomeSearchResult"] > tbody').append(
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>' + v.price + '</td>'
+                + '<td>' + v.unit + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn" data-price="'+ v.price +'" data-name="income-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
+                + '</td>'
+                + '</tr>'
+        );
+      });
+
+    },
+    error: function(xhr, status, errorThrown){
+      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+    }
+  });
+};
+
+INCOME.getList = function()
+{
+  var vn = $('input[data-name="vn"]').val();
+
+  $.ajax({
+    url: _base_url + 'services/get_visit_income',
+    dataType: 'json',
+    type: 'POST',
+    data: {
+      csrf_token: $.cookie('csrf_cookie_cloudhis'),
+      vn: vn
+    },
+
+    success: function(data){
+
+      $('table[data-name="tblIncomeList"] > tbody').empty();
+
+      $.each(data.rows, function(i, v){
+        i++;
+        var total = parseFloat(v.price) * parseFloat(v.qty);
+        $('table[data-name="tblIncomeList"] > tbody').append(
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>' + v.unit + '</td>'
+                + '<td>' + addCommas(v.price) + '</td>'
+                + '<td>' + v.qty + '</td>'
+                + '<td>' + addCommas(total) + '</td>'
+                + '<td>'
+                + '<a href="#" title="แก้ไข" class="btn" data-vname="'+ v.name +'" data-price="'+ v.price +'" data-qty="'+ v.qty+'" data-name="income-edit" data-income="'+ v.income_id+'" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
+                + ' <a href="#" title="ลบทิ้ง" class="btn" data-name="income-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
+                + '</td>'
+                + '</tr>'
+        );
+      });
+
+    },
+    error: function(xhr, status, errorThrown){
+      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+    }
+  });
+};
+
 
 $(function(){
-	
-	$('input[data-name="income_price"]').numeric();
-	$('input[data-name="income_qty"]').numeric();
-	// clear drug_code when name change
-	$('input[data-name="income_name"]').keypress(function() {
-		$('input[data-name="income_id"]').val('');
-		//console.log('Text change.');
-	});		
-	// auto complete for income search
-	$('input[data-name="income_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-	            url: _base_url + 'basic/search_income',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        id: i.id,
-	                        unit: i.unit
-	                    }
-	                }));
-	            }
-       	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="income_id"]').val(ui.item.id);
-			$('input[data-name="income_unit"]').val(ui.item.unit);
-		}
-	});
-//
-	// check income detail
-	$( 'a[data-name="btn-save-income"]' ).click( function() {
-		var _vn 		= $('input[data-name="vn"]').val(),
-		_income_id 		= $('input[data-name="income_id"]').val(),
-		_income_name 	= $('input[data-name="income_name"]').val(),
-		_income_unit 	= $('input[data-name="income_unit"]').val(),
-		_qty 			= $('input[data-name="income_qty"]').val(),
-		_price			= $('input[data-name="income_price"]').val();
-		
-		if( ! _vn ) {
-			toggleAlertIncome('กรุณาตรวจสอบข้อมูล', 'ไม่พบ <code> รหัสการให้บริการ (VN) </code>',  'alert alert-error');
-		} else if( ! _income_id ) {
-			toggleAlertIncome('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>รายการค่าใช้จ่าย</code>',  'alert alert-error');
-		} else if( ! _qty ) {
-			toggleAlertIncome('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>จำนวน</code>',  'alert alert-error');
-		} else if( ! _price ) {
-			toggleAlertIncome('กรุณาตรวจสอบข้อมูล', 'ไม่พบ<code>ราคา</code>',  'alert alert-error');
-		} else { // save drug
-			doSaveIncome( _vn, _income_id, _price, _qty, _income_name, _income_unit );
-		}
-	} );
-	
-	// remove drug
-		// remove diag
-	$('a[data-name="remove-income"]').live('click', function() {
-		var _income_id = $(this).attr("data-income"),
-				_vn = $('input[data-name="vn"]').val();
-					
-		if ( confirm( 'คุณต้องการลบรายการนี้ใช่หรือไม่?\r\n หากข้อมูลไม่อัปเดทกรุณารีเฟรชหน้าเพจใหม่' )  ) {
-			$(this).parent().parent().remove();
-			doRemoveIncome( _vn, _income_id);
-		}
-	} );
-	// do save drug
-	var doSaveIncome = function(_vn, _income_id, _price, _qty, _income_name, _income_unit ) {
-		// do save
-		$.ajax({
-			url: _base_url + 'services/doincome',
-			dataType: 'json',
-			type: 'POST',
-			data: {
-				csrf_token: $.cookie('csrf_cookie_cloudhis'),
-				vn: _vn,
-				income_id: _income_id,
-				price: _price,
-				qty: _qty
-			},
-			success: function(data){
-				if(data.success){
-					toggleAlert(' บันทึกข้อมูล',  ' บันทึกข้อมูลเสร็จเรียบร้อยแล้ว', 'alert alert-success');
-					//alert('การบันทึกข้อมูลเสร็จเรียบร้อยแล้ว');
-					// add new row
-					var _total = _price * _qty;
-					
-					var _tr = '<tr><td>' + _income_name  + '</td><td>'+ _income_unit +'</td><td style="text-align: right;">' + addCommas(parseFloat(_price).toFixed(2)) + '</td><td style="text-align: right;">' + addCommas(parseFloat(_qty).toFixed(2)) + '</td><td style="text-align: right;">'+ addCommas(_total.toFixed(2)) +'</td><td><a href="#" data-name="remove-income" data-income="' + _income_id + '" class="btn"> <i class="icon-trash"></i> </a></td></tr>';
-					$('table[data-name="tblIncome"] tbody').append(_tr).fadeIn('slow');
-					// reset form
-					$('button[data-name="btnreset"]').click();
-					// hide dialog
-					$('div#modal-income').modal('hide');
-				}else{
-					toggleAlertIncome('เกิดข้อผิดพลาด!', 'กรุณาตรวจสอบข้อมูล:  ' + data.status,  'alert alert-error');
-				}
-			  
-			},
-			error: function(xhr, status, errorThrown){
-				toggleAlertIncome('เซิร์ฟเวอร์มีปัญหา!', 'เกิดข้อผิดพลาดในการส่งข้อมูล  : <code>' +  xhr.status + ': ' + xhr.statusText + '</code>' ,'alert alert-error');
-				//console.log(xhr);
-		  }	
-		});// ajax
-	}// end do save drug
-	, doRemoveIncome = function( _vn, _income_id) {
-		$.ajax({
-			url: _base_url + 'services/removeincome',
-			dataType: 'json',
-			type: 'POST',
-			data: {
-				csrf_token: $.cookie('csrf_cookie_cloudhis'),
-				vn: _vn,
-				income_id: _income_id
-			},
-			success: function(data){
-				if(data.success){
-					toggleAlert(' ผลการลบ',  ' ลบรายการที่ไม่ต้องการเรียบร้อยแล้ว : หากข้อมูลไม่อัปเดทกรุณารีเฟรชหน้าเพจใหม่ ', 'alert alert-success');
-				}else{
-					toggleAlert('เกิดข้อผิดพลาด!', 'เกิดข้อผิดพลาดในการส่งข้อมูล:  ' + data.status,  'alert alert-error');
-				}
-			  
-			},
-			error: function(xhr, status, errorThrown){
-				toggleAlert('เซิร์ฟเวอร์มีปัญหา!', 'เกิดข้อผิดพลาดในการส่งข้อมูล  : <code>' +  xhr.status + ': ' + xhr.statusText + '</code>' ,'alert alert-error');
-		  }	
-		});// ajax
-	};// end doRemoveDrug
+
+  // show search
+  $('button[data-name="btnIncomeSearch"]').click(function(){
+    INCOME.showSearchIncome();
+  });
+
+  $('button[data-name="btnDoSearchIncome"]').click(function(){
+    var query = $('input[data-name="txtIncomeSearchQuery"]').val();
+    if(!query){
+      alert('กรุณาพิมพ์ข้อความที่ต้องการค้นหา');
+    }else{
+      //do search
+      INCOME.doSearch( query );
+    }
+  });
+
+  $('a[data-name="income-selected"]').live('click', function(){
+    var price = $(this).attr('data-price'),
+        id = $(this).attr('data-id'),
+        name = $(this).attr('data-vname');
+
+    $('input[data-name="txtIncomePrice"]').val(price);
+    $('input[data-name="txtIncomeQty"]').val('1');
+    $('input[data-name="txtIncomeName"]').val(name);
+    $('input[data-name="txtIncomeId"]').val(id);
+    $('div[data-name="mdlSearchIncome"]').modal('hide');
+
+  });
+
+  $('a[data-name="btnSaveIncome"]').click(function(){
+    var items = {};
+    items.vn = $('input[data-name="vn"]').val();
+    items.income_id = $('input[data-name="txtIncomeId"]').val();
+    items.price = $('input[data-name="txtIncomePrice"]').val();
+    items.qty = $('input[data-name="txtIncomeQty"]').val();
+
+    if(!items.vn){
+      alert('ไม่พบรหัสการรับบริการ (VN)');
+    }else if(!items.income_id){
+      alert('ไม่พบรหัสค่าใช้จ่าย');
+    }else if(!items.price){
+      alert('กรุณากำหนดราคาค่าใช้จ่าย');
+    }else if(!items.qty){
+      alert('กรุณากำหนดจำนวนของค่าใช้จ่าย อย่างน้อย 1');
+    }else{
+      var update_id = $('input[data-name="txtIncomeUpdateId"]').val();
+      if(update_id){
+        items.id = update_id;
+        INCOME.doUpdate(items);
+      }else{
+        // do save
+        INCOME.doSave( items );
+      }
+    }
+  });
+
+  $('a[data-name="btnTabIncome"]').click(function(){
+    INCOME.getList();
+  });
+
+  $('a[data-name="income-edit"]').live('click', function(){
+    var items = {};
+    items.id = $(this).attr('data-id'),
+    items.name = $(this).attr('data-vname'),
+    items.price = $(this).attr('data-price'),
+    items.income_id = $(this).attr('data-income'),
+    items.qty = $(this).attr('data-qty');
+
+    $('input[data-name="txtIncomeUpdateId"]').val( items.id );
+    $('input[data-name="txtIncomeName"]').val(items.name);
+    $('input[data-name="txtIncomeId"]').val(items.income_id);
+    $('input[data-name="txtIncomeQty"]').val(items.qty);
+    $('input[data-name="txtIncomePrice"]').val(items.price);
+
+    INCOME.showIncome();
+  });
+
+  $('div[data-name="modal-income"]').on('hide', function(){
+    $('input[data-name="txtIncomeUpdateId"]').val('');
+    $('input[data-name="txtIncomeName"]').val('');
+    $('input[data-name="txtIncomeId"]').val('');
+    $('input[data-name="txtIncomeQty"]').val('');
+    $('input[data-name="txtIncomePrice"]').val('');
+  });
+
+  $('a[data-name="income-remove"]').live('click', function(){
+    var id = $(this).attr('data-id');
+
+    if(confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')){
+      INCOME.doRemove( id );
+    }
+  });
 });

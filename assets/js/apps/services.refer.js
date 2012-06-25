@@ -1,4 +1,9 @@
-var toggleAlertReferOut = function (title, msg, c){
+// create new refer out operation function
+var Refer = {};
+		Refer.Out = {};
+		Refer.In = {};
+	
+Refer.showAlert = function (title, msg, c){
 	$('div[data-name="alert-refer-out-register"]').removeClass().addClass(c);
 	$('div[data-name="alert-refer-out-register"] h4').html(title);
 	$('div[data-name="alert-refer-out-register"] p').html(msg);
@@ -16,11 +21,6 @@ $(function(){
 		dateFormat: 'd/m/yy'
 	}).datepicker('setDate', new Date());
 
-	// create new refer out operation function
-	var Refer = {};
-			Refer.Out = {};
-			Refer.In = {};
-	
 	/**
 	 * Get refer out list
 	 * @param {Date} refer_date Refer out date
@@ -109,15 +109,15 @@ $(function(){
 				$('table[data-name="tblrefer-out-list"] > tbody').empty();
 				if( data.success )	 {
 					alert('การบันทึกข้อมูลเสร็จเรียบร้อยแล้ว');
-					toggleAlertReferOut('การบันทึก ['+data.status+']', 'บันทึกข้อมูลการส่งต่อ (Refer) เสร็จเรียบร้อยแล้ว',  'alert alert-success');
+					Refer.showAlert('การบันทึก ['+data.status+']', 'บันทึกข้อมูลการส่งต่อ (Refer) เสร็จเรียบร้อยแล้ว',  'alert alert-success');
 					// show tab
 					 $('a[data-name="svrrefotab-patient-detail"]').tab('show');
 				} else {
-					toggleAlertReferOut('เกิดข้อผิดพลาด!', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาตรวจสอบ',  'alert alert-error');
+					Refer.showAlert('เกิดข้อผิดพลาด!', 'เกิดข้อผิดพลาดในการบันทึกข้อมูล กรุณาตรวจสอบ',  'alert alert-error');
 				}
 			},
 			error: function(xhr, status, errorThrown) {
-				toggleAlertReferOut('เกิดข้อผิดพลาด!',  xhr.status + ': ' + xhr.statusText,  'alert alert-error');
+				Refer.showAlert('เกิดข้อผิดพลาด!',  xhr.status + ': ' + xhr.statusText,  'alert alert-error');
 			}
 		});
 	};
@@ -148,7 +148,7 @@ $(function(){
 				{
 					var fullname = data.rows[0].fname + ' ' + data.rows[0].lname;
 	
-					toggleAlertReferOut('กรุณาบันทึกข้อมูล', 'กรุณากรอกรายละเอียดการส่งต่อ', 'alert alert-success');
+					Refer.showAlert('กรุณาบันทึกข้อมูล', 'กรุณากรอกรายละเอียดการส่งต่อ', 'alert alert-success');
 	
 					// refer date
 					$('input[data-name="svrefer-register-visit-date"]').val(toThaiDate(data.rows[0].date_serv));
@@ -190,7 +190,7 @@ $(function(){
 			{
 				if( data.success )
 				{
-					toggleAlertReferOut('ข้อมูลซ้ำ!', 'กรุณาตรวจสอบ เอกสารเลขที่ ' + data.refer_id ,  'alert alert-error');
+					Refer.showAlert('ข้อมูลซ้ำ!', 'กรุณาตรวจสอบ เอกสารเลขที่ ' + data.refer_id ,  'alert alert-error');
 				}
 				else
 				{
@@ -575,42 +575,42 @@ $(function(){
 				_refer_type = $('select[data-name="svrefero-register-type"]').val();
 		if ( ! _vn )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', 'ไม่พบ<code>รหัสการรับบริการ [vn]</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', 'ไม่พบ<code>รหัสการรับบริการ [vn]</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [รหัสการรับบริการ]');
 		}
 		else if ( ! _refer_date )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>วันที่ส่งต่อ</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>วันที่ส่งต่อ</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [วันที่ส่งต่อ]');
 		}
 		else if ( ! _diag )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>การวินิจฉัย</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>การวินิจฉัย</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [การวินิจฉัย]');
 		}
 		else if ( ! _refer_cause )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>เหตุผลการส่งต่อ</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>เหตุผลการส่งต่อ</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [เหตุผลการส่งต่อ]');
 		}
 		else if ( ! _refer_type )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>ประเภทการส่งต่อ</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>ประเภทการส่งต่อ</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [ประเภทการส่งต่อ]');
 		}
 		else if ( ! _to_hospital )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>สถานพยาบาลที่จะส่งต่อ</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>สถานพยาบาลที่จะส่งต่อ</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [สถานพยาบาลส่งต่อ]');
 		}
 		else if ( ! _treatment )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>การให้การรักษาเบื้องต้น</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>การให้การรักษาเบื้องต้น</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [การให้การรักษาเบื้องต้น]');
 		}
 		else if ( ! _appoint_date )
 		{
-			toggleAlertReferOut('ข้อมูลไม่สมบูรณ์!', '<code>วันที่นัดผู้ป่วยเข้ารับบริการที่สถานบริการ</code>',  'alert alert-error');
+			Refer.showAlert('ข้อมูลไม่สมบูรณ์!', '<code>วันที่นัดผู้ป่วยเข้ารับบริการที่สถานบริการ</code>',  'alert alert-error');
 			alert('ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ [วันนัดผู้ป่วยเข้ารับบริการครั้งต่อไป]');
 		}
 		else
@@ -644,7 +644,7 @@ $(function(){
 		$('input[data-name="svrefero-dateserv"]').val('');
 		$('input[data-name="svrefero-search-patient"]').val('');
 		
-		toggleAlertReferOut('บันทึกข้อมูลการให้บริการส่งต่อ!', 'กรุณากรอกข้อมูลให้ถูกต้อง และสมบูรณ์',  'alert alert-info');
+		Refer.showAlert('บันทึกข้อมูลการให้บริการส่งต่อ!', 'กรุณากรอกข้อมูลให้ถูกต้อง และสมบูรณ์',  'alert alert-info');
 	});
 	
 	$('input[data-name="svrefero-search-patient"]').autocomplete({

@@ -25,6 +25,7 @@ class Services extends CI_Controller {
 		$this->load->model('Anc_model', 'ANC');
 		$this->load->model('Ncd_model', 'NCD');
 		$this->load->model('Lab_model', 'LAB');
+		$this->load->model('Drugusages_model', 'Usages');
 	}
 
 	/**
@@ -47,10 +48,10 @@ class Services extends CI_Controller {
 	**/
 	public function register()
 	{
-		$data['pttypes']	= $this->Basic->_get_pttypes_dropdown();
-		$data['clinics']	= $this->Basic->_get_clinics_dropdown();
-		$data['locations']	= $this->Basic->_get_locations_dropdown();
-		$data['places']		= $this->Basic->_get_places_dropdown();
+		$data['pttypes']    = $this->Basic->_get_pttypes_dropdown();
+		$data['clinics']    = $this->Basic->_get_clinics_dropdown();
+		$data['locations']  = $this->Basic->_get_locations_dropdown();
+		$data['places']	    = $this->Basic->_get_places_dropdown();
 
 		$this->layout->view('/services/register_view', $data);
 	}
@@ -122,24 +123,24 @@ class Services extends CI_Controller {
 			if( count($data['rows']) ) {
 				$data['screenings'] 	= $this->Services->_getScreening($vn);
 				// basic data
-				$data['allergics'] 		= $this->Basic->_get_allergics_dropdown();
-				$data['diag_types']		= $this->Basic->_get_diagtype_dropdown();
+				//$data['allergics'] 		= $this->Basic->_get_allergics_dropdown();
+				//$data['diag_types']		= $this->Basic->_get_diagtype_dropdown();
 				$data['appoints']			= $this->Basic->_get_appoint_dropdown();
 				$data['fptypes']			= $this->Basic->_get_fptype_dropdown();
 				$data['fpplaces']			= $this->Basic->_get_fpplace_dropdown();
 				$data['vccplaces']		= $this->Basic->_get_vccplace_dropdown();
 				$data['vcctypes']			= $this->Basic->_get_vcctype_dropdown();
 				// screening
-				$data['smokes']				= $this->Basic->_get_smoke_dropdown();
-				$data['alcohols']			= $this->Basic->_get_alcohol_dropdown();
+				//$data['smokes']				= $this->Basic->_get_smoke_dropdown();
+				//$data['alcohols']			= $this->Basic->_get_alcohol_dropdown();
 				$data['blood_screens']= $this->Basic->_get_blood_screen_dropdown();
 				
 				$data['patient_status'] = $this->Basic->_get_surveil_patient_status_dropdown();
 				
-				$data['diags']			= $this->Services->_getDiag($vn);
-				$data['procedures']	= $this->Services->_get_procedure($vn);
-				$data['drugs']			= $this->Services->_get_drugs($vn);
-				$data['incomes']		= $this->Services->_get_income($vn);
+				//$data['diags']			= $this->Services->_getDiag($vn);
+				//$data['procedures']	= $this->Services->_get_procedure($vn);
+				//$data['drugs']			= $this->Services->_get_drugs($vn);
+				//$data['incomes']		= $this->Services->_get_income($vn);
 				
 				$this->layout->view('/services/detail_view', $data);
 			} else {
@@ -190,7 +191,7 @@ class Services extends CI_Controller {
 																									$temperature, $fbs, $bp1, $bp2, $dtx1, $dtx2, $smoking, 
 																									$drinking, $allergic, $cc, $bmi);
 				if ( $result ) {
-					$json = '{"success": true, "msg": "Insert"}';
+					$json = '{"success": true, "msg": "เพิ่ม"}';
 					printjson($json);
 				} else {
 					// $json = '{"success": false}';
@@ -204,7 +205,7 @@ class Services extends CI_Controller {
 																										$drinking, $allergic, $cc, $bmi);
 					
 				if ( $result ) {
-					$json = '{"success": true, "msg": "Update"}';
+					$json = '{"success": true, "msg": "ปรับปรุง"}';
 					printjson($json);
 				} else {
 					// $json = '{"success": false}';
@@ -259,7 +260,7 @@ class Services extends CI_Controller {
 			// check if principle diag exist
 			if ( $diag_type == '1') {
 				$c = count( $this->Services->_checkPrincipleExist($vn) );
-				if ( $c == 0) {
+				if ( $c == 0 ) {
 					// check if double diag
 					$double_diag = count( $this->Services->_checkDoubleDiag($vn, $diag_code, $diag_type) );
 					if( $double_diag == 0 ) {
@@ -268,13 +269,13 @@ class Services extends CI_Controller {
 						if ( $result ) {
 							$json = '{"success": true}';
 						} else {
-							$json = '{"success": false, "status": "Database error"}';
+							$json = '{"success": false, "msg": "Database error"}';
 							}
 					} else { // double diag
-						$json = '{"success": false, "status": "You use double diag, please use other diag."}';
+						$json = '{"success": false, "msg": "Diag ซ้ำ กรุณาเลือกใหม่"}';
 					}
 				} else { // principle diag exist
-					$json = '{"success": false, "status": "Principle diag exist, please use other diag"}';
+					$json = '{"success": false, "msg": "Principle diag มีอยู่แล้วกรุณาเลือกประเภทใหม่"}';
 				}
 			}else {
 				// check if double diag
@@ -285,10 +286,10 @@ class Services extends CI_Controller {
 					if ( $result ) {
 						$json = '{"success": true}';
 					} else {
-						$json = '{"success": false, "status": "Database error"}';
+						$json = '{"success": false, "msg": "Database error"}';
 						}
 				} else { // double diag
-					$json = '{"success": false, "status": "You use double diag, please use other diag."}';
+					$json = '{"success": false, "msg": "มี Diag นี้อยู่แล้ว กรุณาเลือกรายการอื่น"}';
 				}
 			}
 			// render json
@@ -309,15 +310,14 @@ class Services extends CI_Controller {
 	**/
 	public function removediag()
 	{
-		$vn 				= $this->input->post('vn');
-		$diag_code 	= $this->input->post('diag_code');
+		$id 	= $this->input->post('id');
 				
-		if ( ! empty( $vn ) || ! empty( $diag_code )  ) {
-			$result = $this->Services->_remove_diag($vn, $diag_code);		
+		if ( ! empty( $id ) ) {
+			$result = $this->Services->_remove_diag($id);
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			printjson($json);
 		} else {
@@ -333,31 +333,29 @@ class Services extends CI_Controller {
 	**/
 	public function doproced()
 	{
-		$vn 			= $this->input->post('vn');
-		$code 		= $this->input->post('code');
-		$price 		= $this->input->post('price');
-		$user_id	= '1001';
-		
-		// vn not empty
-		if( ! empty($vn) || ! empty($code) || ! empty($price) ) {
-			if ( $this->Services->_check_procedure_exist($vn, $code) ) {
-				$json = '{"success": false, "status": "รายการซ้ำ"}';
+		$vn 			  = $this->input->post('vn');
+		$proced_code  = $this->input->post('proced_code');
+		$price 		  = $this->input->post('price');
+		$doctor_id  = $this->input->post('doctor_id');
+
+		if( ! empty($vn) || ! empty($proced_code) || ! empty($price) || !empty($doctor_id)) {
+			if ( $this->Services->_check_procedure_exist($vn, $proced_code) ) {
+				$json = '{"success": false, "msg": "รายการซ้ำ"}';
 			} else {
-				$result = $this->Services->_save_procedure($vn, $code, $price, $user_id);
+				$result = $this->Services->_save_procedure($vn, $proced_code, $price, $doctor_id);
 				// json encode
 				if( $result ) {
-					$json = '{"success": true, "username": "' . get_username($user_id) . '"}';
+					$json = '{"success": true}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
-
-			printjson($json);
 			
 		} else { // vn empty
-			// show error 404 if no id
-			show_404();
+			$json = '{"success": false, "msg": "No VN found!"}';
 		}
+
+    printjson($json);
 	}
 	/**
 	* Remove diag
@@ -367,27 +365,29 @@ class Services extends CI_Controller {
 	**/
 	public function removeproced()
 	{
-		$vn 	= $this->input->post('vn');
-		$code 	= $this->input->post('code');
+		$id 	= $this->input->post('id');
 				
-		if ( ! empty( $vn ) || ! empty( $code )  ) {
-			$result = $this->Services->_remove_procedure($vn, $code);		
+		if ( ! empty( $id ) ) {
+			$result = $this->Services->_remove_procedure($id);
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
-			printjson($json);
+
 		} else {
-			show_404();
+      $json = '{"success": false, "msg": "No ID found!"}';
 		}
+
+    printjson($json);
+
 	}
 	/**
 	* Save Drug
 	*
-	* @url			POST /services/dodrug
-	* 
-	**/
+* @url			POST /services/dodrug
+*
+**/
 	public function dodrug()
 	{
 		$vn 			= $this->input->post('vn');
@@ -400,13 +400,13 @@ class Services extends CI_Controller {
 				
 		if ( ! empty( $vn ) || ! empty( $drug_id ) || ! empty( $usage_id ) || ! empty( $price ) || ! empty( $qty )  ) {
 			if ( $this->Services->_check_drug_exist($vn, $drug_id) ) {
-				$json = '{"success": false, "status": "รายการซ้ำ"}';
+				$json = '{"success": false, "msg": "รายการซ้ำ"}';
 			} else {
 				$result = $this->Services->_save_drug($vn, $drug_id, $usage_id, $price, $qty);		
 				if ( $result ) {
 					$json = '{"success": true}';	
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 			
@@ -415,28 +415,52 @@ class Services extends CI_Controller {
 			show_404();
 		}
 	}
+
+  public function update_drug()
+  {
+    $id = $this->input->post('id');
+    $drug_id = $this->input->post('drug_id');
+    $price = $this->input->post('price');
+    $qty = $this->input->post('qty');
+    $usage_id = $this->input->post('usage_id');
+
+    if(empty($id)){
+      $json = '{"success": false, "msg": "No id found!"}';
+    }else{
+      $result = $this->Services->do_update_drug($id, $drug_id, $price, $qty, $price, $usage_id);
+      if($result){
+        $json = '{"success": true}';
+      }else{
+        $json = '{"success": false, "msg": "Database error."}';
+      }
+    }
+
+    printjson( $json );
+  }
 	/**
 	* Remove drug
 	*
 	* @url			POST /services/removedrug
 	* 
 	**/
-	public function removedrug()
+	public function remove_drug()
 	{
-		$vn 		= $this->input->post('vn');
-		$drug_id 	= $this->input->post('drug_id');
+		$id = $this->input->post('id');
 
-		if ( ! empty( $vn ) || ! empty( $drug_id )  ) {
-			$result = $this->Services->_remove_drug($vn, $drug_id);		
+		if ( !empty( $id )) {
+			$result = $this->Services->_remove_drug($id);
 			if ( $result ) {
-				$json = '{"success": true, "msg": "'.$drug_id.'"}';	
+				$json = '{"success": true}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
-			printjson($json);
+
 		} else {
-			show_404();
+      $json = '{"success": false, "msg": "No id found!"}';
 		}
+
+    printjson($json);
+
 	}
 	/**
 	* Save Income
@@ -453,21 +477,19 @@ class Services extends CI_Controller {
 
 		if ( ! empty( $vn ) || ! empty( $income_id ) || ! empty( $price ) || ! empty( $qty )  ) {
 			if ( $this->Services->_check_income_exist($vn, $income_id) ) {
-				$json = '{"success": false, "status": "รายการซ้ำ"}';
+				$json = '{"success": false, "msg": "รายการซ้ำ"}';
 			} else {
 				$result = $this->Services->_save_income($vn, $income_id, $price, $qty);		
 				if ( $result ) {
 					$json = '{"success": true}';	
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
-			
-			printjson($json);
-			
 		} else {
-			show_404();
+      $json = '{"success": false, "msg": "ข้อมูลไม่สมบูรณ์ กรุณาตรวจสอบ"}';
 		}
+    printjson($json);
 	}
 	/**
 	* Remove income
@@ -475,22 +497,24 @@ class Services extends CI_Controller {
 	* @url			POST /services/removeincome
 	* 
 	**/
-	public function removeincome()
+	public function remove_income()
 	{
-		$vn 		= $this->input->post('vn');
-		$income_id 	= $this->input->post('income_id');
+		$id 	= $this->input->post('id');
 
-		if ( ! empty( $vn ) || ! empty( $income_id )  ) {
-			$result = $this->Services->_remove_income($vn, $income_id);		
+		if ( ! empty( $id )  ) {
+			$result = $this->Services->_remove_income($id);
 			if ( $result ) {
-				$json = '{"success": true, "msg": "'.$income_id.'"}';	
+				$json = '{"success": true}';
 			} else {
 				$json = '{"success": false, "status": "Database error."}';
 			}
-			printjson($json);
+
 		} else {
-			show_404();
+      $json = '{"success": false, "status": "No ID found!"}';
 		}
+
+    printjson($json);
+
 	}
 	/**
 	* Save Appointment
@@ -1113,6 +1137,117 @@ class Services extends CI_Controller {
 			show_404();
 		}
 	}
+
+  public function get_visit_diag()
+  {
+    $vn = $this->input->post('vn');
+    if(empty($vn)){
+      $json = '{"success": false, "msg": "ไม่พบรหัสการรับบริการ (VN)"}';
+    }else{
+      $result = $this->Services->_get_visit_diags($vn);
+      $rows = json_encode($result);
+
+      $json = '{"success": true, "rows": '.$rows.'}';
+    }
+
+    printjson( $json );
+  }
+
+  public function get_visit_proced()
+  {
+    $vn = $this->input->post('vn');
+    if(empty($vn)){
+      $json = '{"success": false, "msg": "ไม่พบรหัสการรับบริการ (VN)"}';
+    }else{
+      $result = $this->Services->_get_procedure($vn);
+      $rows = json_encode($result);
+
+      $json = '{"success": true, "rows": '.$rows.'}';
+    }
+
+    printjson( $json );
+  }
+
+  public function get_visit_drug()
+  {
+    $vn = $this->input->post('vn');
+    if(empty($vn)){
+      $json = '{"success": false, "msg": "ไม่พบรหัสการรับบริการ (VN)"}';
+    }else{
+      $result = $this->Services->_get_drugs($vn);
+      $rows = json_encode($result);
+
+      $json = '{"success": true, "rows": '.$rows.'}';
+    }
+
+    printjson( $json );
+  }
+
+  // do save usage
+  public function dosave_usage()
+  {
+    $name1 = $this->input->post('name1');
+    $name2 = $this->input->post('name2');
+
+    $result = $this->Usages->dosave($name1, $name2);
+    if($result){
+      $json= '{"success": true}';
+    }else{
+      $json = '{"success": false, "msg": "Database error."}';
+    }
+
+    printjson( $json );
+  }
+
+  public function get_visit_drug_detail()
+  {
+    $id = $this->input->post('id');
+    if(empty($id)){
+      $json = '{"success": false, "msg": "No id found!"}';
+    }else{
+      $result = $this->Services->get_drug_detail( $id );
+      $rows = json_encode($result);
+
+      $json = '{"success": true, "rows":'.$rows . '}';
+    }
+
+    printjson( $json );
+  }
+
+  public function get_visit_income()
+  {
+    $vn = $this->input->post('vn');
+    if(empty($vn)){
+      $json = '{"success": false, "msg": "No VN found!"}';
+    }else{
+      $result = $this->Services->_get_income($vn);
+      $rows = json_encode($result);
+
+      $json = '{"success": true, "rows":'.$rows . '}';
+    }
+
+    printjson( $json );
+  }
+
+  public function doupdate_income()
+  {
+    $id = $this->input->post('id');
+    $income_id = $this->input->post('income_id');
+    $price = $this->input->post('price');
+    $qty = $this->input->post('qty');
+
+    if(empty($id)){
+      $json = '{"success": false, "msg": "No ID found!"}';
+    }else{
+      $result = $this->Services->doupdate_income($id, $income_id, $price, $qty);
+      if($result){
+        $json = '{"success": true}';
+      }else{
+        $json = '{"success": false, "msg": "Database error."}';
+      }
+    }
+    printjson( $json );
+  }
 }	
 /* End of file services.php */
 /* Location: ./application/controllers/services.php */
