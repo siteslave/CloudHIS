@@ -967,97 +967,141 @@
 		<h3>บันทึกข้อมูลการวางแผนครอบครัว (Family Planing)</h3>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-fp">
-			<h4>คำแนะนำ</h4>
-			<p>ผู้มารับบริการ 1 คน สามารถใช้บริการได้มากกว่า 1 ครั้ง </p>
-		</div>
 		<p>
 		<div class="tabbable">
-			<ul class="nav nav-pills">
-				<li class="active"><a href="#tab-fp-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
-				<li><a href="#tab-fp-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tab-fp-list" data-toggle="tab"><i class="icon-time"></i> ประวัติการรับบริการ</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane active" id="tab-fp-list">
-					<table class="table table-striped" data-name="tblFPList">
-						<thead>
-							<tr>
-								<th>วันที่รับบริการ</th>
-								<th>วิธีคุมกำเนิด</th>
-								<th>เวชภัณฑ์</th>
-								<th>จำนวน</th>
-								<th>สถานที่</th>
-							</tr>
-							<tbody>
-							</tbody>
-						</thead>
-					</table>
-				</div>
-				<div class="tab-pane" id="tab-fp-new">
-				<form>
-					<div class="row">
-						<div class="span4">
-							<label for="">วิธีคุมกำเนิด</label>
-							<select data-name="fp-type">
-								<?php 
-								$i = 1;
-								foreach($fptypes as $key => $value){
-									if ($i == 1) {
-										echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-									} else {
-										echo '<option value="'.$key.'">'.$value.'</option>';
-									}
-									$i++;
-								}
-								?>
-							</select>
-						</div>
-						<div class="span4">
-							<label for="">เวชภัณฑ์</label>
-							<input type="text" data-name="fp-drug-name" class="input-xlarge">
-							<input type="hidden" data-name="fp-drug-code">
-						</div>
-					</div>
-					<div class="row">
-						<div class="span4">
-							<label for="">สถานที่รับบริการ</label>
-							<select data-name="fp-place">
-								<?php 
-								$i = 1;
-								foreach($fpplaces as $key => $value){
-									if ($i == 1) {
-										echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-									} else {
-										echo '<option value="'.$key.'">'.$value.'</option>';
-									}
-									$i++;
-								}
-								?>
-							</select>
-							<label class="checkbox">
-								<input type="checkbox" data-name="fp-add-income" checked="checked"> โอนค่าใช้จ่าย
-							</label>
-							<label class="checkbox">
-								<input type="checkbox" data-name="fp-add-drug" checked="checked"> โอนรายการยา
-							</label>
-						</div>
-						<div class="span4">
-							<label for="">จำนวน</label>
-							<input type="number" class="input-small" data-name="fp-drug-amount">
-						</div>
-					</div>
-					<button type="button" class="btn btn-primary" data-name="btn-save-fp"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
-					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
-				</form>
+          <table class="table" data-name="tblServiceFPHistoryList">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>วันที่</th>
+              <th>วิธีคุมกำเนิด</th>
+              <th>สถานที่</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
 				</div>
 			</div>
 		</div>
+    <button data-name="btnNewFP" class="btn btn-success" type="button">
+      <i class="icon-plus icon-white"></i> เพิ่มใหม่...
+    </button>
 		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
+
+<div class="modal hide fade" data-name="mdlNewFP">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>บันทึกข้อมูลการวางแผนครอบครัว (Family Planing)</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <form class="form-inline">
+    <input type="hidden" data-name="txtFPVisitID" />
+      <blockquote>
+        <i class="icon-warning-sign"></i> ข้อมูลการจ่ายยาสำหรับการวางแผนครอบครัวให้ลงในข้อมุลการจ่ายยา
+      </blockquote>
+      <table class="table">
+        <tr>
+          <td>วิธีคุมกำเนิด</td>
+          <td>
+            <input type="hidden" data-name="txtFPTypeId" />
+            <input type="text" data-name="txtFPTypeName" class="input-xlarge uneditable-input" disabled />
+            <button data-name="btnSearchFPType" type="button" class="btn btn-info">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>สถานที่ร้บบริการ</td>
+          <td>
+            <input type="hidden" data-name="txtFPPlaceId" />
+            <input type="text" data-name="txtFPPlaceName" class="input-xlarge uneditable-input" disabled />
+            <button data-name="btnSearchFPPlace" type="button" class="btn btn-info">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <button type="button" class="btn btn-primary btn-large" data-name="btnDoSaveFP"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
+            <button data-name="btnreset" class="btn btn-large" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
+          </td>
+        </tr>
+      </table>
+
+    </form>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlNewFPSearchHospital">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ค้นหาสถานบริการ</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <form class="form-search">
+      <input type="text" class="input-xlarge search-query" data-name="txtNewFPHospitalQuery" placeholder="พิมพ์ชื่อ หรือ รหัส" />
+      <button type="button" data-name="btnNewFPHospitalDoSearch" class="btn"><i class="icon-search"></i> ค้นหา</button>
+    </form>
+      <table class="table table-striped" data-name="tblNewFPSearchHospitalResult">
+        <thead>
+        <tr>
+          <th>รหัสสถานบริการ</th>
+          <th>ชื่อหน่วยบริการ</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlNewFPSearchType">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>เลือกประเภทการคุมกำเนิด</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+
+    <table class="table table-striped" data-name="tblNewFPSearchTypeList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ประเภทการคุมกำเนิด</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
 <!-- /add fp -->
 <!-- add epi -->
 <div class="modal hide fade" data-name="modal-epi">
@@ -1746,9 +1790,10 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.appoint.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.surveil.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>

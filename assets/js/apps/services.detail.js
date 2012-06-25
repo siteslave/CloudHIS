@@ -19,10 +19,6 @@ $( function() {
 	$('a[data-name="service-epi"]').click(function(){
     SERVICE.detail.modal.showEpi();
 	});
-	// FP
-	$('a[data-name="service-fp"]').click(function(){
-    SERVICE.detail.modal.showFp();
-	});
 	// 506
 	$('a[data-name="service-506"]').click(function(){
     SERVICE.detail.modal.showSurveil();
@@ -382,14 +378,6 @@ $( function() {
 		},
 		showSurveil: function() {
 			$('div[data-name="modal-506"]').modal('show').css({
-        width: 770,
-        'margin-left': function () {
-            return -($(this).width() / 2);
-        }
-    	});
-		},
-		showFp: function() {
-			$('div[data-name="modal-fp"]').modal('show').css({
         width: 770,
         'margin-left': function () {
             return -($(this).width() / 2);
