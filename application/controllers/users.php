@@ -39,13 +39,11 @@ class Users extends CI_Controller {
 				$users = $this->Users->get_userdetail($user_name);
 				$data_session = array(
 															'user_name' => $user_name,
-															'logged' => TRUE
-															/*
+															'logged' => TRUE,
 															'user_fullname' => $users['fullname'],
 															'user_id' => $users['id'],
 															'user_hospital_name' => $users['hospital_name'],
-															'user_pcucode' => $users['pcucode']
-															*/
+															'pcucode' => $users['pcucode']
 															);
 				
 				$this->session->set_userdata($data_session);

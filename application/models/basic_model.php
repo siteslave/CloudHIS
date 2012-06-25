@@ -23,33 +23,22 @@ class Basic_model extends CI_Model {
 	}
 	
 	// return @smokings array()
-	public function _get_smokings_dropdown(){
-		$query = $this->db->get('smokings');
+	public function _get_smokings(){
+		$result = $this->db->get('ncd_screening_smokes')->result();
 
-		foreach ($query->result_array() as $row) {
-			$smokings[$row['id']] = $row['name'];
-		}
-		return $smokings;
+		return $result;
 	}
-	
-	// return @drinkings array()
-	public function _get_drinkings_dropdown(){
-		$query = $this->db->get('drinkings');
 
-		foreach ($query->result_array() as $row) {
-			$drinkings[$row['id']] = $row['name'];
-		}
-		return $drinkings;
-	}
-	
+  public function _get_drinkings(){
+    $result = $this->db->get('ncd_screening_drinks')->result();
+
+    return $result;
+  }
 	// return @allergics array()
-	public function _get_allergics_dropdown(){
-		$query = $this->db->get('drug_allergics');
+	public function _get_allergics(){
+		$result = $this->db->get('drug_allergics')->result();
 
-		foreach ($query->result_array() as $row) {
-			$allergics[$row['id']] = $row['name'];
-		}
-		return $allergics;
+		return $result;
 	}
 	// @return	array()
 	public function _get_pttypes_dropdown(){
@@ -116,14 +105,9 @@ class Basic_model extends CI_Model {
 	* Get Diag type
 	*
 	**/
-	public function _get_diagtype_dropdown(){
-		$query = $this->db->get('diag_types');
-		
-		foreach ($query->result_array() as $row) {
-			$diag_types[$row['code']] = $row['name'];
-		}
-		
-		return $diag_types;	
+	public function _get_diag_types(){
+		$query = $this->db->get('diag_types')->result();
+    return $query;
 	}
 	/*
 	* Search Hospital
@@ -143,7 +127,9 @@ class Basic_model extends CI_Model {
 	*
 	**/
 	public function _search_drug($query){
-		$result = $this->db->like('name', $query)
+		$result = $this->db->select('id, name, strength, units, unitprice')
+                      ->like('name', $query)
+                      ->where('active', 'Y')
 											->limit(20)
 											->get('drugitems')
 											->result();
@@ -168,8 +154,8 @@ class Basic_model extends CI_Model {
 	*
 	**/
 	public function _search_usage($query){
-		$result = $this->db->select(array('id', 'name1 as name'))
-		 									->like('name1', $query)
+		$result = $this->db->like('name1', $query)
+                      ->where('usage_status', 'Y')
 											->limit(20)
 											->get('drugusages')
 											->result();
@@ -364,7 +350,7 @@ class Basic_model extends CI_Model {
 	*
 	**/
 	public function _get_alcohol_dropdown(){
-		$query = $this->db->get('ncd_screening_alcohols');
+		$query = $this->db->get('ncd_screening_drinks');
 
 		foreach ($query->result_array() as $row) {
 			$result[$row['id']] = $row['name'];
@@ -593,6 +579,12 @@ class Basic_model extends CI_Model {
 		}
 		return $result;
 	}
+
+  public function _get_doctor_list_visit( $pcucode )
+  {
+    $result = $this->db->where('pcucode', $pcucode)->get('doctors')->result();
+    return $result;
+  }
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */

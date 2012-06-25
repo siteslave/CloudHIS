@@ -1,13 +1,13 @@
 <?php foreach ($rows as $row); ?>
 <?php foreach ($screenings as $sc); ?>
 
-<ul class="nav nav-pills">
-	<li class="active"><a data-toggle="tab" href="#svdetail-patient-info"><i class="icon-user icon-white"></i> ข้อมูลการรับบริการ</a></li>
-	<li><a data-toggle="tab" href="#svdetail-patient-history"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
+<ul class="nav nav-tabs">
+	<li class="active"><a data-toggle="tab" href="#svdetail-patient-info"><i class="icon-user"></i> ข้อมูลการรับบริการ</a></li>
+	<li><a data-toggle="tab" href="#svdetail-patient-history"><i class="icon-time"></i> ประวัติการรับบริการ</a></li>
 </ul>
 <div class="tab-content">
 	<div class="tab-pane active" id="svdetail-patient-info">
-		<div class="rows">
+		<div class="row-fluid">
 			<div class="span2">
 				<?php echo img(array(
 												'src' => 'assets/img/no_person.jpg',
@@ -95,10 +95,10 @@
 </div>
 
 <!-- alert -->
-<div class="row">
-	<div class="span9">
+<div class="row-fluid">
+	<div class="span12">
 		<div id="alert-block" class="alert alert-info">
-			<!-- <a class="close" data-dismiss="alert" href="#">&times;</a> -->
+			<a class="close" data-dismiss="alert" href="#">&times;</a>
 			<h4 class="alert-heading">คำแนะนำ</h4>
 			<p>กรุณากรอกข้อมูลให้ถูกต้องและสมบูรณ์ ไม่เช่นนั้นโปรแกรมจะไม่ทำการบันทึกข้อมูลการให้บริการของผู้รับบริการ</p>
 	</div>
@@ -107,146 +107,169 @@
 <!-- /alert -->
 
 	<!-- main tab -->
-<ul class="nav nav-pills">
+<ul class="nav nav-tabs">
 	<li class="active">
-		<a data-toggle="tab" href="#tab-cc"> <i class="icon-check icon-white"></i> ข้อมูลคัดกรอง</a>
+		<a data-toggle="tab" href="#tabCC"> <i class="icon-check"></i> ข้อมูลคัดกรอง</a>
 	</li>
 	<li>
-		<a data-toggle="tab" href="#tab-diag"> <i class="icon-edit icon-white"></i> การวินิจฉัยโรค</a>
+		<a data-toggle="tab" data-name="btnTabDiag" href="#tabDiags"> <i class="icon-edit"></i> การวินิจฉัยโรค</a>
 	</li>
 	<li>
-		<a data-toggle="tab" href="#tab-proced"> <i class="icon-eye-open icon-white"></i> การทำหัตถการ</a>
+		<a data-toggle="tab" href="#tab-proced" data-name="btnTabProced"> <i class="icon-eye-open"></i> การทำหัตถการ</a>
 	</li>
 	<li>
-		<a data-toggle="tab" href="#tab-drug"> <i class="icon-check icon-white"></i> การจ่ายยา</a>
+		<a data-toggle="tab" href="#tab-drug" data-name="btnTabDrug"> <i class="icon-check"></i> การจ่ายยา</a>
 	</li>
 	<li>
-		<a data-toggle="tab" href="#tab-income"> <i class="icon-shopping-cart icon-white"></i>  ค่าบริการอื่นๆ</a>
+		<a data-toggle="tab" href="#tab-income" data-name="btnTabIncome"> <i class="icon-shopping-cart"></i>  ค่าบริการอื่นๆ</a>
 	</li>
 </ul>
 <!-- tab content -->
 <!-- tabs data -->
 
 <div class="tab-content" style="min-height: 350px;">
-	<div class="tab-pane active" id="tab-cc">
-		<div class="row">
-			<div class="span2">
-				<label>น้ำหนัก</label>
-				<input data-name="weight" class="" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->weight : ''; ?>">
-				<label>รอบเอว (ซม.)</label>
-				<input data-name="waistline" class="" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->waistline : ''; ?>">
-				<label>BMI</label>
-				<input data-name="bmi" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bmi : ''; ?>">
-			</div>
-			<div class="span2">
-				<label>ส่วนสูง (ซม.)</label>
-				<input data-name="height" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->height : ''; ?>">
-				<label>ความดัน (บน)</label>
-				<input data-name="bp1" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bp1 : ''; ?>">
-				<label>ความดัน (ล่าง)</label>
-				<input data-name="bp2" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->bp2 : ''; ?>">
-			</div>
-			<div class="span2">
-				<label>ชีพจร (m.)</label>
-				<input data-name="pulse" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->pulse : ''; ?>">
-				<label>อุณหภูมิ </label>
-				<input data-name="temperature" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->temperature : ''; ?>">
-				<label>DTX1</label>
-				<input data-name="dtx1" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->dtx1 : ''; ?>" >
-			</div>
-			
-			<div class="span2">
-				<label>หัวใจ (m.)</label>
-				<input data-name="heartbeat" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->heartbeat : ''; ?>">
-				<label>FBS</label>
-				<input data-name="fbs" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->fbs : ''; ?>">
-				<label>DTX2</label>
-				<input data-name="dtx2" style="width: 90px;" type="number" value="<?php echo ! empty($sc) ? $sc->dtx2 : ''; ?>">
-			</div>
-				
-		</div><!-- /row -->
-		<div class="row">
-			<div class="span2">
-				<label for="cigarate">การสูบบุหรี่</label>
-				<select data-name="smoking" id="cigarate" class="span2">
-						<?php 
-						$i = 1;
-						foreach($smokes as $key => $value){
-							if( $sc->smoking == $key ) {
-								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-							} else {
-								if( $i == 1) {
-									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-								} else {
-									echo '<option value="'.$key.'">'.$value.'</option>';
-								}
-							}
-							$i++;
-						}
-						?>
-				</select>
-			</div>
-			<div class="span2">
-				<label for="drink">การดื่่มสุรา</label>
-				<select data-name="drinking" id="drink" class="span2">
-						<?php 
-						$i = 1;
-						foreach($alcohols as $key => $value){
-							if( $sc->drinking == $key ) {
-								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-							} else {
-								if ($i == 1) {
-									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-								} else {
-									echo '<option value="'.$key.'">'.$value.'</option>';
-								}
-							}
-
-							$i++;
-						}
-						?>
-				</select>
-			</div>
-			<div class="span2">
-				<label for="drug-error">การแพ้ยา</label>
-				<select data-name="allergic" id="drug-error" class="span2">
-					<?php
-						$i = 1;
-						foreach ( $allergics as $key => $value ) {
-							if( $sc->allergic == $key ) {
-								echo '<option value="'.$key.'" selected="selected">'. $value . '</option>';
-							}else {
-								if ($i == 1) {
-									echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-								} else {
-									echo '<option value="'.$key.'">'.$value.'</option>';
-								}
-							}
-						}
-						$i++;
-					?>
-				</select>
-			</div>
-		</div><!-- /row -->
-		
-		<div class="row">
-			<div class="span3">
-				<label for="cc">อาการแรกรับ</label>
-				<textarea class="span6" rows="4" id="cc" data-name="cc"><?php echo ! empty($sc) ? $sc->cc : ''; ?></textarea>
-			</div>
-		</div>
+	<div class="tab-pane active" id="tabCC">
+    <form class="form-inline">
+      <blockquote>
+        บันทึกข้อมูลการตรวจคัดกรองเบื้องต้น โดยควรกรอกข้อมูลให้ครบทุกช่อง (ถ้ามี)
+      </blockquote>
+    <table class="table">
+      <tr>
+        <td>น้ำหนัก</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="weight" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->weight : ''; ?>">
+            <span class="add-on">กก.</span>
+          </div>
+        </td>
+        <td>ส่วนสูง</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="height" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->height : ''; ?>">
+            <span class="add-on">ซม.</span>
+        </div>
+        </td>
+        <td>รอบเอว</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="waistline" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->waistline : ''; ?>">
+            <span class="add-on">นิ้ว.</span>
+        </div>
+        </td>
+      </tr>
+      <tr>
+        <td>BMI</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="bmi" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->bmi : ''; ?>">
+            <span class="add-on">นิ้ว.</span>
+          </div>
+        </td>
+        <td>ความดัน (บน)</td>
+        <td>
+          <div class="input-append">
+          <input type="text" data-name="bp1" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->bp1 : ''; ?>">
+            <span class="add-on">mm/hg</span>
+            </div>
+        </td>
+        <td>ความดัน (ล่าง)</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="bp2" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->bp2 : ''; ?>">
+            <span class="add-on">mm/hg</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>ชีพจร</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="pulse" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->pulse : ''; ?>">
+            <span class="add-on">mm/hg</span>
+          </div>
+        </td>
+        <td>อุณหภูมิ</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="temperature" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->temperature : ''; ?>">
+            <span class="add-on">C</span>
+          </div>
+        </td>
+        <td>DTX1</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="dtx1" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->dtx1 : ''; ?>">
+            <span class="add-on">...</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>DTX2</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="dtx2" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->dtx2 : ''; ?>">
+            <span class="add-on">...</span>
+          </div>
+        </td>
+        <td>FBS</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="fbs" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->fbs : ''; ?>">
+            <span class="add-on">...</span>
+          </div>
+        </td>
+        <td>หัวใจ</td>
+        <td>
+          <div class="input-append">
+            <input type="text" data-name="heartbeat" class="input-mini" data-type="number" value="<?php echo ! empty($sc) ? $sc->heartbeat : ''; ?>">
+            <span class="add-on">m.</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>การสูบบุหรี่</td>
+        <td>
+          <input type="text" class="input-small" value="<?php echo !empty($sc) ? $sc->smoking_name : ''; ?>" disabled data-name="txtSmokingName" />
+          <input type="hidden" data-name="txtSmokingId" value="<?php echo !empty($sc) ? $sc->smoking_id : ''; ?>" />
+          <button type="button" data-name="btnSelectSmoking" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+        </td>
+        <td>การดื่มสุรา</td>
+        <td>
+          <input type="text" class="input-small" value="<?php echo !empty($sc) ? $sc->drinking_name : '' ?>" disabled data-name="txtDrinkingName" />
+          <input type="hidden" data-name="txtDrinkingId" value="<?php echo !empty($sc) ? $sc->drinking_id : ''; ?>" />
+          <button type="button" data-name="btnSelectDrinking" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+        </td>
+        <td>แพ้ยา</td>
+        <td>
+          <input type="text" class="input-small" value="<?php echo !empty($sc) ? $sc->allergics_name : ''; ?>" disabled data-name="txtAllergicsName" />
+          <input type="hidden" data-name="txtAllergicsId" value="<?php echo !empty($sc) ? $sc->allergics_id : ''; ?>" />
+          <button type="button" data-name="btnSelectAllergics" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+        </td>
+      </tr>
+      <tr>
+        <td>อาการ (CC)</td>
+        <td colspan="6">
+          <textarea class="input-xxlarge" rows="3" data-name="cc"><?php echo ! empty($sc) ? $sc->cc : ''; ?></textarea>
+        </td>
+      </tr>
+    </table>
+    </form>
 		
 		<div style="padding: 5px;">
-			<a href="#" class="btn btn-primary" data-loading-text="Saving..." data-name="btnSaveScreen">
-				<i class="icon-ok-sign icon-white"></i> บันทึกการคัดกรอง</a>
+      <a href="#" class="btn btn-large"><i class="icon-refresh"></i> ยกเลิก/ย้อนกลับ</a>
+			<a href="#" class="btn btn-large btn-primary" data-loading-text="Saving..." data-name="btnSaveScreen">
+				<i class="icon-tags icon-white"></i> บันทึกการคัดกรอง</a>
 		</div>
 			
 	</div> <!-- /tab-cc -->
-	<div class="tab-pane" id="tab-diag">
-
-		<table class="table table-striped" data-name="tblDiag">
+	<div class="tab-pane" id="tabDiags">
+    <blockquote>
+      บันทึกการให้รหัสโรค โดยใช้รหัส ICD10-TM เป็นหลัก
+    </blockquote>
+		<table class="table table-striped" data-name="tblDiagList">
 			<thead>
 				<tr>
+					<th>#</th>
 					<th>รหัส</th>
 					<th>คำอธิบาย</th>
 					<th>Diag type</th>
@@ -254,71 +277,38 @@
 				</tr>
 			</thead>
 			<tbody>
-				<?php
-					if( !empty($diags) ) {
-						foreach ($diags as $diag) {
-							echo '<tr>';
-							echo '<td>'. $diag->diag_code .'</td>';
-							echo '<td>'. $diag->name .'</td>';
-							echo '<td>';
-							switch ($diag->diag_type) {
-								case '1':
-									echo 'PRINCIPLE (การวินิจฉัยโรคหลัก)';
-									break;
-								case '2':
-									echo 'CO-MORBIDITY (การวินิจฉัยโรคร่วม)';
-									break;
-								case '3':
-									echo 'COMPLICATION (การวินิจฉัยโรคแทรก)';
-									break;
-								case '4':
-									echo 'OTHER (อื่นๆ)';
-									break;	
-								case '5':
-									echo 'EXTERNAL CAUSE  (สาเหตุภายนอก)';
-									break;	
-								default:
-									echo 'ไม่ระบุ';
-									break;
-							}
-							echo '</td>';
-							echo '<td><a href="#" data-name="remove-icd" data-diag="' . $diag->diag_code . '" class="btn"> <i class="icon-trash"></i> </a></td>';
-							echo '</tr>';
-						}	
-					}
-				?>
 			</tbody>
 		</table>
-			<a href="#" data-name="btnsv-add-diag" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
+	  <a href="#" data-name="btnsv-add-diag" class="btn btn-success"> <i class="icon-plus icon-white"></i> เพิ่มใหม่... </a>
 	</div><!-- /tab-diag -->
+
 	<div class="tab-pane" id="tab-proced">
-		<table class="table table-striped" data-name="tblProced">
+    <blockquote>
+      บันทึกข้อมูลการให้บริการหัตถการ ซึ่งควรเป็นหัตถการที่เป็นการรักษาเท่านั้น
+    </blockquote>
+		<table class="table table-striped" data-name="tblProcedList">
 			<thead>
 				<tr>
-					<th>รหัสหัตถการ</th>
+					<th>#</th>
+					<th>รหัส</th>
 					<th>คำอธิบาย</th>
 					<th>ราคา</th>
 					<th>ผู้ให้หัตถการ</th>
 					<th>ดำเนินการ</th>
 				</tr>
 			</thead>
-			<tbody>
-				<?php 
-				if( ! empty($procedures) ) { 
-					foreach ($procedures as $proced) {
-						echo '<tr><td>' . $proced->code . '</td><td>' . $proced->name . '</td><td style="text-align: right;">' . number_format($proced->price, 2) . '</td><td>' . $proced->fullname  . '</td>';
-						echo '<td><a href="#" data-name="remove-proced" data-proced="' . $proced->code . '" class="btn"> <i class="icon-trash"></i> </a></td>';
-						echo '</tr>';
-					}
-				} ?>
-			</tbody>
+			<tbody></tbody>
 		</table>
-			<a href="#" data-name="btnsv-add-procedure" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
+			<a href="#" data-name="btnsv-add-procedure" class="btn btn-success"> <i class="icon-plus icon-white"></i> เพิ่มใหม่... </a>
 	</div><!-- /tab-proced -->
 	<div class="tab-pane" id="tab-drug">
+    <blockquote>
+      บันทึกข้อมูลการจ่ายยา โดยสามารถกำหนดเป็นชุดได้
+    </blockquote>
 		<table class="table table-striped" data-name="tblDrug">
 			<thead>
 				<tr>
+					<th>#</th>
 					<th>ชื่อยา</th>
 					<th>วิธีการใช้</th>
 					<th>ราคา</th>
@@ -327,30 +317,19 @@
 					<th>จัดการ</th>
 				</tr>
 			</thead>
-			<tbody>
-				<?php
-				if( ! empty($drugs) ) {
-					foreach ($drugs as $drug) {
-						echo '<tr>';
-						echo '<td>' . $drug->drug_name . '</td>';
-						echo '<td>' . $drug->usage_name . '</td>';
-						echo '<td style="text-align: right;">' . number_format($drug->price,2) . '</td>';
-						echo '<td style="text-align: right;">' . number_format($drug->qty, 2) . '</td>';
-						echo '<td style="text-align: right;">' . number_format($drug->price * $drug->qty, 2) . '</td>';
-						echo '<td><a href="#" data-name="remove-drug" data-drug="' . $drug->drug_id . '" class="btn"> <i class="icon-trash"></i> </a></td>';
-						echo '</tr>';
-					}
-				}
-				?>
-			</tbody>
+			<tbody></tbody>
 		</table>
-			<a href="#" data-name="btnsv-add-drug" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
+			<a href="#" data-name="btnsv-add-drug" class="btn btn-success"> <i class="icon-plus icon-white"></i> เพิ่มใหม่... </a>
 	</div>
 	<div class="tab-pane" id="tab-income">
-		<table class="table table-striped" data-name="tblIncome">
+    <blockquote>
+      บันทึกค่าใช้จ่ายต่างๆ เพิ่มเติมนอกเหนือจากค่ายา
+    </blockquote>
+		<table class="table table-striped" data-name="tblIncomeList">
 			<thead>
 				<tr>
-					<th>รายการค่าใช้จ่าย</th>
+					<th>#</th>
+					<th>รายการ</th>
 					<th>หน่วย</th>
 					<th>ราคา</th>
 					<th>จำนวน</th>
@@ -358,133 +337,371 @@
 					<th>จัดการ</th>
 				</tr>
 			</thead>
-			<tbody>
-				<?php
-				if( ! empty($incomes) ) {
-					foreach ($incomes as $income) {
-						echo '<tr>';
-						echo '<td>' . $income->name . '</td>';
-						echo '<td>' . $income->unit . '</td>';
-						echo '<td style="text-align: right;">' . number_format($income->price,2) . '</td>';
-						echo '<td style="text-align: right;">' . number_format($income->qty, 2) . '</td>';
-						echo '<td style="text-align: right;">' . number_format($income->price * $income->qty, 2) . '</td>';
-						echo '<td><a href="#" data-name="remove-income" data-income="' . $income->income_id . '" class="btn"> <i class="icon-trash"></i> </a></td>';
-						echo '</tr>';
-					}
-				}
-				?>
-			</tbody>
+			<tbody></tbody>
 		</table>
-		<a href="#" data-name="btnsv-add-income" class="btn btn-primary"> <i class="icon-plus-sign icon-white"></i> เพิ่มใหม่ </a>
+		<a href="#" data-name="btnsv-add-income" class="btn btn-success"> <i class="icon-plus icon-white"></i> เพิ่มใหม่... </a>
 		
 	</div>
 </div>
 
 <!-- end tab content -->
 <!--  add diag -->
-<div class="modal hide fade" data-name="modal-diag">
+<div class="modal hide fade" data-name="mdlSearchDiags">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการวินิจฉัย</h3>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-diag">
-			<h4>คำแนะนำ</h4>
-			<p>กรุณากรอกรายละเอียดให้ถูกต้องและสมบูรณ์</p>
-		</div>
+    <blockquote>
+      ค้นหา ICD10 เพื่อบันทึกข้อมูลผลการให้บริการ
+    </blockquote>
 		<p>
-			<form class="form-horizontal" data-name="frmSaveDiag">
-				<label for="">รหัสวินิจฉัย</label>
-				<input class="input-small" type="text" disabled="disabled" data-name="diag_code" autocomplete="off"> 
-				<input type="text" class="input-xlarge focused" data-name="diag_name" placeholder="พิมพ์รายละเอียด หรือ รหัส icd10..." autocomplete="off">
-				<label for="">ประเภทการวินิจฉัย</label>
-				<select data-name="diag_type" id="diag_type" class="span2">
-					<?php
-						foreach ($diag_types as $key => $value) {
-							if ($key == '1')
-								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-								
-							echo '<option value="'.$key.'">'.$value.'</option>';
-						}
-					?>
-				</select>
-				<button data-name="btnreset" class="btn" type="reset"><i class="icon-refresh"></i> ยกเลิก</button>
-			</form>
+    <form class="form-search form-actions">
+      <input type="text" data-name="txtICDQuery" class="input-xlarge search-query" placeholder="พิมพืชื่อ หรือ ICD10  บางส่วน เแล้วคลิกปุ่มค้หา...">
+      <button type="button" data-name="btnSearchDiag" class="btn"><i class="icon-search"></i> ค้นหา</button>
+    <span class="help-inline"><i class="icon-info-sign"></i> คลิกที่ปุ่มค้นหาแล้วเลือกรายการด้านล่าง</span>
+    </form>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tabDiagSearchResult" data-toggle="tab"><i class="icon-th-list"></i> ผลการค้นหา</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tabDiagSearchResult">
+        <table class="table table-striped" data-name="tblICDResult">
+          <thead>
+          <tr>
+            <th>รหัส</th>
+            <th>คำอธิบาย</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbdy>
+            <td>...</td>
+            <td>...</td>
+            <td><a href="#" data-name="bntSelectedDiagForSave" title="เลือกรายการนี้" class="btn"><i class="icon-check"></i></a></td>
+          </tbdy>
+        </table>
+      </div>
+    </div>
 		</p>
 	</div>
+
 	<div class="modal-footer">
-		<a href="#" class="btn btn-primary" data-name="btn-save-diag"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
+</div>
+
+<div class="modal hide fade" data-name="modalSelectedDiagForSave">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ประเภทการวินิจฉัย</h3>
+  </div>
+  <div clas="modal-body">
+    <input type="hidden" data-name="txtICDCode" />
+    <table class="table table-striped" data-name="tblDiagTypeList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ประเภทการวินิจฉัย</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ยกเลิก</a>
+  </div>
+
 </div>
 <!-- /add diag -->
 <!-- add proced -->
-<div class="modal hide fade" data-name="modal-procedure">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>เพิ่มข้อมูลการให้หัตถการ</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-proced">
-			<h4>คำแนะนำ</h4>
-			<p>กรุณากรอกรายละเอียดให้ถูกต้องและสมบูรณ์</p>
-		</div>
-		<p>
-			<form class="form-horizontal" data-name="frmSaveProced">
-				<label for="">รหัสหัตถการ</label>
-				<input class="input-small" type="hidden" disabled="disabled" data-name="proced_code" autocomplete="off"> 
-				<input type="text" class="input-xlarge focused" data-name="proced_name" placeholder="พิมพ์รายละเอียด หรือ รหัส icd9..." autocomplete="off">
-				<label for="">ราคา</label>
-				<input type="number" class="input-small" name="proced_price" data-name="proced_price">
-				<button data-name="btnreset" class="btn" type="reset"><i class="icon-refresh"></i> ยกเลิก</button>
-			</form>
-		</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-primary" data-name="btn-save-proced"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
-	</div>
+<div class="modal hide fade" data-name="mdlSearchProced">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>เพิ่มข้อมูลการให้หัตถการ</h3>
+  </div>
+  <div class="modal-body">
+    <blockquote>
+      ค้นหา ICD9 เพื่อบันทึกข้อมูลผลการให้บริการ
+    </blockquote>
+    <p>
+    <form class="form-search form-actions">
+      <input type="text" data-name="txtProcedQuery" class="input-xlarge search-query" placeholder="พิมพืชื่อ หรือ ICD9 บางส่วน เแล้วคลิกปุ่มค้หา...">
+      <button type="button" data-name="btnSearchProced" class="btn"><i class="icon-search"></i> ค้นหา</button>
+      <span class="help-inline"><i class="icon-info-sign"></i> คลิกที่ปุ่มค้นหาแล้วเลือกรายการด้านล่าง</span>
+    </form>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tabProcedSearchList" data-toggle="tab"><i class="icon-th-list"></i> ผลการค้นหา</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tabProcedSearchList">
+        <table class="table table-striped" data-name="tblProcedSearchList">
+          <thead>
+          <tr>
+            <th>รหัส</th>
+            <th>คำอธิบาย</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    </p>
+  </div>
+
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
 </div>
+
+<div class="modal hide fade" data-name="mdlProcedSelectUserPrice">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <h3>กำหนดรายละเอียดเพิ่มเติม</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <input type="hidden" data-name="txtProcedCode" />
+
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#tabProcedSearchListResult" data-toggle="tab"><i class="icon-th-list"></i> ข้อมูลการให้บริการ</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tabProcedSearchListResult">
+        <form class="form-inline">
+        <table class="table table-striped" data-name="tblProcedSearchListResult">
+          <tbody>
+          <tr>
+            <td>ผู้ให้บริการ</td>
+            <td>
+              <input type="hidden" data-name="txtDoctorId" />
+              <input type="text" class="input-xlarge uneditable-input" disabled data-name="txtDoctorName" />
+              <button type="button" class="btn btn-info" data-name="btnSearchDoctor"><i class="icon-search icon-white"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td>ราคา</td>
+            <td>
+              <div class="input-prepend input-append">
+                <input type="text" data-type="number" value="0" class="input-mini" data-name="txtProcedPrice" />
+                <span class="add-on">บาท</span>
+              </div>
+          </tr>
+          </tbody>
+        </table>
+        </form>
+      </div>
+    </div>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-name="btnSaveProced"><i class="icon-tags icon-white"></i> บันทึกข้อมูลการให้บริการ</a>
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-refresh"></i> ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlSelectDoctor">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ข้อมูลผู้ให้บริการ</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+      <table class="table table-striped" data-name="tblDoctorsVisitList">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>ชื่อ - สกุล</th>
+      <th>เลขที่ใบประกอบวิชาชีพ</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+      </table>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
 <!-- /add proced -->
 <!-- add drug -->
-<div class="modal hide fade" data-name="modal-drug">
+<div class="modal hide fade" data-name="mdlSearchDrug">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการให้จ่ายยา</h3>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-drug">
-			<h4>คำแนะนำ</h4>
-			<p>กรุณากรอกรายละเอียดให้ถูกต้องและสมบูรณ์</p>
-		</div>
+		<blockquote>
+      เพิ่มข้อมูลการใช้ยา
+		</blockquote>
 		<p>
-			<form class="form-horizontal" data-name="frmSaveDrug">
-				<label for="">ชื่อยา</label>
-				<input type="hidden" data-name="drug_id"> 
-				<input type="text" class="input-xlarge focused" data-name="drug_name" placeholder="พิมพ์ชื่อยาเพื่อค้นหา.." >
-				<label for="">วิธีการใช้ยา</label>
-				<input type="hidden" data-name="usage_id">
-				<input type="text" class="input-xlarge" data-name="usage_name" placeholder="พิมพ์วิธีการใช้เพื่อค้นหา.." > 
-				<a href="#" class="btn"><i class="icon-plus-sign"></i></a>
-				<div class="row">
-					<div class="span2">
-						<label for="">ราคา</label>
-						<input type="number" class="span2" data-name="drug_price" value="0.00" placeholder="0.00">  
-					</div>
-					<div class="span2">
-						<label for="">จำนวน</label>
-						<input type="number" class="span2" data-name="drug_qty" value="1" placeholder="0">
-					</div>
-				</div>
-				<button data-name="btnreset" class="btn" type="reset" style="display: none;"><i class="icon-refresh"></i> ยกเลิก</button>
-			</form>
-		</p>
-	</div>
+      <form class="form-inline">
+        <input type="hidden" data-name="drug_id" />
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tabDrugMain" data-toggle="tab"><i class="icon-th-list"></i> เพิ่มรายการยา</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tabDrugMain">
+              <p>
+            <table class="table">
+              <tr>
+                <td>ชื่อยา</td>
+                <td>
+                  <input type="hidden" data-name="txtDrugId" />
+                  <input type="text" data-name="txtDrugName" class="input-xxlarge uneditable-input" disabled />
+                  <button type="button" data-name="btnSearchDrug" class="btn btn-info">
+                    <i class="icon-search icon-white"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>วิธีใช้ยา</td>
+                <td>
+                  <input type="hidden" data-name="txtUsageId" />
+                  <input type="text" data-name="txtUsageName" class="input-xxlarge uneditable-input" disabled />
+                  <button type="button" data-name="btnSearchUsage" class="btn btn-info">
+                    <i class="icon-search icon-white"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>ราคาต่อหน่วย</td>
+                <td>
+                  <input type="text" data-type="number" data-name="txtDrugPrice" value="0.00" class="input-mini" />
+                </td>
+              </tr>
+              <tr>
+                <td>จำนวน</td>
+                <td>
+                  <input type="text" data-type="number" data-name="txtDrugQty" value="1" class="input-mini" />
+                </td>
+              </tr>
+            </table>
+              </p>
+            </div>
+          </div>
+        </div>
+      </form>
+    </p>
+  </div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn-primary" data-name="btn-save-drug"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
+		<a href="#" class="btn btn-warning disabled" data-name="btnAddRemed"><i class="icon-refresh icon-white"></i> Remed.</a>
+		<a href="#" class="btn btn-primary" data-name="btnDoSaveDrug"><i class="icon-tags icon-white"></i> บันทึกข้อมูลการจ่ายยา</a>
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
+
+<div class="modal hide fade" data-name="mdlDoSearchDrug">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ค้หาข้อมูลยา</h3>
+  </div>
+  <div class="modal-body">
+    <blockquote>
+      ค้นหาข้อมูลยา
+    </blockquote>
+    <p>
+    <form class="form-search form-actions">
+      <input type="text" data-name="txtDrugSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ชื่อยาที่ต้องการค้หา...">
+      <button type="button" data-name="btnDoSearchDrug" class="btn"><i class="icon-search"></i> ค้นหา</button>
+    </form>
+
+    <table class="table table-striped" data-name="tblDrugSearchResultList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>ชื่อยา</th>
+        <th>หน่วย</th>
+        <th>ความแรง</th>
+        <th>ราคาต่อหน่วย</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlDoSearchUsage">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ค้นหาข้อมูลการใช้ยา</h3>
+  </div>
+  <div class="modal-body">
+    <blockquote>
+      ค้นหาข้อมูลการใช้ยาเพื่อประกอบการจ่ายยา
+    </blockquote>
+    <p>
+    <form class="form-search form-actions">
+      <input type="text" data-name="txtUsageSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ข้อความที่ต้องการค้หา...">
+      <button type="button" data-name="btnDoSearchUsage" class="btn"><i class="icon-search"></i> ค้นหา</button>
+    </form>
+
+    <table class="table table-striped" data-name="tblUsageSearchResultList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>วิธีการใช้ยา</th>
+        <th>เพิ่มเติม</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-success" data-name="btnNewUsageDetail"><i class="icon-plus icon-white"></i> เพิ่มวิธีใช้ใหม่...</a>
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+  <!-- new usage -->
+<div class="modal hide fade" data-name="mdlNewUsage">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>เพิ่มวิธีการใช้ยาใหม่</h3>
+  </div>
+  <div class="modal-body">
+    <blockquote>
+      เพิ่มรายละเอียดวิธีการใช้ยา
+    </blockquote>
+    <p>
+    <form class="form-inline form-actions">
+      <table class="table">
+        <tr>
+          <td>ชื่อ 1</td>
+          <td><input type="text" class="input-xxlarge" data-name="txtNewUsageName1"></td>
+        </tr>
+        <tr>
+          <td>ชื่อ 2</td>
+          <td><input type="text" class="input-xxlarge" data-name="txtNewUsageName2"></td>
+        </tr>
+      </table>
+    </form>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-name="btnDoSaveNewUsage"><i class="icon-tags icon-white"></i> บันทึกวิธีใช้ยาใหม่</a>
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+  <!-- /new usage -->
 <!-- /add drug -->
 <!-- add income -->
 <div class="modal hide fade" data-name="modal-income">
@@ -493,35 +710,67 @@
 		<h3>เพิ่มข้อมูลค่าใช้จ่าย</h3>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-income">
-			<h4>คำแนะนำ</h4>
-			<p>กรุณากรอกรายละเอียดให้ถูกต้องและสมบูรณ์</p>
-		</div>
 		<p>
 			<form class="form-horizontal" data-name="frmSaveIncome">
-				<label for="">รายการค่าใช้จ่าย</label>
-				<input type="hidden" data-name="income_id"> 
-				<input type="hidden" data-name="income_unit">
-				<input type="text" class="span6" data-name="income_name" placeholder="พิมพ์ชื่อค่าใช้จ่าย เพื่อค้นหา.." >
-				<div class="row">
+
+				<div class="row-fluid">
+          <div class="span6">
+            <label for="">รายการค่าใช้จ่าย</label>
+            <input type="hidden" data-name="txtIncomeId">
+            <input type="hidden" data-name="txtIncomeUpdateId">
+            <input type="text" class="input-xlarge uneditable-input" disabled data-name="txtIncomeName" >
+            <button type="button" data-name="btnIncomeSearch" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+          </div>
 					<div class="span2">
 						<label for="">ราคา</label>
-						<input type="number" class="span2" data-name="income_price" value="0.00" placeholder="0.00">  
+						<input type="text" class="input-mini" data-name="txtIncomePrice" value="0.00" placeholder="0.00">
 					</div>
 					<div class="span2">
 						<label for="">จำนวน</label>
-						<input type="number" class="span2" data-name="income_qty" value="1" placeholder="0">
+						<input type="text" class="input-mini" data-name="txtIncomeQty" value="1" placeholder="0">
 					</div>
 				</div>
-				<button data-name="btnreset" class="btn" type="reset" style="display: none;"><i class="icon-refresh"></i> ยกเลิก</button>
+
 			</form>
 		</p>
 	</div>
 	<div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-name="btnSaveIncome"><i class="icon-tags icon-white"></i> บันทึกค่าใช้จ่าย</a>
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
-		<a href="#" class="btn btn-primary" data-name="btn-save-income"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</a>
 	</div>
 </div>
+
+<!-- add income -->
+<div class="modal hide fade" data-name="mdlSearchIncome">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ค้นหาข้อมูลค่าใช้จ่าย</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <form class="form-search">
+      <input type="text" data-name="txtIncomeSearchQuery" class="input-xlarge search-query">
+      <button type="submit" class="btn" data-name="btnDoSearchIncome"><i class="icon-search"></i> ค้นหา</button>
+    </form>
+    <table class="table table-striped" data-name="tblIncomeSearchResult">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th>ราคา</th>
+        <th>หน่วย</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
 <!-- /add income -->
 <!-- add appointment -->
 <div class="modal hide fade" data-name="modal-appoint">
@@ -1373,7 +1622,91 @@
   </div>
 </div>
 <!-- /pre mch -->
+
+<!-- search smoking --->
+<div data-name="mdlSearchSmoking" class="modal hide fade in">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>การสูบบุหรี่</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped" data-name="tblSmokingList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" type="button" data-dismiss="modal">
+      <i class="icon-off"></i> ปิดหน้าต่าง
+    </button>
+  </div>
+</div>
+<!-- /search smoking -->
+
+<!-- search drinking --->
+<div data-name="mdlSearchDrinking" class="modal hide fade in">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>การดื่มสุรา</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped" data-name="tblDrinkingList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" type="button" data-dismiss="modal">
+      <i class="icon-off"></i> ปิดหน้าต่าง
+    </button>
+  </div>
+</div>
+<!-- /search drinking -->
+
+<!-- search allergics --->
+<div data-name="mdlSearchAllergics" class="modal hide fade in">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>การดื่มสุรา</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-striped" data-name="tblAllergicsList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>รายการ</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn" type="button" data-dismiss="modal">
+      <i class="icon-off"></i> ปิดหน้าต่าง
+    </button>
+  </div>
+</div>
+<!-- /search drinking -->
+
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.diag.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.proced.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.appoint.js"></script>

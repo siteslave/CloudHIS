@@ -166,7 +166,15 @@ class Service_model extends CI_Model {
 	* @return 	array
 	**/
 	public function _getScreening($vn) {
-		$result = $this->db->where('vn', $vn)->limit(1)->get('screenings')->result();
+		$result = $this->db->select('ncd_screening_smokes.id as smoking_id, ncd_screening_smokes.name as smoking_name,
+		                            ncd_screening_drinks.id as drinking_id, ncd_screening_drinks.name as drinking_name,
+		                            drug_allergics.id as allergics_id, drug_allergics.name as allergics_name, screenings.*')
+        ->where('vn', $vn)
+        ->join('drug_allergics', 'drug_allergics.id=screenings.allergic', 'left')
+        ->join('ncd_screening_drinks', 'ncd_screening_drinks.id=screenings.drinking', 'left')
+        ->join('ncd_screening_smokes', 'ncd_screening_smokes.id=screenings.smoking', 'left')
+        //->join('drug_allergics', 'drug_allergics.id=screenings.allergic', 'left')
+        ->limit(1)->get('screenings')->result();
 		return $result;
 	}
 	
@@ -216,11 +224,12 @@ class Service_model extends CI_Model {
 	* @param		$vn
 	* @return		array
 		**/
-	public function _getDiag($vn)
+	public function _get_visit_diags($vn)
 	{
-		$result = $this->db->select(array('diags.diag_code', 'diags.diag_type', 'icd10.name'))
-											->where('vn', $vn)
+		$result = $this->db->select('diags.id, diags.diag_code,diags.diag_type as diag_type_id,diag_types.name as diag_type_name,icd10.name as diag_name')
+											->where('diags.vn', $vn)
 											->join('icd10', 'icd10.code=diags.diag_code', 'left')
+											->join('diag_types', 'diag_types.id=diags.diag_type', 'left')
 											->order_by('diags.diag_type')
 		                  ->get('diags')->result();
 		return $result;
@@ -231,10 +240,9 @@ class Service_model extends CI_Model {
 	* @param		$vn, $diag_code
 	* @return		bool
 	**/
-	public function _remove_diag($vn, $diag_code)
+	public function _remove_diag($id)
 	{
-		$result = $this->db->where('vn', $vn)
-												->where('diag_code', $diag_code)
+		$result = $this->db->where('id', $id)
 												->delete('diags');
 		return $result;
 	}
@@ -249,10 +257,10 @@ class Service_model extends CI_Model {
 	{
 		$result = $this->db->select(array(
 											'procedures.code', 'icd9.name', 'procedures.price',
-											'concat(users.fname, " ", users.lname) as fullname', 'users.id'), FALSE)
+											'doctors.name as doctor_name', 'procedures.id'), FALSE)
 											->where('procedures.vn', $vn)
 											->join('icd9', 'icd9.code=procedures.code', 'left')
-											->join('users', 'users.id=procedures.user_id', 'left')
+											->join('doctors', 'doctors.id=procedures.doctor_id', 'left')
 											->order_by('procedures.code')
 		                  ->get('procedures')->result();
 		return $result;
@@ -263,25 +271,19 @@ class Service_model extends CI_Model {
 	* @param		$vn, $code, $price, $user_id
 	* @return		bool
 	**/
-	public function _save_procedure($vn, $code, $price, $user_id)
+	public function _save_procedure($vn, $code, $price, $doctor_id)
 	{
 		$result = $this->db->set('vn', $vn)
 		  									->set('code', $code)
 		  									->set('price', $price)
-		  									->set('user_id', $user_id)
+		  									->set('doctor_id', $doctor_id)
 			  								->insert('procedures');
 		return $result;
 	}
-	/**
-	* Save procedure
-	*
-	* @param		$vn, $code, $price, $user_id
-	* @return		bool
-	**/
-	public function _remove_procedure($vn, $code)
+
+	public function _remove_procedure($id)
 	{
-		$result = $this->db->where('vn', $vn)
-												->where('code', $code)
+		$result = $this->db->where('id', $id)
 			  								->delete('procedures');
 		return $result;
 	}
@@ -290,12 +292,7 @@ class Service_model extends CI_Model {
 		$result = $this->db->where('vn', $vn)->where('code', $code)->get('procedures')->result();
 		return count($result) > 0 ? TRUE : FALSE; 
 	}
-	/**
-	* Save drug
-	*
-	* @param		$vn, $drug_id, $usage_id, $price, $qty
-	* @return		bool
-	**/
+
 	public function _save_drug($vn, $drug_id, $usage_id, $price, $qty)
 	{
 		$result = $this->db->set('vn', $vn)
@@ -320,8 +317,8 @@ class Service_model extends CI_Model {
 	public function _get_drugs($vn)
 	{
 		$result = $this->db->select(array(
-											'drugitems.name as drug_name', 'drugusages.name1 as usage_name',
-											'drugs.price', 'drugs.qty', 'drugs.drug_id'
+											'drugitems.name as drug_name', 'drugusages.name1', 'drugusages.name2',
+											'drugs.price', 'drugs.qty', 'drugs.drug_id', 'drugs.id'
 																			))
 											->where('drugs.vn', $vn)
 											->join('drugitems', 'drugitems.id=drugs.drug_id', 'left')
@@ -329,19 +326,24 @@ class Service_model extends CI_Model {
 		                  ->get('drugs')->result();
 		return $result;
 	}
-	/**
-	* Remove Drug
-	*
-	* @param		$vn, $drug_id
-	* @return		bool
-	**/
-	public function _remove_drug($vn, $drug_id)
+
+	public function _remove_drug($id)
 	{
-		$result = $this->db->where('vn', $vn)
-												->where('drug_id', $drug_id)
-			  								->delete('drugs');
+		$result = $this->db->where('id', $id)->delete('drugs');
 		return $result;
 	}
+
+  public function get_drug_detail( $id )
+  {
+    $result = $this->db->select('drugs.id, drugs.qty, drugs.price, drugs.usage_id, drugs.drug_id,
+                                drugitems.name as drug_name,
+                                drugusages.name1,drugusages.name2')
+        ->where('drugs.id', $id)
+        ->join('drugitems', 'drugitems.id=drugs.drug_id', 'left')
+        ->join('drugusages', 'drugusages.id=drugs.usage_id', 'left')
+        ->get('drugs')->result();
+    return $result;
+  }
 	/**
 	* Get incomes
 	*
@@ -352,12 +354,13 @@ class Service_model extends CI_Model {
 	{
 		$result = $this->db->select(array(
 											'incomes.name', 'incomes.unit', 'income_visits.income_id',
-											'income_visits.price', 'income_visits.qty'))
+											'income_visits.price', 'income_visits.qty', 'income_visits.id'))
 											->where('income_visits.vn', $vn)
 											->join('incomes', 'incomes.id=income_visits.income_id', 'left')
 		                  ->get('income_visits')->result();
 		return $result;
 	}
+
 	/**
 	* Save income
 	*
@@ -374,6 +377,16 @@ class Service_model extends CI_Model {
 
 		return $result;
 	}
+  public function doupdate_income($id, $income_id, $price, $qty)
+	{
+		$result = $this->db->set('income_id', $income_id)
+									->set('qty', $qty)
+									->set('price', $price)
+                  ->where('id', $id)
+									->update('income_visits');
+
+		return $result;
+	}
 	/** check income exist **/
 	public function _check_income_exist($vn, $income_id) {
 		$result = $this->db->where('vn', $vn)->where('income_id', $income_id)->get('income_visits')->result();
@@ -386,10 +399,9 @@ class Service_model extends CI_Model {
 	* @param		$vn, $drug_id
 	* @return		bool
 	**/
-	public function _remove_income($vn, $income_id)
+	public function _remove_income($id)
 	{
-		$result = $this->db->where('vn', $vn)
-												->where('income_id', $income_id)
+		$result = $this->db->where('id', $id)
 			  								->delete('income_visits');
 		return $result;
 	}
@@ -514,6 +526,17 @@ where v.cid='3440400559995'
 	    
 		return $result;
 	}
+
+  public function do_update_drug($id, $drug_id, $price, $qty, $price, $usage_id)
+  {
+    $result = $this->db->set('drug_id', $drug_id)
+        ->set('qty', $qty)
+        ->set('price', $price)
+        ->set('usage_id', $usage_id)
+        ->where('id', $id)
+        ->update('drugs');
+    return $result;
+  }
 }
 /* End of file service_model.php */
 /* Location: ./application/models/service_model.php */
