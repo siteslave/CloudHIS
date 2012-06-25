@@ -1036,7 +1036,6 @@
           <td></td>
           <td>
             <button type="button" class="btn btn-primary btn-large" data-name="btnDoSaveFP"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
-            <button data-name="btnreset" class="btn btn-large" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
           </td>
         </tr>
       </table>
