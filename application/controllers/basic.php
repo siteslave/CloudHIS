@@ -68,12 +68,25 @@ class Basic extends CI_Controller {
 	{
 		$query = $this->input->post('query');
 		if( empty($query) ) {
-			show_404();
+			$json = '{"success": false, "msg": "No query found."}';
 		} else {
 			$result = $this->Basic->_search_hospitals($query);
-			$json = json_encode($result);
+      if($result){
+        $rows=  json_encode($result);
+        $json = '{"success": true, "rows": '.$rows.'}';
+      }
 			printjson($json);
 		}
+	}
+
+  public function getfptype_list()
+	{
+    $result = $this->Basic->getfptype_list();
+    if($result){
+      $rows=  json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
+    }
+    printjson($json);
 	}
 	/**
 	* Search Drug

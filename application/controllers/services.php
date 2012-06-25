@@ -713,17 +713,15 @@ class Services extends CI_Controller {
 		$vn = $this->input->post('vn');
 		// vn not empty
 		if( ! empty($vn) ) {
-			$drug_id = $this->input->post('drug_id');
-			$amount = $this->input->post('amount');
 			$fp_type_id = $this->input->post('fp_type_id');
-			$fp_place_id = $this->input->post('fp_place_id');
+			$fp_pcucode = $this->input->post('fp_pcucode');
 			
 			// check duplicate
 			$c = $this->FP->_check_duplicate( $vn, $fp_type_id );
 			if ( count($c) > 0 ) {
-				$json = '{"success": false, "status": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
+				$json = '{"success": false, "msg": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
 			} else {
-				$result = $this->FP->_save_service( $vn, $drug_id, $amount, $fp_type_id, $fp_place_id );
+				$result = $this->FP->_save_service( $vn, $fp_type_id, $fp_pcucode );
 				// json encode
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
@@ -739,13 +737,29 @@ class Services extends CI_Controller {
 			show_404();
 		}
 	}
-	/**
-	* Get Epi list
-	*
-	* @url		POST /services/getepi
-	* @param	$cid
-	* 
-	**/
+
+  public function dofp_update()
+	{
+		$id = $this->input->post('id');
+		// vn not empty
+		if( ! empty($id) ) {
+			$fp_pcucode = $this->input->post('fp_pcucode');
+
+      $result = $this->FP->_update_service( $id, $fp_pcucode );
+      // json encode
+      if ( $result ) {
+        $json = '{"success": true}';
+      } else {
+        $json = '{"success": false, "msg": "Database error."}';
+      }
+		} else { // vn empty
+			$json = '{"success": false, "msg": "No id found."}';
+		}
+    // render json
+    printjson($json);
+
+	}
+
 	public function getepi()
 	{
 		$cid = $this->input->post('cid');
@@ -1248,6 +1262,25 @@ class Services extends CI_Controller {
     }
     printjson( $json );
   }
+
+  public function dofp_remove()
+  {
+    $id	= $this->input->post('id');
+
+    if (! empty( $id )  ) {
+      $result = $this->FP->_remove($id);
+      if ( $result ) {
+        $json = '{"success": true}';
+      } else {
+        $json = '{"success": false, "msg": "Database error."}';
+      }
+
+    } else {
+      $json = '{"success": false, "msg": "No ID found."}';
+    }
+    printjson($json);
+  }
+
 }	
 /* End of file services.php */
 /* Location: ./application/controllers/services.php */

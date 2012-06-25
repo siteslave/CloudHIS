@@ -34,6 +34,12 @@ class Basic_model extends CI_Model {
 
     return $result;
   }
+
+  public function getfptype_list(){
+    $result = $this->db->get('fp_types')->result();
+
+    return $result;
+  }
 	// return @allergics array()
 	public function _get_allergics(){
 		$result = $this->db->get('drug_allergics')->result();
