@@ -2,15 +2,7 @@ var SERVICE = {};
 SERVICE.detail = {};
 
 $( function() {
-	
-	// order lab
-	$('a[data-name="service-lab-order"]').click(function(){
-    SERVICE.detail.modal.showLabOrder();
-	});
-	// lab result
-	$('a[data-name="service-lab-result"]').click(function(){
-    SERVICE.detail.modal.showLabResult();
-	});
+
 	// chronic follow up
 	$('a[data-name="service-chronicfu"]').click(function(){
     SERVICE.detail.modal.showChronicFu();
@@ -430,22 +422,6 @@ $( function() {
 		},
 		showChronicFu: function() {
 			$('div[data-name="modal-chronicfu"]').modal('show').css({
-        width: 770,
-        'margin-left': function () {
-            return -($(this).width() / 2);
-        }
-    	});
-		},
-		showLabResult: function() {
-			$('div[data-name="modal-lab-result"]').modal('show').css({
-        width: 770,
-        'margin-left': function () {
-            return -($(this).width() / 2);
-        }
-    	});
-		},
-		showLabOrder: function() {
-			$('div[data-name="modal-lab-order"]').modal('show').css({
         width: 770,
         'margin-left': function () {
             return -($(this).width() / 2);

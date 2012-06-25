@@ -316,7 +316,13 @@ class Basic extends CI_Controller {
 	public function getlaborders()
 	{
 		$result = $this->Basic->_getlab_orders_list();
-		$json 	= json_encode($result);
+    if($result){
+      $rows 	= json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
+    }else{
+      $json = '{"success": false, "msg": "Database error"}';
+    }
+
 		printjson($json);
 	}
   

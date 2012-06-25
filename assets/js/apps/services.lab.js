@@ -11,12 +11,22 @@ LAB.getLabGroupList = function()
       csrf_token: $.cookie('csrf_cookie_cloudhis')
     },
     success: function(data){
-    	$('select[data-name="lab-group-list"]').empty();
-			$.each(data, function(i, v){
-				$('select[data-name="lab-group-list"]').append(
-					'<option value="' + v.id + '">' + v.name + '</option>'
-				);
-			});
+      $('table[data-name="tblServiceLabOrderList"] > tbody').empty();
+
+      $.each(data.rows, function(i, v){
+        i++;
+        $('table[data-name="tblServiceLabOrderList"] > tbody').append(
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn btn-primary" data-name="laborder-selected" data-id="'+ v.id +'"><i class="icon-check icon-white"></i> สั่ง LAB</a>'
+                + '</td>'
+                + '</tr>'
+        );
+      });
+
+      LAB.modal.showLabOrder();
     },
     error: function(xhr, status, errorThrown) {
 			alert('Error: ' + xhr.status + '- ' + xhr.statusText);
@@ -24,18 +34,15 @@ LAB.getLabGroupList = function()
 	});
 };
 	
-LAB.saveLabOrder = function() 
+LAB.saveLabOrder = function( vn, id )
 {
-	var _vn = $('input[data-name="vn"]').val(),
-	_group_id = $('select[data-name="lab-group-list"]').val();
-	
 	$.ajax({
 		url: _base_url + 'services/dolaborder',
     dataType: 'json',
     type: 'POST',
     data: {
-    	vn: _vn,
-    	group_id: _group_id,
+    	vn: vn,
+    	group_id: id,
       csrf_token: $.cookie('csrf_cookie_cloudhis')
     },
     success: function(data){
@@ -53,24 +60,33 @@ LAB.saveLabOrder = function()
 	});
 };
 	
-LAB.getLabOrderList = function() 
+LAB.getLabOrderList = function( vn )
 {
-	var _vn = $('input[data-name="vn"]').val();
 	$.ajax({
 		url: _base_url + 'lab/getorders',
     dataType: 'json',
     type: 'POST',
     data: {
-    	vn: _vn,
+    	vn: vn,
       csrf_token: $.cookie('csrf_cookie_cloudhis')
     },
     success: function(data){
-    	$('select[data-name="lab-order-list-result"]').empty();
-			$.each(data.rows, function(i, v){
-				$('select[data-name="lab-order-list-result"]').append(
-					'<option value="' + v.id + '">' + v.name + '</option>'
-				);
-			});
+      $('table[data-name="tblServiceLabOrderForResult"] > tbody').empty();
+
+      $.each(data.rows, function(i, v){
+        i++;
+        $('table[data-name="tblServiceLabOrderForResult"] > tbody').append(
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn btn-primary" data-name="laborderresult-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check icon-white"></i> บันทึกผล</a>'
+                + '</td>'
+                + '</tr>'
+        );
+      });
+
+      LAB.modal.showLabResult();
     },
     error: function(xhr, status, errorThrown) {
 			alert('Error: ' + xhr.status + '- ' + xhr.statusText);
@@ -78,33 +94,35 @@ LAB.getLabOrderList = function()
 	});
 };
 
-LAB.getLabItems = function() 
+LAB.getLabItems = function( group_id )
 {
-	var _group_id = $('select[data-name="lab-order-list-result"]').val();
 	$.ajax({
 		url: _base_url + 'lab/getlabitems',
     dataType: 'json',
     type: 'POST',
     data: {
-    	group_id: _group_id,
+    	group_id: group_id,
       csrf_token: $.cookie('csrf_cookie_cloudhis')
     },
     success: function(data){
     	if (data.success) {
-    		$('table[data-name="svtbl-lab-item-list"] > tbody').empty();
+    		$('table[data-name="tblServiceLabItemResultList"] > tbody').empty();
 					$.each(data.rows, function(i, v){
 						var value = v.lab_result == null ? '0' : v.lab_result;
-						
-						$('table[data-name="svtbl-lab-item-list"] > tbody').append(
+						i++;
+						$('table[data-name="tblServiceLabItemResultList"] > tbody').append(
 							'<tr>'
+								+ '<td>' + i  + '</td>'
 								+ '<td>' + v.name  + '</td>'
-								+ '<td><input type="text" data-name="lab-item-result" class="span1" data-item="'+v.id+'" value="' + value + '"></td>'
+								+ '<td><input type="text" data-name="lab-item-result" class="input-mini" data-item="'+v.id+'" value="' + value + '"></td>'
 								+ '<td>' + v.lab_unit + '</td>'
 								+ '<td>'
 								+ '<a href="#" class="btn" data-name="remove-lab-order-item" data-id="'+ v.id +'" title="ลบรายการแล็ป"><i class="icon-trash"></i></a>'
 								+ '</td>'
 							+ '</tr>'
 						);
+
+            $('div[data-name="divSaveLabItemList"]').fadeIn('slow');
 					});
     	} else {
 				$('table[data-name="svtbl-lab-item-list"] > tbody').append(
@@ -138,12 +156,14 @@ LAB.getOrderHistoryList = function()
     {
     	if (data.success) 
     	{
-    		$('table[data-name="svtbl-lab-order-history"] > tbody').empty();
+    		$('table[data-name="tblServiceLabOrderHistoryList"] > tbody').empty();
 					$.each(data.rows, function(i, v){
-						var value = v.lab_result == null ? '0' : v.lab_result;
 
-						$('table[data-name="svtbl-lab-order-history"] > tbody').append(
+            i++;
+
+						$('table[data-name="tblServiceLabOrderHistoryList"] > tbody').append(
 							'<tr>'
+								+ '<td>' + i + '</td>'
 								+ '<td>' + v.name + '</td>'
 							+ '<td>'
 							+ '<a href="#" class="btn" data-name="remove-lab-order" data-order="'+ v.id +'"><i class="icon-trash"></i></a>'
@@ -256,24 +276,58 @@ LAB.doLabResult = function( _id, _result )
 	});
 };
 
+LAB.modal = {
+  showLabResult: function() {
+    $('div[data-name="mdlServiceLabResult"]').modal('show').css({
+      width: 640,
+      'margin-left': function () {
+        return -($(this).width() / 2);
+      }
+    });
+  },
+  showLabOrder: function() {
+    $('div[data-name="mdlServiceLabOrder"]').modal('show').css({
+      width: 640,
+      'margin-left': function () {
+        return -($(this).width() / 2);
+      }
+    });
+  }
+};
+
 $(function(){
-	$('a[data-name="service-lab-order"]').click(function(){
+
+  //hide lab item
+  $('a[data-name="btnHideDivLabItemResult"]').click(function(){
+    $('div[data-name="divSaveLabItemList"]').fadeOut('slow');
+    $('div[data-name="divServiceLabVisitGroup"]').fadeToggle('slow');
+  });
+
+	$('a[data-name="btnLabOrder"]').click(function(){
 		LAB.getOrderHistoryList();
 		LAB.getLabGroupList();
 	});
 	
 	// save lab order
-	$('a[data-name="save-lab-order"]').click(function(){
-		LAB.saveLabOrder();
+	$('a[data-name="laborder-selected"]').live('click',function(){
+    var group_id = $(this).attr('data-id'),
+        vn = $('input[data-name="vn"]').val();
+		LAB.saveLabOrder( vn, group_id );
 	});
 	// get order list
-	$('a[data-name="service-lab-result"]').click(function(){
-		$('table[data-name="svtbl-lab-item-list"] > tbody').empty();
-		LAB.getLabOrderList();
+	$('a[data-name="btnLabResult"]').click(function(){
+    var vn = $('input[data-name="vn"]').val();
+		LAB.getLabOrderList( vn );
 	});
+
 	// get items list
-	$('button[data-name="svbtn-get-lab-items"]').click(function(){
-		LAB.getLabItems();
+	$('a[data-name="laborderresult-selected"]').live('click',function(){
+    var group_id = $(this).attr('data-id'),
+        name = $(this).attr('data-vname');
+
+    $('div[data-name="divServiceLabVisitGroup"]').fadeToggle('slow');
+    $('span[data-name="spanLabName"]').html(name);
+		LAB.getLabItems( group_id );
 	});
 	//remove lab order
 	$('a[data-name="remove-lab-order"]').live('click', function() {

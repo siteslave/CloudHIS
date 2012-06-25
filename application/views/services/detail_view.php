@@ -50,8 +50,8 @@
 				<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
-				<li><a href="#" data-name="service-lab-order"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
-				<li><a href="#" data-name="service-lab-result"><i class="icon-random"></i> รายงานผล LAB</a></li>
+				<li><a href="#" data-name="btnLabOrder"> <i class="icon-eye-open"></i> สั่ง LAB</a></li>
+				<li><a href="#" data-name="btnLabResult"><i class="icon-random"></i> รายงานผล LAB</a></li>
 			</ul>
 		</div>
 		<div class="btn-group">
@@ -1463,34 +1463,46 @@
 </div>
 <!-- /chronic fu -->
 <!-- lab order  -->
-<div class="modal hide fade" data-name="modal-lab-order">
+<div class="modal hide fade" data-name="mdlServiceLabOrder">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>สั่ง LAB</h3>
 	</div>
 	<div class="modal-body">
 		<p>
-			<ul class="nav nav-pills">
-				<li class="active"><a href="#svtab-lab-order-new" data-toggle="tab">สั่ง LAB</a></li>
-				<li><a href="#svtab-lab-order-history" data-toggle="tab">ประวัติวันนี้</a></li>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#tabServiceNewLabGroup" data-toggle="tab"><i class="icon-check"></i> สั่ง LAB</a></li>
+				<li><a href="#tabServiceLabOrderHistory" data-toggle="tab"><i class="icon-time"></i> ประวัติวันนี้</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane active" id="svtab-lab-order-new">
-					<label for="">รายการ LAB Groups</label>
-					<select data-name="lab-group-list" class="span5"></select>
-					<br />
-					<a href="#" class="btn btn-primary" data-name="save-lab-order"><i class="icon-plus-sign icon-white"></i>  สั่ง LAB</a>
+				<div class="tab-pane active" id="tabServiceNewLabGroup">
+					<blockquote>
+            เลือกกลุ่มของ LAB ที่ต้องการ
+					</blockquote>
+					<table class="table table-striped" data-name="tblServiceLabOrderList">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>กลุ่ม LAB</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
 				</div>
-				<div class="tab-pane" id="svtab-lab-order-history">
-				<table class="table table-stripped" data-name="svtbl-lab-order-history">
-					<thead>
-						<tr>
-							<th>รายการกลุ่ม LAB</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody></tbody>
-				</table>
+				<div class="tab-pane" id="tabServiceLabOrderHistory">
+          <blockquote>
+            ประวัติการส่ง LAB ในครั้งนี้
+          </blockquote>
+          <table class="table table-stripped" data-name="tblServiceLabOrderHistoryList">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>กลุ่ม LAB</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
 				</div>
 			</div>
 		</p>
@@ -1501,30 +1513,54 @@
 </div>
 <!-- /lab order -->
 <!-- lab result  -->
-<div class="modal hide fade" data-name="modal-lab-result">
+<div class="modal hide fade" data-name="mdlServiceLabResult">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>สั่ง LAB</h3>
 	</div>
 	<div class="modal-body">
 		<p>
-			<form action="#" class="form-inline">
-				<label for="">รายการ LAB ทั่สั่ง</label>
-				<select data-name="lab-order-list-result" class="span5"></select>
-				<button type="button" class="btn btn-primary" data-name="svbtn-get-lab-items"><i class="icon-list icon-white"></i> แสดงรายการ</button>
-			</form>
-			<table class="table table-stripped" data-name="svtbl-lab-item-list">
-				<thead>
-					<tr>
-						<th>รายการ LAB</th>
-						<th>ผล</th>
-						<th>หน่วย</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
+    <div data-name="divServiceLabVisitGroup">
+    <blockquote>
+      เลือกกลุ่ม LAB ที่ต้องการบันทึกผล
+    </blockquote>
+    <table class="table table-stripped" data-name="tblServiceLabOrderForResult">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>กลุ่ม LAB</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    </div>
 		</p>
+    <div style="display: none; overflow: auto;" data-name="divSaveLabItemList">
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tabServiceLabOrderItemList" data-toggle="tab"><i class="icon-edit"></i> บันทึกผล LAB</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tabServiceLabOrderItemList">
+            <blockquote>บันทึกรายงานผล LAB: <span class="label label-info" data-name="spanLabName"></span></blockquote>
+            <table class="table table-striped" data-name="tblServiceLabItemResultList">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>รายการ LAB</th>
+                <th>ผล</th>
+                <th>หน่วย</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <a href="#" class="btn" data-name="btnHideDivLabItemResult"><i class="icon-chevron-up"></i> ปิด/ซ่อน (Close/Hide)</a><br />
+          </div>
+        </div>
+      </div>
+    </div>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1709,6 +1745,7 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.proced.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.appoint.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.surveil.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
@@ -1716,5 +1753,4 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.mch.js"></script>
