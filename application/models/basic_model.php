@@ -591,6 +591,11 @@ class Basic_model extends CI_Model {
     $result = $this->db->where('pcucode', $pcucode)->get('doctors')->result();
     return $result;
   }
+  public function getepi()
+  {
+    $result = $this->db->order_by('eng_name')->get('epi_vaccines')->result();
+    return $result;
+  }
 }
 /* End of file basic_model.php */
 /* Location: ./application/models/basic_model.php */
