@@ -15,12 +15,13 @@ class Epi_model extends CI_Model {
 	#return @fps array()
 	public function _getlist( $cid ){
 		$result = $this->db->select(array(
-																			'visits.date_serv', 'epi_vaccines.eng_name', 
-																			'epi_places.name as place_name', 'epi_visits.vcctype'))
+																			'visits.date_serv', 'epi_vaccines.eng_name', 'epi_vaccines.description',
+																			'hospitals.name as place_name', 'epi_visits.*'))
 											->where('visits.cid', $cid)
 											->join('visits', 'visits.vn=epi_visits.vn')
 											->join('epi_vaccines', 'epi_vaccines.id=epi_visits.vcctype', 'left')
-											->join('epi_places', 'epi_places.id=epi_visits.vccplace', 'left')
+											->join('hospitals', 'hospitals.code=epi_visits.vccplace', 'left')
+                      ->order_by('epi_visits.id')
 											->get('epi_visits')
 											->result();
 		return $result;
@@ -35,6 +36,14 @@ class Epi_model extends CI_Model {
 											->set('vcctype', $vcctype)
 											->set('vccplace', $vccplace)
 											->insert('epi_visits');
+		return $result;
+	}
+
+  public function _update_service( $id, $vccplace )
+	{
+		$result = $this->db->where('id', $id)
+											->set('vccplace', $vccplace)
+											->update('epi_visits');
 		return $result;
 	}
 	/**
@@ -54,11 +63,9 @@ class Epi_model extends CI_Model {
 	* Remove EPI
 	*
 	*/
-	public function _remove( $vn, $vcctype )
+	public function _remove( $id )
 	{
-		$result = $this->db->where('vn', $vn)
-												->where('vcctype', $vcctype)
-												->delete('epi_visits');
+		$result = $this->db->where('id', $id)->delete('epi_visits');
 		return $result;
 	}
 	

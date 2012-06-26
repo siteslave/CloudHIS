@@ -1032,18 +1032,13 @@
             </button>
           </td>
         </tr>
-        <tr>
-          <td></td>
-          <td>
-            <button type="button" class="btn btn-primary btn-large" data-name="btnDoSaveFP"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
-          </td>
-        </tr>
       </table>
 
     </form>
     </p>
   </div>
   <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-name="btnDoSaveFP"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
   </div>
 </div>
@@ -1103,89 +1098,145 @@
 
 <!-- /add fp -->
 <!-- add epi -->
-<div class="modal hide fade" data-name="modal-epi">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-		<h3>ยันทึกงานสร้างเสริมภูมิคุ้มกันโรค (EPI)</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-epi">
-			<h4>เงื่อนไขการให้บริการ</h4>
-			<p>
-				1). เด็กอายุต่ำกว่า 7 ปี,  2). หญิงตั้งครรภ์, 3). นักเรียน ป.1, ป.2, ป.6, 4). ประชาชนกลุ่มทั่วไป		<br />
-				สามารถรับวัคซีนได้มากกว่า 1 ชนิด
-			</p>
-		</div>
-		<p>
-		<div class="tabbable">
-			<ul class="nav nav-pills">
-				<li class="active"><a href="#tab-epi-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
-				<li><a href="#tab-epi-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
-			</ul>
-			<div class="tab-content">
-				<div class="tab-pane active" id="tab-epi-list">
-					<table class="table table-striped" data-name="tblEPIList">
-						<thead>
-							<tr>
-								<th>วันที่รับบริการ</th>
-								<th>วัคซีนที่ได้รับ</th>
-								<th>สถานที่รับวัคซีน</th>
-								<th></th>
-							</tr>
-							<tbody>
-							</tbody>
-						</thead>
-					</table>
-				</div>
-				<div class="tab-pane" id="tab-epi-new">
-				<form>
-					<label for="">วัคซีนที่ได้รับ</label>
-					<select data-name="epi-vcctype">
-						<?php 
-						$i = 1;
-						foreach($vcctypes as $key => $value){
-							if ($i == 1) {
-								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-							} else {
-								echo '<option value="'.$key.'">'.$value.'</option>';
-							}
-							$i++;
-						}
-						?>
-					</select>
-					<label for="">สถานที่รับบริการ</label>
-					<select data-name="epi-vccplace">
-						<?php 
-						$i = 1;
-						foreach($vccplaces as $key => $value){
-							if ($i == 1) {
-								echo '<option value="'.$key.'" selected="selected">'.$value.'</option>';
-							} else {
-								echo '<option value="'.$key.'">'.$value.'</option>';
-							}
-							$i++;
-						}
-						?>
-					</select>
-					<label class="checkbox">
-						<input type="checkbox" data-name="epi-add-income" checked="checked"> โอนค่าใช้จ่าย
-					</label>
-					<label class="checkbox">
-						<input type="checkbox" data-name="epi-add-drug" checked="checked"> โอนรายการยา
-					</label>
-							
-					<button type="button" class="btn btn-primary" data-name="btn-save-epi"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
-					<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
-				</form>
-				</div>
-			</div>
-		</div>
-		</p>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
-	</div>
+<div class="modal hide fade" data-name="mdlServiceEPI">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค (EPI)</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <blockquote>
+    บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค
+    </blockquote>
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabServiceEPIHistory" data-toggle="tab"><i class="icon-time"></i> ประวัติการรับบริการ</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabServiceEPIHistory">
+          <table class="table" data-name="tblServiceEPIHistoryList">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>วันที่</th>
+              <th>รหัส</th>
+              <th>รายละเอียด</th>
+              <th>สถานที่</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <button data-name="btnNewEPI" class="btn btn-success" type="button">
+      <i class="icon-plus icon-white"></i> เพิ่มใหม่...
+    </button>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
 </div>
+
+<div class="modal hide fade" data-name="mdlNewEPI">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค
+  </div>
+  <div class="modal-body">
+    <p>
+    <form class="form-inline">
+      <input type="hidden" data-name="txtEPIVisitID" />
+      <blockquote>
+        <i class="icon-warning-sign"></i> บันทึกข้อมูลการให้บริการส่งเสริมป้องกันโรค
+      </blockquote>
+      <table class="table">
+        <tr>
+          <td>กิจกรรมวัคซีน</td>
+          <td>
+            <input type="hidden" data-name="txtVCCTypeId" />
+            <input type="text" data-name="txtVCCTypeName" class="input-xlarge uneditable-input" disabled />
+            <button data-name="btnSearchVCCType" type="button" class="btn btn-info">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>สถานที่ร้บบริการ</td>
+          <td>
+            <input type="hidden" data-name="txtVCCPlaceId" />
+            <input type="text" data-name="txtVCCPlaceName" class="input-xlarge uneditable-input" disabled />
+            <button data-name="btnSearchVCCPlace" type="button" class="btn btn-info">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </td>
+        </tr>
+      </table>
+    </form>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-name="btnDoSaveVCC"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlNewEPISearchHospital">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>ค้นหาสถานบริการ</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+    <form class="form-search">
+      <input type="text" class="input-xlarge search-query" data-name="txtNewEPIHospitalQuery" placeholder="พิมพ์ชื่อ หรือ รหัส" />
+      <button type="button" data-name="btnNewEPIHospitalDoSearch" class="btn"><i class="icon-search"></i> ค้นหา</button>
+    </form>
+    <table class="table table-striped" data-name="tblNewEPISearchHospitalResult">
+      <thead>
+      <tr>
+        <th>รหัสสถานบริการ</th>
+        <th>ชื่อหน่วยบริการ</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
+<div class="modal hide fade" data-name="mdlNewEPISearchType">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">&times;</a>
+    <h3>เลือกกิจกรรมวัคซีนที่ให้บริการ</h3>
+  </div>
+  <div class="modal-body">
+    <p>
+
+    <table class="table table-striped" data-name="tblNewEPISearchTypeList">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>รหัส</th>
+        <th>กิจกรรมวัคซีน</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
+  </div>
+</div>
+
 <!-- /add epi -->
 <!-- add anc -->
 <div class="modal hide fade" data-name="modal-anc">
@@ -1790,10 +1841,12 @@
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.appoint.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.surveil.js"></script>
 
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
+
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
 <script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>

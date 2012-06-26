@@ -501,5 +501,14 @@ class Basic extends CI_Controller {
     printjson($json);
   }
 
+  public function getepi()
+  {
+    $result = $this->Basic->getepi();
+    $rows = json_encode($result);
+
+    $json = '{"success": true, "rows": '.$rows.'}';
+
+    printjson($json);
+  }
 
 }

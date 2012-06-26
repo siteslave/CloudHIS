@@ -686,11 +686,12 @@ class Services extends CI_Controller {
 		if( ! empty($vn) ) {
 			$cid = get_visit_cid($vn);
 			$result = $this->FP->_getlist( $cid );
+     // echo print_r($result);
 			// json encode
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "ไม่พบการให้บริการ"}';
 			}
 			
 			// render json
@@ -770,16 +771,14 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "ไม่พบการให้บริการ"}';
 			}
-			
-			// render json
-			printjson($json);
-			
 		} else { // vn empty
-			// show error 404 if no id
-			show_404();
+      $json = '{"success": false, "msg": "No cid found."}';
 		}
+
+    // render json
+    printjson($json);
 	}
 	/**
 	* Save EPI
@@ -793,7 +792,6 @@ class Services extends CI_Controller {
 		$vn = $this->input->post('vn');
 		// vn not empty
 		if( ! empty($vn) ) {
-			$drug_id = $this->input->post('drug_id');
 			$vcctype = $this->input->post('vcctype');
 			$vccplace = $this->input->post('vccplace');
 			
@@ -803,23 +801,21 @@ class Services extends CI_Controller {
 			
 			$c = $this->EPI->_check_duplicate( $cid, $vcctype, $date_serv );
 			if ( count($c) > 0 ) {
-				$json = '{"success": false, "status": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
+				$json = '{"success": false, "msg": "ข้อมูลซ้ำ กรุณาตรวจสอบ."}';
 			} else {
 				$result = $this->EPI->_save_service( $vn, $vcctype, $vccplace );
 				// json encode
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
-			// render json
-			printjson($json);
 			
 		} else { // vn empty
-			// show error 404 if no id
-			show_404();
+      $json = '{"success": false, "msg": "No vn found."}';
 		}
+    printjson($json);
 	}
 	/**
 	* Remove EPI
@@ -829,21 +825,38 @@ class Services extends CI_Controller {
 	**/
 	public function removeepi()
 	{
-		$vn 				= $this->input->post('vn');
-		$vcctype		= $this->input->post('vcctype');
+		$id = $this->input->post('id');
 
-		if ( ! empty( $vn ) || ! empty( $vcctype )  ) {
-			$result = $this->EPI->_remove($vn, $vcctype);		
+		if ( ! empty( $id )  ) {
+			$result = $this->EPI->_remove($id);
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
-			printjson($json);
 		} else {
-			show_404();
+      $json = '{"success": false, "msg": "No id found."}';
 		}
+    printjson($json);
 	}
+
+  public function doepi_update()
+  {
+    $id = $this->input->post('id');
+    $vccplace = $this->input->post('vccplace');
+
+    if ( ! empty( $id )  ) {
+      $result = $this->EPI->_update_service($id, $vccplace);
+      if ( $result ) {
+        $json = '{"success": true}';
+      } else {
+        $json = '{"success": false, "msg": "Database error."}';
+      }
+    } else {
+      $json = '{"success": false, "msg": "No id found."}';
+    }
+    printjson($json);
+  }
 	/**
 	* Get ANC list
 	*
