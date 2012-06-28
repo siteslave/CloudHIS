@@ -345,7 +345,6 @@
     <blockquote>
       ค้นหา ICD10 เพื่อบันทึกข้อมูลผลการให้บริการ
     </blockquote>
-		<p>
     <form class="form-search form-actions">
       <input type="text" data-name="txtICDQuery" class="input-xlarge search-query" placeholder="พิมพืชื่อ หรือ ICD10  บางส่วน เแล้วคลิกปุ่มค้หา...">
       <button type="button" data-name="btnSearchDiag" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -361,20 +360,16 @@
         <table class="table table-striped" data-name="tblICDResult">
           <thead>
           <tr>
+            <th>#</th>
             <th>รหัส</th>
             <th>คำอธิบาย</th>
             <th></th>
           </tr>
           </thead>
-          <tbdy>
-            <td>...</td>
-            <td>...</td>
-            <td><a href="#" data-name="bntSelectedDiagForSave" title="เลือกรายการนี้" class="btn"><i class="icon-check"></i></a></td>
-          </tbdy>
+          <tbody></tbody>
         </table>
       </div>
     </div>
-		</p>
 	</div>
 
 	<div class="modal-footer">
@@ -387,7 +382,7 @@
     <a class="close" data-dismiss="modal">&times;</a>
     <h3>ประเภทการวินิจฉัย</h3>
   </div>
-  <div clas="modal-body">
+  <div class="modal-body">
     <input type="hidden" data-name="txtICDCode" />
     <table class="table table-striped" data-name="tblDiagTypeList">
       <thead>
@@ -417,7 +412,7 @@
     <blockquote>
       ค้นหา ICD9 เพื่อบันทึกข้อมูลผลการให้บริการ
     </blockquote>
-    <p>
+
     <form class="form-search form-actions">
       <input type="text" data-name="txtProcedQuery" class="input-xlarge search-query" placeholder="พิมพืชื่อ หรือ ICD9 บางส่วน เแล้วคลิกปุ่มค้หา...">
       <button type="button" data-name="btnSearchProced" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -442,7 +437,7 @@
         </table>
       </div>
     </div>
-    </p>
+
   </div>
 
   <div class="modal-footer">
@@ -456,7 +451,6 @@
     <h3>กำหนดรายละเอียดเพิ่มเติม</h3>
   </div>
   <div class="modal-body">
-    <p>
     <input type="hidden" data-name="txtProcedCode" />
 
     <ul class="nav nav-tabs">
@@ -490,7 +484,6 @@
         </form>
       </div>
     </div>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn btn-primary" data-name="btnSaveProced"><i class="icon-tags icon-white"></i> บันทึกข้อมูลการให้บริการ</a>
@@ -504,7 +497,7 @@
     <h3>ข้อมูลผู้ให้บริการ</h3>
   </div>
   <div class="modal-body">
-    <p>
+
       <table class="table table-striped" data-name="tblDoctorsVisitList">
     <thead>
     <tr>
@@ -515,7 +508,6 @@
     </thead>
     <tbody></tbody>
       </table>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -529,66 +521,67 @@
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>เพิ่มข้อมูลการให้จ่ายยา</h3>
 	</div>
+
 	<div class="modal-body">
-		<blockquote>
-      เพิ่มข้อมูลการใช้ยา
-		</blockquote>
-		<p>
-      <form class="form-inline">
-        <input type="hidden" data-name="drug_id" />
-        <div class="tabbable">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tabDrugMain" data-toggle="tab"><i class="icon-th-list"></i> เพิ่มรายการยา</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tabDrugMain">
-              <p>
-            <table class="table">
-              <tr>
-                <td>ชื่อยา</td>
-                <td>
-                  <input type="hidden" data-name="txtDrugId" />
-                  <input type="text" data-name="txtDrugName" class="input-xxlarge uneditable-input" disabled />
-                  <button type="button" data-name="btnSearchDrug" class="btn btn-info">
-                    <i class="icon-search icon-white"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>วิธีใช้ยา</td>
-                <td>
-                  <input type="hidden" data-name="txtUsageId" />
-                  <input type="text" data-name="txtUsageName" class="input-xxlarge uneditable-input" disabled />
-                  <button type="button" data-name="btnSearchUsage" class="btn btn-info">
-                    <i class="icon-search icon-white"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>ราคาต่อหน่วย</td>
-                <td>
-                  <input type="text" data-type="number" data-name="txtDrugPrice" value="0.00" class="input-mini" />
-                </td>
-              </tr>
-              <tr>
-                <td>จำนวน</td>
-                <td>
-                  <input type="text" data-type="number" data-name="txtDrugQty" value="1" class="input-mini" />
-                </td>
-              </tr>
-            </table>
-              </p>
-            </div>
-          </div>
+		<blockquote> เพิ่มข้อมูลการใช้ยา </blockquote>
+    <form target="#" class="form-inline">
+    <input type="hidden" data-name="drug_id" />
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tabDrugMain" data-toggle="tab"><i class="icon-th-list"></i> เพิ่มรายการยา</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tabDrugMain">
+          <table class="table">
+            <tr>
+              <td>ชื่อยา</td>
+              <td>
+                <input type="hidden" data-name="txtDrugId" />
+                <input type="text" data-name="txtDrugName" class="input-xxlarge uneditable-input" disabled />
+                <button type="button" data-name="btnSearchDrug" class="btn btn-info">
+                  <i class="icon-search icon-white"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>วิธีใช้ยา</td>
+              <td>
+                <input type="hidden" data-name="txtUsageId" />
+                <input type="text" data-name="txtUsageName" class="input-xxlarge uneditable-input" disabled />
+                <button type="button" data-name="btnSearchUsage" class="btn btn-info">
+                  <i class="icon-search icon-white"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>ราคาต่อหน่วย</td>
+              <td>
+                <input type="text" data-type="number" data-name="txtDrugPrice" value="0.00" class="input-mini" />
+              </td>
+            </tr>
+            <tr>
+              <td>จำนวน</td>
+              <td>
+                <input type="text" data-type="number" data-name="txtDrugQty" value="1" class="input-mini" />
+              </td>
+            </tr>
+          </table>
         </div>
-      </form>
-    </p>
+      </div><!--/tab-content --></li>
+    </div>
+    
+    </form>
+
+
   </div>
+
+
 	<div class="modal-footer">
 		<a href="#" class="btn btn-warning disabled" data-name="btnAddRemed"><i class="icon-refresh icon-white"></i> Remed.</a>
 		<a href="#" class="btn btn-primary" data-name="btnDoSaveDrug"><i class="icon-tags icon-white"></i> บันทึกข้อมูลการจ่ายยา</a>
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
+
 </div>
 
 <div class="modal hide fade" data-name="mdlDoSearchDrug">
@@ -600,7 +593,6 @@
     <blockquote>
       ค้นหาข้อมูลยา
     </blockquote>
-    <p>
     <form class="form-search form-actions">
       <input type="text" data-name="txtDrugSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ชื่อยาที่ต้องการค้หา...">
       <button type="button" data-name="btnDoSearchDrug" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -619,7 +611,6 @@
         <tbody></tbody>
       </table>
     </div>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -635,7 +626,6 @@
     <blockquote>
       ค้นหาข้อมูลการใช้ยาเพื่อประกอบการจ่ายยา
     </blockquote>
-    <p>
     <form class="form-search form-actions">
       <input type="text" data-name="txtUsageSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ข้อความที่ต้องการค้หา...">
       <button type="button" data-name="btnDoSearchUsage" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -652,8 +642,6 @@
         <tbody></tbody>
       </table>
     </div>
-
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn btn-success" data-name="btnNewUsageDetail"><i class="icon-plus icon-white"></i> เพิ่มวิธีใช้ใหม่...</a>
@@ -671,7 +659,6 @@
     <blockquote>
       เพิ่มรายละเอียดวิธีการใช้ยา
     </blockquote>
-    <p>
     <form class="form-inline form-actions">
       <table class="table">
         <tr>
@@ -684,8 +671,6 @@
         </tr>
       </table>
     </form>
-
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn btn-primary" data-name="btnDoSaveNewUsage"><i class="icon-tags icon-white"></i> บันทึกวิธีใช้ยาใหม่</a>
@@ -701,7 +686,6 @@
 		<h3>เพิ่มข้อมูลค่าใช้จ่าย</h3>
 	</div>
 	<div class="modal-body">
-		<p>
 			<form class="form-horizontal" data-name="frmSaveIncome">
 
 				<div class="row-fluid">
@@ -723,7 +707,6 @@
 				</div>
 
 			</form>
-		</p>
 	</div>
 	<div class="modal-footer">
     <a href="#" class="btn btn-primary" data-name="btnSaveIncome"><i class="icon-tags icon-white"></i> บันทึกค่าใช้จ่าย</a>
@@ -738,7 +721,6 @@
     <h3>ค้นหาข้อมูลค่าใช้จ่าย</h3>
   </div>
   <div class="modal-body">
-    <p>
     <form class="form-search">
       <input type="text" data-name="txtIncomeSearchQuery" class="input-xlarge search-query">
       <button type="submit" class="btn" data-name="btnDoSearchIncome"><i class="icon-search"></i> ค้นหา</button>
@@ -755,7 +737,6 @@
       </thead>
       <tbody></tbody>
     </table>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -774,7 +755,6 @@
 			<h4>คำแนะนำ</h4>
 			<p>กรุณากรอกรายละเอียดให้ถูกต้องและสมบูรณ์</p>
 		</div>
-		<p>
 		<div class="tabbable">
 			<ul class="nav nav-pills">
 				<li class="active"><a href="#tab-appoint-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการนัด</a></li>
@@ -811,7 +791,7 @@
 								}
 							?>
 						</select>
-						<label for="appoint_date">วันที่นัด</lable> <br />
+						<label for="appoint_date">วันที่นัด </label> <br />
 						<input type="text" class="input-small" data-name="appoint_date"> <br />
 						<button class="btn btn-primary" type="button" data-name="btn-save-appoint"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
 						<button data-name="btnreset" class="btn" type="reset"><i class="icon-refresh"></i> ยกเลิก</button>
@@ -819,7 +799,6 @@
 				</div><!-- /appoint-new -->
 			</div>
 		</div> <!-- /tabbable -->
-		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -833,9 +812,7 @@
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลโรคเฝ้าระวัง (Surveil)</h3>
 	</div>
-	<div class="modal-body">
-
-	</div>
+	<div class="modal-body"></div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
@@ -885,7 +862,6 @@
     <h3>บันทึกข้อมูลการวางแผนครอบครัว (Family Planing)</h3>
   </div>
   <div class="modal-body">
-    <p>
     <form class="form-inline">
     <input type="hidden" data-name="txtFPVisitID" />
       <blockquote>
@@ -913,9 +889,7 @@
           </td>
         </tr>
       </table>
-
     </form>
-    </p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-name="btnDoSaveFP"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
@@ -929,7 +903,6 @@
     <h3>ค้นหาสถานบริการ</h3>
   </div>
   <div class="modal-body">
-    <p>
     <form class="form-search">
       <input type="text" class="input-xlarge search-query" data-name="txtNewFPHospitalQuery" placeholder="พิมพ์ชื่อ หรือ รหัส" />
       <button type="button" data-name="btnNewFPHospitalDoSearch" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -943,8 +916,6 @@
         </thead>
         <tbody></tbody>
       </table>
-
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -957,8 +928,6 @@
     <h3>เลือกประเภทการคุมกำเนิด</h3>
   </div>
   <div class="modal-body">
-    <p>
-
     <table class="table table-striped" data-name="tblNewFPSearchTypeList">
       <thead>
       <tr>
@@ -968,8 +937,6 @@
       </thead>
       <tbody></tbody>
     </table>
-
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -984,7 +951,6 @@
     <h3>บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค (EPI)</h3>
   </div>
   <div class="modal-body">
-    <p>
     <blockquote>
     บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค
     </blockquote>
@@ -1013,7 +979,6 @@
     <button data-name="btnNewEPI" class="btn btn-success" type="button">
       <i class="icon-plus icon-white"></i> เพิ่มใหม่...
     </button>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1023,10 +988,9 @@
 <div class="modal hide fade" data-name="mdlNewEPI">
   <div class="modal-header">
     <a class="close" data-dismiss="modal">&times;</a>
-    <h3>บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค
+    <h3>บันทึกข้อมูลการให้บริการสร้างเสริมภูมิคุ้มกันโรค </h3>
   </div>
   <div class="modal-body">
-    <p>
     <form class="form-inline">
       <input type="hidden" data-name="txtEPIVisitID" />
       <blockquote>
@@ -1055,7 +1019,6 @@
         </tr>
       </table>
     </form>
-    </p>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary" data-name="btnDoSaveVCC"><i class="icon-tags icon-white"></i> เพิ่มรายการ</button>
@@ -1069,7 +1032,6 @@
     <h3>ค้นหาสถานบริการ</h3>
   </div>
   <div class="modal-body">
-    <p>
     <form class="form-search">
       <input type="text" class="input-xlarge search-query" data-name="txtNewEPIHospitalQuery" placeholder="พิมพ์ชื่อ หรือ รหัส" />
       <button type="button" data-name="btnNewEPIHospitalDoSearch" class="btn"><i class="icon-search"></i> ค้นหา</button>
@@ -1084,7 +1046,6 @@
       <tbody></tbody>
     </table>
 
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1097,7 +1058,6 @@
     <h3>เลือกกิจกรรมวัคซีนที่ให้บริการ</h3>
   </div>
   <div class="modal-body">
-    <p>
 
     <table class="table table-striped" data-name="tblNewEPISearchTypeList">
       <thead>
@@ -1110,7 +1070,6 @@
       <tbody></tbody>
     </table>
 
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1132,7 +1091,6 @@
 				2. การตั้งครรภ์ 1 ครั้งสามารถรับบริการฝากครรภ์ได้มากกว่า 1 ครั้ง (Record)
 			</p>
 		</div>
-		<p>
 		<div class="tabbable">
 			<ul class="nav nav-pills">
 				<li class="active"><a href="#tab-anc-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
@@ -1187,7 +1145,6 @@
 				</div>
 			</div>
 		</div>
-		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1208,7 +1165,7 @@
 				2.คัดกรองปีละ 1 ครั้ง 
 			</p>
 		</div>
-		<p>
+
 		<div class="tabbable">
 			<ul class="nav nav-pills">
 				<li class="active"><a href="#tab-ncd-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
@@ -1340,7 +1297,6 @@
 				</div>
 			</div>
 		</div>
-		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1360,7 +1316,6 @@
 				1. เป็นผู้ป่วยโรคเรื้อรัง (เบาหวาน และ ความดันโลหิตสูง)
 			</p>
 		</div>
-		<p>
 		<div class="tabbable">
 			<ul class="nav nav-pills">
 				<li class="active"><a href="#tab-chronicfu-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
@@ -1429,7 +1384,7 @@
 				</div>
 			</div>
 		</div>
-		</p>
+
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1443,7 +1398,6 @@
 		<h3>สั่ง LAB</h3>
 	</div>
 	<div class="modal-body">
-		<p>
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#tabServiceNewLabGroup" data-toggle="tab"><i class="icon-check"></i> สั่ง LAB</a></li>
 				<li><a href="#tabServiceLabOrderHistory" data-toggle="tab"><i class="icon-time"></i> ประวัติวันนี้</a></li>
@@ -1479,7 +1433,6 @@
           </table>
 				</div>
 			</div>
-		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1493,7 +1446,6 @@
 		<h3>สั่ง LAB</h3>
 	</div>
 	<div class="modal-body">
-		<p>
     <div data-name="divServiceLabVisitGroup">
     <blockquote>
       เลือกกลุ่ม LAB ที่ต้องการบันทึกผล
@@ -1509,7 +1461,6 @@
       <tbody></tbody>
     </table>
     </div>
-		</p>
     <div style="display: none; overflow: auto;" data-name="divSaveLabItemList">
       <div class="tabbable">
         <ul class="nav nav-tabs">
@@ -1548,7 +1499,6 @@
     <h3>ข้อมูลการดูแลแม่หลังคลอด</h3>
   </div>
   <div class="modal-body">
-    <p>
       <ul class="nav nav-pills">
         <li class="active"><a href="#tab-mch-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มการบริการ</a></li>
         <li><a href="#tab-mch-history" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
@@ -1561,7 +1511,6 @@
           history
         </div>
       </div>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1575,7 +1524,6 @@
     <h3>ข้อมูลการดูแลแม่ก่อนคลอด</h3>
   </div>
   <div class="modal-body">
-    <p>
       <ul class="nav nav-pills">
         <li class="active"><a href="#tab-premch-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มการบริการ</a></li>
         <li><a href="#tab-premch-history" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการรับบริการ</a></li>
@@ -1587,35 +1535,35 @@
 							<div class="span2">
 								<label for="">Albumin</label>
 								<select data-name="pre-mch-place" class="span2">
-									<option valu="Normal">Normal</option>
-									<option valu="+1">+1</option>
-									<option valu="+2">+2</option>
-									<option valu="+3">+3</option>
-									<option valu="+4">+4</option>
-									<option valu="Trace">Trace</option>
+									<option value="Normal">Normal</option>
+									<option value="+1">+1</option>
+									<option value="+2">+2</option>
+									<option value="+3">+3</option>
+									<option value="+4">+4</option>
+									<option value="Trace">Trace</option>
 								</select>
 							</div>
 							<div class="span2">
 								<label for="">ระดับมดลูก</label>
 								<select data-name="pre-mch-place" class="span2">
-									<option valu="0">SP</option>
-									<option valu="1">1/3 มากกว่า SP</option>
-									<option valu="2">2/3 มากกว่า SP</option>
-									<option valu="3">ระดับสะดือ</option>
-									<option valu="4">1/4 มากกว่าสะดือ</option>
-									<option valu="5">2/4 มากกว่าสะดือ</option>
-									<option valu="6">3/4 มากกว่าสะดือ</option>
+									<option value="0">SP</option>
+									<option value="1">1/3 มากกว่า SP</option>
+									<option value="2">2/3 มากกว่า SP</option>
+									<option value="3">ระดับสะดือ</option>
+									<option value="4">1/4 มากกว่าสะดือ</option>
+									<option value="5">2/4 มากกว่าสะดือ</option>
+									<option value="6">3/4 มากกว่าสะดือ</option>
 								</select>
 							</div>
 							<div class="span2">
 								<label for="">ระดับน้ำตาบ</label>
 								<select data-name="pre-mch-sugar" class="span2">
-									<option valu="Normal">Normal</option>
-									<option valu="+1">+1</option>
-									<option valu="+2">+2</option>
-									<option valu="+3">+3</option>
-									<option valu="+4">+4</option>
-									<option valu="Trace">Trace</option>
+									<option value="Normal">Normal</option>
+									<option value="+1">+1</option>
+									<option value="+2">+2</option>
+									<option value="+3">+3</option>
+									<option value="+4">+4</option>
+									<option value="Trace">Trace</option>
 								</select>
 							</div>
 						</div>
@@ -1625,7 +1573,6 @@
           history
         </div>
       </div>
-    </p>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1723,11 +1670,5 @@
   .script("<?php echo base_url(); ?>assets/js/apps/services.income.js")
   .script("<?php echo base_url(); ?>assets/js/apps/services.lab.js")
   .script("<?php echo base_url(); ?>assets/js/apps/services.fp.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.epi.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.surveil.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.appoint.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.anc.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.ncd.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js")
-  .script("<?php echo base_url(); ?>assets/js/apps/services.mch.js");
+  .script("<?php echo base_url(); ?>assets/js/apps/services.epi.js");
 </script>

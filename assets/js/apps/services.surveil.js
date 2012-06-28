@@ -1,18 +1,7 @@
 var SURV = {};
 
 SURV.modal = {
-  showSurveil: function() {
-    $('div[data-name="modal-506"]').modal({
-      remote: _base_url + '/surveils/service_modal',
-      keyboard: false
-    });
-    $('div[data-name="modal-506"]').modal('show').css({
-      width: 780,
-      'margin-left': function() {
-        return -($(this).width() / 2);
-      }
-    });
-  }
+  
 
 };
 
@@ -192,219 +181,217 @@ SURV.getList = function() {
 		}
 	});
 };
-	
-$(function() {	
 
-	
-	$('a[data-name="service-506"]').click(function() {
-    doLoading();
-    SURV.getList() ;
-    SURV.modal.showSurveil();
-    doUnLoading();
-	});
-	/*
-	$('input[data-name="chw_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-	            url: _base_url + '/basic/getchw',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        code: i.chw
-	                    }
-	                }));
-	            }
-       	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="chw_code"]').val(ui.item.code);
-			SURV.clearMooban();
-		}
-	});	
-	// search ampur
-	$('input[data-name="amp_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-	            url: _base_url + '/basic/getamp',
-	            dataType: 'json',
-	            type: 'POST',
-	            data: {
-	                query: request.term,
-									chw_code: $('input[data-name="chw_code"]').val(),
-	                csrf_token: $.cookie('csrf_cookie_cloudhis')
-	            },
-	            success: function(data){
-	                response($.map(data, function(i){
-	                    return {
-	                        label: i.name,
-	                        value: i.name,
-	                        code: i.amp
-	                    }
-	                }));
-	            },
-							error: function(xhr, status, errorThrown) {
-								alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
-							}
-       	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="amp_code"]').val(ui.item.code);
-			SURV.clearMooban();
-		}
-	});
-// search tambon
-	$('input[data-name="tmb_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-          url: _base_url + '/basic/gettmb',
-          dataType: 'json',
-          type: 'POST',
-          data: {
-              query: request.term,
-							chw_code: $('input[data-name="chw_code"]').val(),
-							amp_code: $('input[data-name="amp_code"]').val(),
-              csrf_token: $.cookie('csrf_cookie_cloudhis')
-          },
-          success: function(data){
-              response($.map(data, function(i){
-                  return {
-                      label: i.name,
-                      value: i.name,
-                      code: i.tmb
-                  }
-              }));
-          },
-					error: function(xhr, status, errorThrown) {
-						alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
-					}
-   	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="tmb_code"]').val(ui.item.code);
-			SURV.getMooban( ui.item.code );
-		}
-	});
-	// search surveil diag
-	$('input[data-name="surveil_diag_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-          url: _base_url + '/basic/search_diag',
-          dataType: 'json',
-          type: 'POST',
-          data: {
-              query: request.term,
-              csrf_token: $.cookie('csrf_cookie_cloudhis')
-          },
-          success: function(data){
-              response($.map(data, function(i){
-                  return {
-                      label: i.code + ' ' + i.name,
-                      value: i.name,
-                      code: i.code
-                  }
-              }));
-          }
-   	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="surveil_diag_code"]').val(ui.item.code);
-		}
-	});
-	// search 506 code
-	$('input[data-name="surveil_506_name"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-          url: _base_url + '/basic/search_surveil',
-          dataType: 'json',
-          type: 'POST',
-          data: {
-              query: request.term,
-              csrf_token: $.cookie('csrf_cookie_cloudhis')
-          },
-          success: function(data){
-              response($.map(data, function(i){
-                  return {
-                      label: i.tname,
-                      value: i.tname,
-                      id: i.id
-                  }
-              }));
-          }
-   	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="surveil_506_code"]').val(ui.item.id);
-		}
-	});
-	// surveil complication search
-	$('input[data-name="surveil-complication"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-          url: _base_url + '/basic/search_surveil_comp',
-          dataType: 'json',
-          type: 'POST',
-          data: {
-              query: request.term,
-              csrf_token: $.cookie('csrf_cookie_cloudhis')
-          },
-          success: function(data){
-              response($.map(data, function(i){
-                  return {
-                      label: i.name,
-                      value: i.name,
-                      id: i.id
-                  }
-              }));
-          }
-   	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="surveil-complication-code"]').val(ui.item.id);
-		}
-	});
-	// surveil oganism search
-	$('input[data-name="surveil-organism"]').autocomplete({
-		source: function(request, response){
-			$.ajax({
-          url: _base_url + '/basic/search_surveil_organ',
-          dataType: 'json',
-          type: 'POST',
-          data: {
-              query: request.term,
-              csrf_token: $.cookie('csrf_cookie_cloudhis')
-          },
-          success: function(data){
-              response($.map(data, function(i){
-                  return {
-                      label: i.name,
-                      value: i.name,
-                      id: i.id
-                  }
-              }));
-          }
-   	 	});
-		},
-		minLength: 2,
-		select: function(event, ui){
-			$('input[data-name="surveil-organism-code"]').val(ui.item.id);
-		}
-	});
-	*/
-	$('button[data-name="btn-save-surveil"]').click(function() {
-		SURV.doCheck();	
-	});
+SURV.getRefresh = function() {
+  doLoading();
+  SURV.getList() ;
+  doUnLoading();
+};
+$(function() {
+  SURV.getRefresh();
+  /*
+  $('input[data-name="chw_name"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/getchw',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.name,
+  value: i.name,
+  code: i.chw
+  }
+  }));
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="chw_code"]').val(ui.item.code);
+  SURV.clearMooban();
+  }
+  });	
+  // search ampur
+  $('input[data-name="amp_name"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/getamp',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  chw_code: $('input[data-name="chw_code"]').val(),
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.name,
+  value: i.name,
+  code: i.amp
+  }
+  }));
+  },
+  error: function(xhr, status, errorThrown) {
+  alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="amp_code"]').val(ui.item.code);
+  SURV.clearMooban();
+  }
+  });
+  // search tambon
+  $('input[data-name="tmb_name"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/gettmb',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  chw_code: $('input[data-name="chw_code"]').val(),
+  amp_code: $('input[data-name="amp_code"]').val(),
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.name,
+  value: i.name,
+  code: i.tmb
+  }
+  }));
+  },
+  error: function(xhr, status, errorThrown) {
+  alert('ไม่สามารถแสดงข้อมูลได้: [ '  + xhr.status + ' ' + xhr.statusText +' ]')
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="tmb_code"]').val(ui.item.code);
+  SURV.getMooban( ui.item.code );
+  }
+  });
+  // search surveil diag
+  $('input[data-name="surveil_diag_name"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/search_diag',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.code + ' ' + i.name,
+  value: i.name,
+  code: i.code
+  }
+  }));
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="surveil_diag_code"]').val(ui.item.code);
+  }
+  });
+  // search 506 code
+  $('input[data-name="surveil_506_name"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/search_surveil',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.tname,
+  value: i.tname,
+  id: i.id
+  }
+  }));
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="surveil_506_code"]').val(ui.item.id);
+  }
+  });
+  // surveil complication search
+  $('input[data-name="surveil-complication"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/search_surveil_comp',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.name,
+  value: i.name,
+  id: i.id
+  }
+  }));
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="surveil-complication-code"]').val(ui.item.id);
+  }
+  });
+  // surveil oganism search
+  $('input[data-name="surveil-organism"]').autocomplete({
+  source: function(request, response){
+  $.ajax({
+  url: _base_url + '/basic/search_surveil_organ',
+  dataType: 'json',
+  type: 'POST',
+  data: {
+  query: request.term,
+  csrf_token: $.cookie('csrf_cookie_cloudhis')
+  },
+  success: function(data){
+  response($.map(data, function(i){
+  return {
+  label: i.name,
+  value: i.name,
+  id: i.id
+  }
+  }));
+  }
+  });
+  },
+  minLength: 2,
+  select: function(event, ui){
+  $('input[data-name="surveil-organism-code"]').val(ui.item.id);
+  }
+  });
+  */
+  $('button[data-name="btn-save-surveil"]').click(function() {
+    SURV.doCheck();
+  });
 });

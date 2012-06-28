@@ -1,6 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
  * @package		CloudHIS
+ * @module    Surveils
  * @author		Satit Rianpit
  * @copyright	Copyright (c) 2012
  * @license		http://opensource.org/licenses/AFL-3.0 Academic Free License (AFL 3.0)

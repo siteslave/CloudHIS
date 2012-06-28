@@ -28,7 +28,7 @@ FP.getList = function() {
 							+ '<td>' + i  + '</td>'
 							+ '<td>' + toThaiDate(v.date_serv)  + '</td>'
 							+ '<td>' + v.type_name + '</td>'
-							+ '<td>' + v.place_name + '</td>'
+							+ '<td>' + v.pcu_name + '</td>'
 							+ '<td>' +
                 '<a href="#" class="btn" data-name="fpdetail-selected" ' +
                 'data-pcucode="'+ v.pcucode +'" data-pcuname="'+ v.pcu_name +'" ' +

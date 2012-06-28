@@ -31,13 +31,14 @@
 							</tbody>
 						</thead>
 					</table>
+          
 				</div>
 				<div class="tab-pane" id="tabNewSurveil">
           <blockquote>บันทึกข้อมูลเกี่ยวกับโรค</blockquote>
 					<div class="tabbable">
-						<ul class="nav nav-tabs">
-							<li class="active"> <a href="#surveil_ill" data-toggle="tab"><i class="icon-th"></i> ข้อมูลการเจ็บป่วย</a> </li>
-							<li><a href="#surveil_addr" data-toggle="tab"><i class="icon-th-list"></i> ที่อยู่ขณะเจ็บป่วย</a></li>
+						<ul class="nav nav-pills">
+							<li class="active"> <a href="#surveil_ill" data-toggle="tab"><i class="icon-th icon-white"></i> ข้อมูลการเจ็บป่วย</a> </li>
+							<li><a href="#surveil_addr" data-toggle="tab"><i class="icon-th-list icon-white"></i> ที่อยู่ขณะเจ็บป่วย</a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane active" id="surveil_ill">
@@ -79,7 +80,7 @@
                       <td><input type="text" data-type="date" class="input-small" data-name="surveil-date"></td>
                       <td>วันที่เสียชีวิต</td>
                       <td>
-                        <input type="text" class="input-small" data-name="surveil_diag_name">
+                        <input type="text" class="input-small" data-type="date" data-name="surveil_diag_name">
                       </td>
                     </tr>
                     <tr>
@@ -106,25 +107,55 @@
                 </form>
 							</div>
 							<div class="tab-pane" id="surveil_addr">
-								<div class="row-fluid">
-									<div class="span4">
-										<label for="">จังหวัด</label>
-										<input type="hidden" data-name="chw_code"></input> 
-										<input type="text" class="span4" data-name="chw_name" placeholder="พิมพ์ชื่อจังหวัด เพื่อค้นหา.." >
-										<label for="">อำเภอ</label>
-										<input type="hidden" data-name="amp_code"> 
-										<input type="text" class="span4" data-name="amp_name" placeholder="พิมพ์ชื่ออำเภอ เพื่อค้นหา.." >
-										<label for="">ตำบล</label>
-										<input type="hidden" data-name="tmb_code"> 
-										<input type="text" class="span4" data-name="tmb_name" placeholder="พิมพ์ชื่อตำบล เพื่อค้นหา.." >
-									</div>
-									<div class="span4">
-										<label for="">หมู่บ้าน</label>
-										<select data-name="mooban"></select>  
-										<label for="">บ้านเลขที่</label>
-										<input type="text" class="span2" data-name="address"> 
-									</div>
-								</div>
+                <form class="form-inline">
+                  <blockquote>ที่อยู่ของผู้ป่วยขณะป่วย</blockquote>
+                  <table class="table">
+                    <tr>
+                      <td>จังหวัด</td>
+                      <td>
+                        <input type="hidden" data-name="chw_code"></input> 
+										    <input type="text" class="input-xlarge uneditable-input" disabled data-name="chw_name" placeholder="คลิกปุ่มค้นหา.." >
+                        <button type="button" data-name="btnSearchChangwat" class="btn btn-info">
+                          <i class="icon-search icon-white"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>อำเภอ</td>
+                      <td>
+                        <input type="hidden" data-name="amp_code"></input> 
+										    <input type="text" class="input-xlarge uneditable-input" disabled data-name="amp_name" placeholder="คลิกปุ่มค้นหา.." >
+                        <button type="button" data-name="btnSearchChangwat" class="btn btn-info">
+                          <i class="icon-search icon-white"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>ตำบล</td>
+                      <td>
+                        <input type="hidden" data-name="tmb_code"></input> 
+										    <input type="text" class="input-xlarge uneditable-input" disabled data-name="tmb_name" placeholder="คลิกปุ่มค้นหา.." >
+                        <button type="button" data-name="btnSearchTambol" class="btn btn-info">
+                          <i class="icon-search icon-white"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>หมู่บ้าน</td>
+                      <td>
+                        <input type="hidden" data-name="mooban_code"></input> 
+										    <input type="text" class="input-xlarge uneditable-input" disabled data-name="mooban_name" placeholder="คลิกปุ่มค้นหา.." >
+                        <button type="button" data-name="btnSearchMooban" class="btn btn-info">
+                          <i class="icon-search icon-white"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>บ้านเลขที่</td>
+                      <td><input type="text" class="input-small" data-name="address"> </td>
+                    </tr>
+                  </table>
+                </form>
 							</div>
 						</div>
 					</div>
@@ -133,3 +164,8 @@
 		</div>
     </body>
 </html>
+
+<script charset="utf-8">
+  $LAB.script("<?php echo base_url(); ?>assets/js/apps/services.surveil.js").wait()
+  .script("<?php echo base_url(); ?>assets/js/application.js");
+</script>
