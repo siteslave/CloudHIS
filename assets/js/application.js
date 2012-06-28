@@ -1,3 +1,4 @@
+
 var addCommas = function (nStr)
 {
 	nStr += '';
@@ -33,4 +34,50 @@ toSystemDate = function( d )
 					_date = _d + '/' + _m + '/' + _y ;
 					
 	return _date;
-}
+},
+doLoading = function(){
+  $.blockUI({ css: {
+    border: 'none',
+    padding: '15px',
+    backgroundColor: '#000',
+    '-webkit-border-radius': '10px',
+    '-moz-border-radius': '10px',
+    opacity: .5,
+    color: '#fff'
+  }});
+},
+doUnLoading = function(){
+  $.unblockUI();
+},
+doBlock = function(obj, msg)
+{
+  $(obj).block({
+    css: {
+      border: 'none',
+      padding: '15px',
+      backgroundColor: '#000',
+      '-webkit-border-radius': '10px',
+      '-moz-border-radius': '10px',
+      opacity: .5,
+      color: '#fff'
+    },
+    message: '<h3>'+msg+'</h3>',
+    overlayCSS:  {
+      backgroundColor: '#000',
+      opacity:         0.1
+    }
+  });
+},
+doUnBlock = function(obj)
+{
+  $(obj).unblock();
+};
+
+$(function(){
+  // date mask
+  $('input[data-type="date"]').mask("99/99/9999").attr('placeholder', 'dd/mm/yyyy');
+  $('input[data-type="year"]').mask("9999");
+  $('input[data-type="postcode"]').mask("99999");
+  // set numberic field
+  $('input[data-type="number"]').numeric();
+});

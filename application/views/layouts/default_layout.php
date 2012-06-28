@@ -6,12 +6,14 @@
 	<!--[if lt IE 9]> <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script> <![endif]-->
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/css/bootstrap.css" />
 	<script type="text/javascript">
-		var _base_url = '<?php echo base_url(); ?>';
+		var _base_url = '<?php echo site_url(); ?>';
 		var _csrf_token = '<?php echo $this->security->get_csrf_hash(); ?>';
 	</script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.tablesorter.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.maskedinput.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url() ?>assets/js/jquery.numeric.js"></script>
 	<script type="text/javascript" src="<?php echo base_url() ?>assets/js/application.js"></script>
 
 	<!-- bootstrap -->

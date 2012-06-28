@@ -93,19 +93,9 @@
 		</div>
 	</div><!-- /btn-toolbar -->
 </div>
-
-<!-- alert -->
-<div class="row-fluid">
-	<div class="span12">
-		<div id="alert-block" class="alert alert-info">
-			<a class="close" data-dismiss="alert" href="#">&times;</a>
-			<h4 class="alert-heading">คำแนะนำ</h4>
-			<p>กรุณากรอกข้อมูลให้ถูกต้องและสมบูรณ์ ไม่เช่นนั้นโปรแกรมจะไม่ทำการบันทึกข้อมูลการให้บริการของผู้รับบริการ</p>
-	</div>
-	</div>
-</div>
-<!-- /alert -->
-
+<blockquote>
+  บันทึกข้อมูลการตรวจคัดกรองเบื้องต้น โดยควรกรอกข้อมูลให้ครบทุกช่อง (ถ้ามี)
+</blockquote>
 	<!-- main tab -->
 <ul class="nav nav-tabs">
 	<li class="active">
@@ -615,20 +605,20 @@
       <input type="text" data-name="txtDrugSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ชื่อยาที่ต้องการค้หา...">
       <button type="button" data-name="btnDoSearchDrug" class="btn"><i class="icon-search"></i> ค้นหา</button>
     </form>
-
-    <table class="table table-striped" data-name="tblDrugSearchResultList">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>ชื่อยา</th>
-        <th>หน่วย</th>
-        <th>ความแรง</th>
-        <th>ราคาต่อหน่วย</th>
-      </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
+    <div data-name="divDrugSearchService">
+      <table class="table table-striped" data-name="tblDrugSearchResultList">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>ชื่อยา</th>
+          <th>หน่วย</th>
+          <th>ความแรง</th>
+          <th>ราคาต่อหน่วย</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
     </p>
   </div>
   <div class="modal-footer">
@@ -650,17 +640,18 @@
       <input type="text" data-name="txtUsageSearchQuery" class="input-xlarge search-query" placeholder="พิมพ์ข้อความที่ต้องการค้หา...">
       <button type="button" data-name="btnDoSearchUsage" class="btn"><i class="icon-search"></i> ค้นหา</button>
     </form>
-
-    <table class="table table-striped" data-name="tblUsageSearchResultList">
-      <thead>
-      <tr>
-        <th>#</th>
-        <th>วิธีการใช้ยา</th>
-        <th>เพิ่มเติม</th>
-      </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div data-name="divDrugUsageServiceSearchResult">
+      <table class="table table-striped" data-name="tblUsageSearchResultList">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>วิธีการใช้ยา</th>
+          <th>เพิ่มเติม</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
 
     </p>
   </div>
@@ -836,130 +827,20 @@
 	</div>
 </div>
 <!-- /add appoinment -->
-
-<!-- add 506 -->
+        <!-- add 506 -->
 <div class="modal hide fade" data-name="modal-506">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
 		<h3>บันทึกข้อมูลโรคเฝ้าระวัง (Surveil)</h3>
 	</div>
 	<div class="modal-body">
-		<div class="alert alert-info" data-name="alert-surveil">
-			<h4>คำแนะนำ</h4>
-			<p>ระบบบันทึกรายงานโรคเฝ้าระวัง (506)</p>
-		</div>
-		<p>
-		<div class="tabbable">
-			<ul class="nav nav-pills">
-				<li class="active"><a href="#tab-surveil-list" data-toggle="tab"><i class="icon-time icon-white"></i> ประวัติการป่วย</a></li>
-				<li><a href="#tab-surveil-new" data-toggle="tab"><i class="icon-plus-sign icon-white"></i> เพิ่มข้อมูลใหม่</a></li>
-			</ul>
-			<form action="#">
-			<div class="tab-content">
-				<div class="tab-pane active" id="tab-surveil-list">
-					<table class="table table-striped" data-name="tblSurveilList">
-						<thead>
-							<tr>
-								<th>วันที่รับบริการ</th>
-								<th>รหัส 506</th>
-								<th>รหัสวินิจฉัย</th>
-								<th>วันที่เริ่มป่วย</th>
-								<th>สภาพผู้ป่วย</th>
-							</tr>
-							<tbody>
-							</tbody>
-						</thead>
-					</table>
-				</div>
-				<div class="tab-pane" id="tab-surveil-new">
-					<div class="tabbable">
-						<ul class="nav nav-tabs">
-							<li class="active"> <a href="#surveil_ill" data-toggle="tab"><i class="icon-th"></i> ข้อมูลการเจ็บป่วย</a> </li>
-							<li><a href="#surveil_addr" data-toggle="tab"><i class="icon-th-list"></i> ที่อยู่ขณะเจ็บป่วย</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="surveil_ill">
-								<div class="row">
-									<div class="span4">
-										<label for="">รหัสการวินิจฉัย</label>
-										<input type="text" class="span4" data-name="surveil_diag_name" placeholder="พิมพ์รหัส icd-10 เพื่อค้นหา...">
-										<input type="hidden" data-name="surveil_diag_code">
-									</div>
-									<div class="span4">
-										<label for="">รหัส 506</label>
-										<input type="text" class="span4" data-name="surveil_506_name" placeholder="พิมพ์รหัส 506 เพื่อค้นหา...">
-										<input type="hidden" data-name="surveil_506_code">
-									</div>
-								</div>
-								<div class="row">
-									<div class="span2">
-										<label>วันที่เริ่มป่วย</label>
-										<input type="text" class="span2" data-name="surveil-date">
-									</div>
-									<div class="span4">
-										<label>สภาพผู้ป่วย</label>
-										<select data-name="patient_status">
-											<?php 
-											foreach($patient_status as $key => $value)
-												echo '<option value="'.$key.'">'.$value.'</option>';
-											?>
-										</select>
-									</div>
-									<div class="span2">
-										<label>วันที่เสียชีวิต</label>
-										<input type="text" class="span2" data-name="surveil-death-date">
-									</div>
-								</div>
-								<div class="row">
-									<div class="span4">
-									<label>ชนิดของเชื้อโรค</label>
-									<input type="text" class="span4" data-name="surveil-organism" placeholder="พิมพ์ชนิดของเชื่อโรค เพื่อค้นหา...">
-									<input type="hidden" data-name="surveil-organism-code">
-									</div>
-									<div class="span4">
-										<label>สาเหตุการป่วย</label>
-										<input type="text" class="span4" data-name="surveil-complication" placeholder="พิมพ์สาเหตุการเจ็บป่วย เพื่อค้นหา...">
-										<input type="hidden" data-name="surveil-complication-code">
-									</div>
-								</div>
-							</div>
-							<div class="tab-pane" id="surveil_addr">
-								<div class="row">
-									<div class="span4">
-										<label for="">จังหวัด</label>
-										<input type="hidden" data-name="chw_code"></input> 
-										<input type="text" class="span4" data-name="chw_name" placeholder="พิมพ์ชื่อจังหวัด เพื่อค้นหา.." >
-										<label for="">อำเภอ</label>
-										<input type="hidden" data-name="amp_code"> 
-										<input type="text" class="span4" data-name="amp_name" placeholder="พิมพ์ชื่ออำเภอ เพื่อค้นหา.." >
-										<label for="">ตำบล</label>
-										<input type="hidden" data-name="tmb_code"> 
-										<input type="text" class="span4" data-name="tmb_name" placeholder="พิมพ์ชื่อตำบล เพื่อค้นหา.." >
-									</div>
-									<div class="span4">
-										<label for="">หมู่บ้าน</label>
-										<select data-name="mooban"></select>  
-										<label for="">บ้านเลขที่</label>
-										<input type="text" class="span2" data-name="address"> 
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<button type="button" class="btn btn-primary" data-name="btn-save-surveil"><i class="icon-plus-sign icon-white"></i> เพิ่มรายการ</button>
-			<button data-name="btnreset" class="btn" type="reset"> <i class="icon-refresh"></i> ยกเลิก</button>
-			</form>
-		</div>
-		</p>
+
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
 	</div>
 </div>
 <!-- /add 506 -->
-
 <!-- add fp -->
 <div class="modal hide fade" data-name="modal-fp">
 	<div class="modal-header">
@@ -967,7 +848,7 @@
 		<h3>บันทึกข้อมูลการวางแผนครอบครัว (Family Planing)</h3>
 	</div>
 	<div class="modal-body">
-		<p>
+
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
 				<li class="active"><a href="#tab-fp-list" data-toggle="tab"><i class="icon-time"></i> ประวัติการรับบริการ</a></li>
@@ -992,7 +873,6 @@
     <button data-name="btnNewFP" class="btn btn-success" type="button">
       <i class="icon-plus icon-white"></i> เพิ่มใหม่...
     </button>
-		</p>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal"><i class="icon-off"></i>  ปิดหน้าต่าง</a>
@@ -1834,20 +1714,20 @@
 </div>
 <!-- /search drinking -->
 
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.detail.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.diag.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.proced.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.drug.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.income.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.lab.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.fp.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.epi.js"></script>
-
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.appoint.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.surveil.js"></script>
-
-
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.anc.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.ncd.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js"></script>
-<script type="text/javascript" charset="utf-8" src="<?php echo base_url(); ?>assets/js/apps/services.mch.js"></script>
+<script charset="utf-8">
+  $LAB
+  .script("<?php echo base_url(); ?>assets/js/apps/services.detail.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.diag.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.proced.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.drug.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.income.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.lab.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.fp.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.epi.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.surveil.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.appoint.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.anc.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.ncd.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.chronicfu.js")
+  .script("<?php echo base_url(); ?>assets/js/apps/services.mch.js");
+</script>

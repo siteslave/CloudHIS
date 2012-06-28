@@ -3,7 +3,7 @@ var EPI = {};
 EPI.doSave = function( items )
 {
 	$.ajax({
-		url: _base_url + 'services/doepi',
+		url: _base_url + '/services/doepi',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -39,7 +39,7 @@ EPI.doSave = function( items )
 EPI.doUpdate = function( items )
 {
   $.ajax({
-    url: _base_url + 'services/doepi_update',
+    url: _base_url + '/services/doepi_update',
     dataType: 'json',
     type: 'POST',
 
@@ -75,7 +75,7 @@ EPI.getList = function() {
 	var _cid = $('input[data-name="cid"]').val();
 	
 	$.ajax({
-		url: _base_url + 'services/getepi',
+		url: _base_url + '/services/getepi',
 		dataType: 'json',
 		type: 'POST',
 		data: 
@@ -129,7 +129,7 @@ EPI.getList = function() {
 };
 EPI.getVCCTypeList = function() {
   $.ajax({
-    url: _base_url + 'basic/getepi',
+    url: _base_url + '/basic/getepi',
     dataType: 'json',
     type: 'POST',
     data:
@@ -176,7 +176,7 @@ EPI.getVCCTypeList = function() {
 };
 EPI.doSearchHospital = function( query ) {
   $.ajax({
-    url: _base_url + 'basic/search_hospital',
+    url: _base_url + '/basic/search_hospital',
     dataType: 'json',
     type: 'POST',
 
@@ -221,7 +221,7 @@ EPI.doSearchHospital = function( query ) {
 };
 EPI.doRemove = function( id ) {
 	$.ajax({
-		url: _base_url + 'services/removeepi',
+		url: _base_url + '/services/removeepi',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -298,8 +298,10 @@ $(function(){
 
   // EPI
   $('a[data-name="service-epi"]').click(function(){
+    doLoading();
     EPI.getList();
     EPI.modal.showEpi();
+    doUnLoading();
   });
 
   // new epi

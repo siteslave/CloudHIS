@@ -16,10 +16,6 @@ $( function() {
     SERVICE.detail.modal.showAnc();
 	});
 
-	// 506
-	$('a[data-name="service-506"]').click(function(){
-    SERVICE.detail.modal.showSurveil();
-	});
 	// Appoint
 	$('a[data-name="service-appoint"]').click(function(){
     SERVICE.detail.modal.showAppoint();
@@ -83,65 +79,39 @@ $( function() {
 			data._new_height 	= data._height / 100,
 			data._bmi 				= (data._weight / (data._new_height * data._new_height)).toFixed(2);
 		
-		// check if data empty	
-		var _str_error = '';
-		var _check = false;
-		
 		if ( ! data._vn ) {
-			_str_error 	= '<code>เลขที่รับบริการ</code> ';
-			_check 		= true;
-		} 
-		if ( ! data._weight ||  isNaN(data._weight) ) {
-			_str_error 	+= '<code> น้ำหนัก </code> ' ;
-			_check 		= true;
-		} 
-		if ( ! data._height || isNaN( data._height ) ) {
-			_str_error += '<code> ส่วนสูง </code> ';
-			_check = true;
-		} 
-		if ( ! data._heartbeat ) {
-			_str_error += '<code>อัตราการเต้นของหัวใจ</code>';
-			_check = true;
-		} 
-		if ( ! data._pulse ) {
-			_str_error += '<code> ชีพจร </code> ';
-			_check = true;
-		} 
-		if ( ! data._waistline || isNaN( data._waistline ) ) {
-			_str_error += '<code> รอบเอว </code> ';
-			_check = true;
-		}
-		if ( ! data._temperature || isNaN( data._temperature ) ) {
-			_str_error += '<code> อุณหภูมิ </code> ';
-			_check = true;
-		}
-		if ( ! data._bp1 || isNaN( data._bp1 ) ) {
-			_str_error += '<code> ความดัน (บน) </code> ';
-			_check = true;
-		}
-		if ( ! data._bp2 || isNaN( data._bp2 ) ) {
-			_str_error += '<code> ความดัน (ล่าง) </code> ';
-			_check = true;
-		}
-		if ( ! data._cc ) {
-			_str_error += ' <code>อาการแรกรับ</code> ';
-			_check = true;
-		} 
-		// if errors.
-		if( _check ) {
-			toggleAlert(' เกิดข้อผิดพลาด ',  ' กรุณาตรวจสอบข้อมูลเหล่านี้  '  + _str_error  , 'alert alert-error');
+			alert('ไม่พบเลขที่รับบริการ (vn)');
+		}else if ( ! data._weight ||  isNaN(data._weight) ) {
+			alert('ไม่พบข้อมูลน้ำหนัก หรือ ไม่ถูกรูปแบบ');
+		}else if ( ! data._height || isNaN( data._height ) ) {
+			alert('ไม่พบข้อมูลส่วนสูง หรือ ไม่ถูกรูปแบบ');
+		}else if ( ! data._heartbeat ) {
+			alert('ไม่พบข้อมูลอัตราการเต้นของหัวใจ');
+		}else if ( ! data._pulse ) {
+			alert('ไม่พบข้อมูลชีพจร');
+		}else if ( ! data._waistline || isNaN( data._waistline ) ) {
+			alert('ไม่พบข้อมูลรอบเอว');
+		}else if ( ! data._temperature || isNaN( data._temperature ) ) {
+			alert('ไม่พบข้อมูลอุณหภูมิ');
+		}else if ( ! data._bp1 || isNaN( data._bp1 ) ) {
+			alert('ไม่พบข้อมูลความดัน (บน)');
+		}else if ( ! data._bp2 || isNaN( data._bp2 ) ) {
+      alert('ไม่พบข้อมูลความดัน (ล่าง)');
+		}else if ( ! data._cc ) {
+			alert('ไม่พบข้อมูลอาการแรกรับ');
 		} else { // no error.
 			// set bmi data
 			$('input[data-name="bmi"]').val(data._bmi);
-			
+			doLoading();
 			SERVICE.doSaveScreening( data );
+      doUnLoading();
 		}
 	};
 
   SERVICE.doSaveScreening = function( data )
   {
     $.ajax({
-      url: _base_url + 'services/doscreening',
+      url: _base_url + '/services/doscreening',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -167,7 +137,7 @@ $( function() {
       success: function(v){
         if(v.success){
           //window.location = _base_url + 'services';
-          alert(' บันทึกข้อมูล ['+v.msg+'] การบันทึกข้อมูลเสร็จเรียบร้อยแล้ว ');
+         // alert(' บันทึกข้อมูล ['+v.msg+'] การบันทึกข้อมูลเสร็จเรียบร้อยแล้ว ');
           _check = false;
         }else{
           alert('เกิดข้อผิดพลาดในการบันทึกข้อมูล : ' + v.msg);
@@ -184,7 +154,7 @@ $( function() {
  //get smoking list
   SERVICE.getSmokingList = function() {
     $.ajax({
-      url: _base_url + 'basic/get_smokings',
+      url: _base_url + '/basic/get_smokings',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -234,7 +204,7 @@ $( function() {
   //get smoking list
   SERVICE.getDrinkingList = function() {
     $.ajax({
-      url: _base_url + 'basic/get_drinkings',
+      url: _base_url + '/basic/get_drinkings',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -284,7 +254,7 @@ $( function() {
    //get Allergics list
   SERVICE.getAllergicsList = function() {
     $.ajax({
-      url: _base_url + 'basic/get_allergics',
+      url: _base_url + '/basic/get_allergics',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -367,14 +337,6 @@ $( function() {
 		},
 		showAppoint: function() {
 			$('div[data-name="modal-appoint"]').modal('show').css({
-        width: 770,
-        'margin-left': function () {
-            return -($(this).width() / 2);
-        }
-    	});
-		},
-		showSurveil: function() {
-			$('div[data-name="modal-506"]').modal('show').css({
         width: 770,
         'margin-left': function () {
             return -($(this).width() / 2);

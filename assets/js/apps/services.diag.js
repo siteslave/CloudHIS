@@ -25,7 +25,7 @@ $(function(){
   Diags.doSearchICD = function(query)
   {
     $.ajax({
-      url: _base_url + 'basic/search_diag',
+      url: _base_url + '/basic/search_diag',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -36,20 +36,25 @@ $(function(){
       success: function(data){
 
         $('table[data-name="tblICDResult"] > tbody').empty();
-
-        $.each(data, function(i, v){
-          i++;
+        if(_.size(data.rows) == 0){
           $('table[data-name="tblICDResult"] > tbody').append(
-              '<tr>'
-                  + '<td>' + i + '</td>'
-                  + '<td>' + v.code + '</td>'
-                  + '<td>' + v.name + '</td>'
-                  + '<td>'
-                  + '<a href="#" class="btn" data-name="icd-selected" data-vname="'+ v.name +'" data-code="'+ v.code +'"><i class="icon-check"></i></a>'
-                  + '</td>'
-                  + '</tr>'
-          );
-        });
+            '<tr> <td colspan="4">ไม่พบรายการที่ค้นหา</td></tr>'
+            );
+        }else{
+          $.each(data.rows, function(i, v){
+            i++;
+            $('table[data-name="tblICDResult"] > tbody').append(
+                '<tr>'
+                    + '<td>' + i + '</td>'
+                    + '<td>' + v.code + '</td>'
+                    + '<td>' + v.name + '</td>'
+                    + '<td>'
+                    + '<a href="#" class="btn" data-name="icd-selected" data-vname="'+ v.name +'" data-code="'+ v.code +'"><i class="icon-check"></i></a>'
+                    + '</td>'
+                    + '</tr>'
+            );
+          });
+        }
 
       },
       error: function(xhr, status, errorThrown){
@@ -60,7 +65,7 @@ $(function(){
 
   Diags.getDiagTypeList = function() {
     $.ajax({
-      url: _base_url + 'basic/get_diag_type_list',
+      url: _base_url + '/basic/get_diag_type_list',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -118,11 +123,18 @@ $(function(){
     Diags.showSelectedDiag();
   });
 
+
+  $('a[data-name="btnTabDiag"]').click(function(){
+    doLoading();
+    Diags.getDiagList();
+    doUnLoading();
+  });
+
   // save diag
   Diags.doSaveDiag = function( icd ) {
     // do save
     $.ajax({
-      url: _base_url + 'services/dodiag',
+      url: _base_url + '/services/dodiag',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -156,7 +168,7 @@ $(function(){
     var vn = $('input[data-name="vn"]').val();
 
     $.ajax({
-      url: _base_url + 'services/get_visit_diag',
+      url: _base_url + '/services/get_visit_diag',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -166,10 +178,14 @@ $(function(){
       success: function(data){
         if(data.success){
           $('table[data-name="tblDiagList"] > tbody').empty();
-
-          $.each(data.rows, function(i, v){
-            i++;
+          if(_.size(data.rows) == 0){
             $('table[data-name="tblDiagList"] > tbody').append(
+                '<tr><td colspan="5">ไม่พบข้อมูล</td></tr>'
+              );
+          }else{
+            $.each(data.rows, function(i, v){
+              i++;
+              $('table[data-name="tblDiagList"] > tbody').append(
                 '<tr>'
                     + '<td>' + i + '</td>'
                     + '<td>' + v.diag_code + '</td>'
@@ -179,8 +195,9 @@ $(function(){
                     + '<a href="#" class="btn" data-name="remove-diag" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
                     + '</td>'
                     + '</tr>'
-            );
-          });
+              );
+            });
+          }
         }else{
           alert('เกิดข้อผิดพลาดในการบันทึกรายการ: ' + data.msg);
         }
@@ -192,10 +209,6 @@ $(function(){
     });// ajax
   };
 
-  $('a[data-name="btnTabDiag"]').click(function(){
-    Diags.getDiagList();
-  });
-
   // remove diag
   $('a[data-name="remove-diag"]').live('click', function(){
     if(confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')){
@@ -204,7 +217,9 @@ $(function(){
         alert('ไม่พบรหัสการวินิจฉัยที่ต้องการลบ');
       }else{
         //do remove
+        doLoading();
         Diags.doRemoveDiag( id );
+        doUnLoading();
       }
     }
   });
@@ -212,7 +227,7 @@ $(function(){
   Diags.doRemoveDiag = function( id )
   {
     $.ajax({
-      url: _base_url + 'services/removediag',
+      url: _base_url + '/services/removediag',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -221,7 +236,7 @@ $(function(){
       },
       success: function(data){
         if(data.success){
-          alert('ลบรายการเรียบร้อยแล้ว');
+          //alert('ลบรายการเรียบร้อยแล้ว');
           Diags.getDiagList();
         }else{
           alert('ไม่สามารถลบรายการได้: ' + data.msg);

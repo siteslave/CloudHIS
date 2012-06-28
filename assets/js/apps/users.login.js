@@ -28,7 +28,7 @@ USER.checkLogin = function()
  **/
 USER.doLogin = function( _u, _p ) {
   $.ajax({
-		url: _base_url + 'users/login',
+		url: _base_url + '/users/login',
 		dataType: 'json',
 		type: 'POST',
 		data: {

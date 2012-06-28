@@ -1,9 +1,19 @@
 var SURV = {};
 
-SURV.showAlert = function(title, msg, c){
-	$('div[data-name="alert-surveil"]').removeClass().addClass(c);
-	$('div[data-name="alert-surveil"] h4').html(title);
-	$('div[data-name="alert-surveil"] p').html(msg);
+SURV.modal = {
+  showSurveil: function() {
+    $('div[data-name="modal-506"]').modal({
+      remote: _base_url + '/surveils/service_modal',
+      keyboard: false
+    });
+    $('div[data-name="modal-506"]').modal('show').css({
+      width: 780,
+      'margin-left': function() {
+        return -($(this).width() / 2);
+      }
+    });
+  }
+
 };
 
 SURV.doCheck = function()
@@ -68,7 +78,7 @@ SURV.doCheck = function()
 
 SURV.getMooban = function( _tmb ) {
 	$.ajax({
-		url: _base_url + 'basic/getmooban',
+		url: _base_url + '/basic/getmooban',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -94,7 +104,7 @@ SURV.clearMooban = function()
 
 SURV.doSave = function( obj ) {
 	$.ajax({
-		url: _base_url + 'services/dosurveil',
+		url: _base_url + '/services/dosurveil',
 		dataType: 'json',
 		type: 'POST',
 		data: {
@@ -129,9 +139,10 @@ SURV.doSave = function( obj ) {
 	});
 };
 
-SURV.getList = function( _cid ) {
+SURV.getList = function() {
+  var _cid = $('input[data-name="cid"]').val();
 	$.ajax({
-		url: _base_url + 'services/getsurveil',
+		url: _base_url + '/services/getsurveil',
 		dataType: 'json',
 		type: 'POST',
 		data: {
@@ -139,25 +150,37 @@ SURV.getList = function( _cid ) {
 			cid: _cid
 		},
 		success: function( data ) {
-			$('table[data-name="tblSurveilList"] > tbody').empty();
+			$('table[data-name="tblServiceSurveilList"] > tbody').empty();
 			
 			if( data.success )	 {
-				//console.log(data.rows);
-				$.each(data.rows, function(i, v){
-					var illdate = v.ill_date.length > 0 ? toThaiDate(v.ill_date) : ' ';
-					
-					$('table[data-name="tblSurveilList"] > tbody').append(
-						'<tr>'
-							+ '<td>' + toThaiDate(v.date_serv)  + '</td>'
-							+ '<td>' + v.tname + '</td>'
-							+ '<td>' + v.diag_code + ' ' + v.diag_name + '</td>'
-							+ '<td>' + illdate + '</td>'
-							+ '<td>' + v.status_name + '</td>'
-						+ '</tr>'
-					);
-				});
+				if(_.size(data.rows) == 0){
+				  $('table[data-name="tblServiceSurveilList"] > tbody').append(
+						  '<tr><td colspan="6">ไม่พบข้อมูล</td></tr>'
+					  );
+				}else{
+				  //console.log(data.rows);
+				  $.each(data.rows, function(i, v){
+					  var illdate = v.ill_date.length > 0 ? toThaiDate(v.ill_date) : ' ';
+					  i++;
+
+					  $('table[data-name="tblServiceSurveilList"] > tbody').append(
+						  '<tr>'
+							  + '<td>' + i + '</td>'
+							  + '<td>' + toThaiDate(v.date_serv)  + '</td>'
+							  + '<td>' + v.tname + '</td>'
+							  //+ '<td>' + v.diag_code + ' ' + v.diag_name + '</td>'
+							  + '<td>' + illdate + '</td>'
+							  + '<td>' + v.status_name + '</td>'
+							  + '<td>' +
+                  '<a href="#" class="btn"><i class="icon-edit"></i></a> ' +
+                  '<a href="#" class="btn"><i class="icon-trash"></i></a>' +
+                  '</td>'
+						  + '</tr>'
+					  );
+				  });
+				}
 			} else {
-				$('table[data-name="tblSurveilList"] > tbody').append(
+				$('table[data-name="tblServiceSurveilList"] > tbody').append(
 						'<tr>' 
 						+ '<td colspan="5"> ไม่สามารถแสดงรายการได้ </td>'
 						+ '</tr>'
@@ -171,18 +194,19 @@ SURV.getList = function( _cid ) {
 };
 	
 $(function() {	
-	$('input[data-name="surveil-death-date"]').datepicker({ dateFormat: 'd/m/yy' });
-	$('input[data-name="surveil-date"]').datepicker({ dateFormat: 'd/m/yy' });
+
 	
 	$('a[data-name="service-506"]').click(function() {
-		var _cid = $('input[data-name="cid"]').val();
-		SURV.getList( _cid ) ;
+    doLoading();
+    SURV.getList() ;
+    SURV.modal.showSurveil();
+    doUnLoading();
 	});
-	
+	/*
 	$('input[data-name="chw_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/getchw',
+	            url: _base_url + '/basic/getchw',
 	            dataType: 'json',
 	            type: 'POST',
 	            data: {
@@ -210,7 +234,7 @@ $(function() {
 	$('input[data-name="amp_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-	            url: _base_url + 'basic/getamp',
+	            url: _base_url + '/basic/getamp',
 	            dataType: 'json',
 	            type: 'POST',
 	            data: {
@@ -242,7 +266,7 @@ $(function() {
 	$('input[data-name="tmb_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-          url: _base_url + 'basic/gettmb',
+          url: _base_url + '/basic/gettmb',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -275,7 +299,7 @@ $(function() {
 	$('input[data-name="surveil_diag_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-          url: _base_url + 'basic/search_diag',
+          url: _base_url + '/basic/search_diag',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -302,7 +326,7 @@ $(function() {
 	$('input[data-name="surveil_506_name"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-          url: _base_url + 'basic/search_surveil',
+          url: _base_url + '/basic/search_surveil',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -329,7 +353,7 @@ $(function() {
 	$('input[data-name="surveil-complication"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-          url: _base_url + 'basic/search_surveil_comp',
+          url: _base_url + '/basic/search_surveil_comp',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -356,7 +380,7 @@ $(function() {
 	$('input[data-name="surveil-organism"]').autocomplete({
 		source: function(request, response){
 			$.ajax({
-          url: _base_url + 'basic/search_surveil_organ',
+          url: _base_url + '/basic/search_surveil_organ',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -379,7 +403,7 @@ $(function() {
 			$('input[data-name="surveil-organism-code"]').val(ui.item.id);
 		}
 	});
-	
+	*/
 	$('button[data-name="btn-save-surveil"]').click(function() {
 		SURV.doCheck();	
 	});

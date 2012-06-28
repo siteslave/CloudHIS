@@ -41,7 +41,7 @@ Drug.showMainDrug = function() {
 Drug.doSearchDrug = function( query )
 {
   $.ajax({
-    url: _base_url + 'basic/search_drug',
+    url: _base_url + '/basic/search_drug',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -53,21 +53,29 @@ Drug.doSearchDrug = function( query )
 
       $('table[data-name="tblDrugSearchResultList"] > tbody').empty();
 
-      $.each(data.rows, function(i, v){
-        i++;
+      if( _.size(data.rows) == 0) {
         $('table[data-name="tblDrugSearchResultList"] > tbody').append(
-            '<tr>'
-                + '<td>' + i + '</td>'
-                + '<td>' + v.name + '</td>'
-                + '<td>' + v.units + '</td>'
-                + '<td>' + v.strength + '</td>'
-                + '<td>' + v.unitprice + '</td>'
-                + '<td>'
-                + '<a href="#" class="btn" data-name="drugsearch-selected" data-unitprice="'+ v.unitprice+'" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
-                + '</td>'
-                + '</tr>'
-        );
-      });
+          '<tr>'
+              + '<td colspan="6"> ไม่พบรายการ </td>'
+          );
+      }else{
+        $.each(data.rows, function(i, v){
+          i++;
+          $('table[data-name="tblDrugSearchResultList"] > tbody').append(
+              '<tr>'
+                  + '<td>' + i + '</td>'
+                  + '<td>' + v.name + '</td>'
+                  + '<td>' + v.units + '</td>'
+                  + '<td>' + v.strength + '</td>'
+                  + '<td>' + v.unitprice + '</td>'
+                  + '<td>'
+                  + '<a href="#" class="btn" data-name="drugsearch-selected" data-unitprice="'+ v.unitprice+'" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
+                  + '</td>'
+                  + '</tr>'
+          );
+        });
+      }
+
 
     },
     error: function(xhr, status, errorThrown){
@@ -79,7 +87,7 @@ Drug.doSearchDrug = function( query )
 Drug.doSearchUsage = function( query )
 {
   $.ajax({
-    url: _base_url + 'basic/search_usage',
+    url: _base_url + '/basic/search_usage',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -91,19 +99,25 @@ Drug.doSearchUsage = function( query )
 
       $('table[data-name="tblUsageSearchResultList"] > tbody').empty();
 
-      $.each(data.rows, function(i, v){
-        i++;
-        $('table[data-name="tblUsageSearchResultList"] > tbody').append(
-            '<tr>'
-                + '<td>' + i + '</td>'
-                + '<td>' + v.name1 + '</td>'
-                + '<td>' + v.name2 + '</td>'
-                + '<td>'
-                + '<a href="#" class="btn" data-name="usagesearch-selected" data-vname="'+ v.name1 +' ' + v.name2 +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
-                + '</td>'
-                + '</tr>'
-        );
-      });
+      if(_.size(data.rows) == 0){
+          $('table[data-name="tblUsageSearchResultList"] > tbody').append(
+            '<tr><td colspan="4">ไม่พบรายการที่ค้นหา</td></tr>'
+            );
+      }else{
+          $.each(data.rows, function(i, v){
+            i++;
+            $('table[data-name="tblUsageSearchResultList"] > tbody').append(
+                '<tr>'
+                    + '<td>' + i + '</td>'
+                    + '<td>' + v.name1 + '</td>'
+                    + '<td>' + v.name2 + '</td>'
+                    + '<td>'
+                    + '<a href="#" class="btn" data-name="usagesearch-selected" data-vname="'+ v.name1 +' ' + v.name2 +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
+                    + '</td>'
+                    + '</tr>'
+            );
+          });
+      }
 
     },
     error: function(xhr, status, errorThrown){
@@ -116,7 +130,7 @@ Drug.doSearchUsage = function( query )
 Drug.doSaveUsage = function( items )
 {
   $.ajax({
-    url: _base_url + 'services/dosave_usage',
+    url: _base_url + '/services/dosave_usage',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -142,7 +156,7 @@ Drug.doSaveUsage = function( items )
 Drug.doSave = function( items )
 {
 	$.ajax({
-		url: _base_url + 'services/dodrug',
+		url: _base_url + '/services/dodrug',
 		dataType: 'json',
 		type: 'POST',
 		data: {
@@ -172,7 +186,7 @@ Drug.doSave = function( items )
 Drug.doRemove = function( id )
 {
 	$.ajax({
-		url: _base_url + 'services/remove_drug',
+		url: _base_url + '/services/remove_drug',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -186,7 +200,7 @@ Drug.doRemove = function( id )
 		{
 			if(data.success)
 			{
-				alert('ลบรายการเสร็จเรียบร้อยแล้ว');
+				//alert('ลบรายการเสร็จเรียบร้อยแล้ว');
         Drug.getVisitList();
 			}
 			else
@@ -205,7 +219,7 @@ Drug.doRemove = function( id )
 Drug.doUpdate = function( items )
 {
   $.ajax({
-    url: _base_url + 'services/update_drug',
+    url: _base_url + '/services/update_drug',
     dataType: 'json',
     type: 'POST',
 
@@ -240,11 +254,11 @@ Drug.doUpdate = function( items )
   });
 };
 
-Drug.getVisitList = function(){
+Drug.getVisitList = function() {
   var vn = $('input[data-name="vn"]').val();
 
   $.ajax({
-    url: _base_url + 'services/get_visit_drug',
+    url: _base_url + '/services/get_visit_drug',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -252,39 +266,44 @@ Drug.getVisitList = function(){
       vn: vn
     },
 
-    success: function(data){
+    success: function(data) {
 
       $('table[data-name="tblDrug"] > tbody').empty();
-
-      $.each(data.rows, function(i, v){
-        var total = parseFloat(v.price) * parseFloat(v.qty);
-        i++;
+      if(_.size(data.rows) == 0) {
         $('table[data-name="tblDrug"] > tbody').append(
-          '<tr>'
-            + '<td>' + i + '</td>'
-            + '<td>' + v.drug_name + '</td>'
-            + '<td>' + v.name1 + ' ' + v.name2 + '</td>'
-            + '<td>' + addCommas(v.price) + '</td>'
-            + '<td>' + addCommas(v.qty) + '</td>'
-            + '<td>' + addCommas(total) + '</td>'
-            + '<td>'
-            + '<a href="#" class="btn" title="แก้ไข" data-name="drug-edit" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
-            + ' <a href="#" class="btn" title="ลบทิ้ง" data-name="drug-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
-            + '</td>'
-            + '</tr>'
-        );
-      });
+              '<tr><td colspan="7"> ไม่พบข้อมูล </td></tr>'
+            );
+      } else {
+        $.each(data.rows, function(i, v) {
+          var total = parseFloat(v.price) * parseFloat(v.qty);
+          i++;
+          $('table[data-name="tblDrug"] > tbody').append(
+              '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.drug_name + '</td>'
+                + '<td>' + v.name1 + ' ' + v.name2 + '</td>'
+                + '<td>' + addCommas(v.price) + '</td>'
+                + '<td>' + addCommas(v.qty) + '</td>'
+                + '<td>' + addCommas(total) + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn" title="แก้ไข" data-name="drug-edit" data-id="' + v.id + '"><i class="icon-edit"></i></a>'
+                + ' <a href="#" class="btn" title="ลบทิ้ง" data-name="drug-remove" data-id="' + v.id + '"><i class="icon-trash"></i></a>'
+                + '</td>'
+                + '</tr>'
+            );
+        });
+      }
 
     },
-    error: function(xhr, status, errorThrown){
-      alert('Server error: '  + xhr.status + ': ' + xhr.statusText );
+    error: function(xhr, status, errorThrown) {
+      alert('Server error: ' + xhr.status + ': ' + xhr.statusText);
     }
   });
 };
 
 Drug.getDetail = function( id ){
   $.ajax({
-    url: _base_url + 'services/get_visit_drug_detail',
+    url: _base_url + '/services/get_visit_drug_detail',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -326,7 +345,11 @@ $(function() {
     if(!query){
       alert('กรุณาพิมพ์คำที่ต้องการค้นหาใหม่');
     }else{
+      var div = $('div[data-name="divDrugSearchService"]');
+      doBlock(div, 'กำลังค้นหา...')
       Drug.doSearchDrug( query );
+      doUnBlock(div);
+      //doUnLoading();
     }
   });
   // search usage
@@ -336,7 +359,10 @@ $(function() {
     if(!query){
       alert('กรุณาพิมพ์คำที่ต้องการค้นหาใหม่');
     }else{
+      var div = $('div[data-name="divDrugUsageServiceSearchResult"]');
+      doBlock(div, 'กำลังค้นหา...')
       Drug.doSearchUsage( query );
+      doUnBlock(div);
     }
   });
 
@@ -376,7 +402,9 @@ $(function() {
     }else if(!items.name2){
       alert('กรุณากรอกช่อง ชื่อ 2');
     }else{
+      //doLoading();
       Drug.doSaveUsage( items );
+      //doUnLoading();
     }
   });
 
@@ -400,17 +428,23 @@ $(function() {
     }else{
       var id = $('input[data-name="drug_id"]').val();
       if(!id){
+        doLoading();
         Drug.doSave( items );
+        doUnLoading();
       }else{
         items.id = id;
+        doLoading();
         Drug.doUpdate( items );
+        doUnLoading();
       }
 
     }
   });
 
   $('a[data-name="btnTabDrug"]').click(function(){
+    doLoading();
     Drug.getVisitList();
+    doUnLoading();
   });
 
   // remove drug
@@ -418,7 +452,9 @@ $(function() {
     var id = $(this).attr('data-id');
 
     if(confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')){
+      doLoading();
       Drug.doRemove( id );
+      doUnLoading();
     }
 
   });

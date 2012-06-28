@@ -31,7 +31,8 @@ class Basic extends CI_Controller {
 			$json = '{"success": false, "msg": "No query found."}';
 		} else {
 			$result = $this->Basic->_search_icd( $query );
-			$json = json_encode($result);
+			$rows = json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
 		}
 
     printjson($json);
@@ -49,12 +50,15 @@ class Basic extends CI_Controller {
 		$query = $this->input->post('query');
 		
 		if( empty($query) ) {
-			show_404();
+			$json = '{"success": false, "msg": "No word(s) defined."}';
 		} else {
 			$result = $this->Basic->_search_proced( $query );
-			$json = json_encode($result);
-			printjson($json);
+			$rows = json_encode($result);
+      $json = '{"success": true, "rows": '.$rows.'}';
 		}
+
+    printjson($json);
+
 	}
 	/**
 	* Search Hospital

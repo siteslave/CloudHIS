@@ -4,7 +4,7 @@ LAB.getLabGroupList = function()
 {
 	// load order list
 	$.ajax({
-		url: _base_url + 'basic/getlaborders',
+		url: _base_url + '/basic/getlaborders',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -37,7 +37,7 @@ LAB.getLabGroupList = function()
 LAB.saveLabOrder = function( vn, id )
 {
 	$.ajax({
-		url: _base_url + 'services/dolaborder',
+		url: _base_url + '/services/dolaborder',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -63,7 +63,7 @@ LAB.saveLabOrder = function( vn, id )
 LAB.getLabOrderList = function( vn )
 {
 	$.ajax({
-		url: _base_url + 'lab/getorders',
+		url: _base_url + '/lab/getorders',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -97,7 +97,7 @@ LAB.getLabOrderList = function( vn )
 LAB.getLabItems = function( group_id )
 {
 	$.ajax({
-		url: _base_url + 'lab/getlabitems',
+		url: _base_url + '/lab/getlabitems',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -142,7 +142,7 @@ LAB.getOrderHistoryList = function()
 {
 	var _vn = $('input[data-name="vn"]').val();
 	$.ajax({
-		url: _base_url + 'lab/getorder_history',
+		url: _base_url + '/lab/getorder_history',
     dataType: 'json',
     type: 'POST',
     
@@ -192,7 +192,7 @@ LAB.getOrderHistoryList = function()
 LAB.doRemoveLabOrder = function( _id ) 
 {
 	$.ajax({
-		url: _base_url + 'lab/removeorder',
+		url: _base_url + '/lab/removeorder',
     dataType: 'json',
     type: 'POST',
     
@@ -222,7 +222,7 @@ LAB.doRemoveLabOrder = function( _id )
 LAB.doRemoveLabOrderItem = function( _id ) 
 {
 	$.ajax({
-		url: _base_url + 'lab/removeorder_item',
+		url: _base_url + '/lab/removeorder_item',
     dataType: 'json',
     type: 'POST',
     
@@ -254,7 +254,7 @@ LAB.doRemoveLabOrderItem = function( _id )
 LAB.doLabResult = function( _id, _result ) 
 {
 	$.ajax({
-		url: _base_url + 'lab/dolabresult',
+		url: _base_url + '/lab/dolabresult',
     dataType: 'json',
     type: 'POST',
     data: {

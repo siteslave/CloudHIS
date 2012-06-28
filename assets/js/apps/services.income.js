@@ -3,7 +3,7 @@ var INCOME = {};
 INCOME.doSave = function( items ) {
 
 	$.ajax({
-		url: _base_url + 'services/doincome',
+		url: _base_url + '/services/doincome',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -40,7 +40,7 @@ INCOME.doSave = function( items ) {
 INCOME.doUpdate = function( items ) {
 
   $.ajax({
-    url: _base_url + 'services/doupdate_income',
+    url: _base_url + '/services/doupdate_income',
     dataType: 'json',
     type: 'POST',
 
@@ -74,7 +74,7 @@ INCOME.doUpdate = function( items ) {
 
 INCOME.doRemove = function( id ) {
 	$.ajax({
-		url: _base_url + 'services/remove_income',
+		url: _base_url + '/services/remove_income',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -85,7 +85,7 @@ INCOME.doRemove = function( id ) {
 		
 		success: function(data){
 			if(data.success){
-        alert('ลบรายการเรียบร้อยแล้ว');
+        //alert('ลบรายการเรียบร้อยแล้ว');
         INCOME.getList();
 
 			}else{
@@ -119,7 +119,7 @@ INCOME.showIncome = function() {
 INCOME.doSearch = function( query )
 {
   $.ajax({
-    url: _base_url + 'basic/search_income',
+    url: _base_url + '/basic/search_income',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -130,21 +130,26 @@ INCOME.doSearch = function( query )
     success: function(data){
 
       $('table[data-name="tblIncomeSearchResult"] > tbody').empty();
-
-      $.each(data.rows, function(i, v){
-        i++;
+      if(_.size(data.rows) == 0){
         $('table[data-name="tblIncomeSearchResult"] > tbody').append(
-            '<tr>'
-                + '<td>' + i + '</td>'
-                + '<td>' + v.name + '</td>'
-                + '<td>' + v.price + '</td>'
-                + '<td>' + v.unit + '</td>'
-                + '<td>'
-                + '<a href="#" class="btn" data-price="'+ v.price +'" data-name="income-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
-                + '</td>'
-                + '</tr>'
-        );
-      });
+            '<tr><td colspan="5"> ไม่พบรายการที่ค้นหา </td></tr>'
+          );
+      }else{
+        $.each(data.rows, function(i, v){
+          i++;
+          $('table[data-name="tblIncomeSearchResult"] > tbody').append(
+              '<tr>'
+                  + '<td>' + i + '</td>'
+                  + '<td>' + v.name + '</td>'
+                  + '<td>' + v.price + '</td>'
+                  + '<td>' + v.unit + '</td>'
+                  + '<td>'
+                  + '<a href="#" class="btn" data-price="'+ v.price +'" data-name="income-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
+                  + '</td>'
+                  + '</tr>'
+          );
+        });
+      }
 
     },
     error: function(xhr, status, errorThrown){
@@ -158,7 +163,7 @@ INCOME.getList = function()
   var vn = $('input[data-name="vn"]').val();
 
   $.ajax({
-    url: _base_url + 'services/get_visit_income',
+    url: _base_url + '/services/get_visit_income',
     dataType: 'json',
     type: 'POST',
     data: {
@@ -169,25 +174,30 @@ INCOME.getList = function()
     success: function(data){
 
       $('table[data-name="tblIncomeList"] > tbody').empty();
-
-      $.each(data.rows, function(i, v){
-        i++;
-        var total = parseFloat(v.price) * parseFloat(v.qty);
-        $('table[data-name="tblIncomeList"] > tbody').append(
-            '<tr>'
-                + '<td>' + i + '</td>'
-                + '<td>' + v.name + '</td>'
-                + '<td>' + v.unit + '</td>'
-                + '<td>' + addCommas(v.price) + '</td>'
-                + '<td>' + v.qty + '</td>'
-                + '<td>' + addCommas(total) + '</td>'
-                + '<td>'
-                + '<a href="#" title="แก้ไข" class="btn" data-vname="'+ v.name +'" data-price="'+ v.price +'" data-qty="'+ v.qty+'" data-name="income-edit" data-income="'+ v.income_id+'" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
-                + ' <a href="#" title="ลบทิ้ง" class="btn" data-name="income-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
-                + '</td>'
-                + '</tr>'
+      if(_.size(data.rows) == 0){
+          $('table[data-name="tblIncomeList"] > tbody').append(
+            '<tr> <td colspan="7">ไม่พบข้อมูล</td></tr>'
         );
-      });
+      }else{
+         $.each(data.rows, function(i, v){
+          i++;
+          var total = parseFloat(v.price) * parseFloat(v.qty);
+          $('table[data-name="tblIncomeList"] > tbody').append(
+              '<tr>'
+                  + '<td>' + i + '</td>'
+                  + '<td>' + v.name + '</td>'
+                  + '<td>' + v.unit + '</td>'
+                  + '<td>' + addCommas(v.price) + '</td>'
+                  + '<td>' + v.qty + '</td>'
+                  + '<td>' + addCommas(total) + '</td>'
+                  + '<td>'
+                  + '<a href="#" title="แก้ไข" class="btn" data-vname="'+ v.name +'" data-price="'+ v.price +'" data-qty="'+ v.qty+'" data-name="income-edit" data-income="'+ v.income_id+'" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
+                  + ' <a href="#" title="ลบทิ้ง" class="btn" data-name="income-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
+                  + '</td>'
+                  + '</tr>'
+          );
+        });
+      }
 
     },
     error: function(xhr, status, errorThrown){
@@ -255,7 +265,9 @@ $(function(){
   });
 
   $('a[data-name="btnTabIncome"]').click(function(){
+    doLoading();
     INCOME.getList();
+    doUnLoading();
   });
 
   $('a[data-name="income-edit"]').live('click', function(){
@@ -287,7 +299,9 @@ $(function(){
     var id = $(this).attr('data-id');
 
     if(confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')){
+      doLoading();
       INCOME.doRemove( id );
+      doUnLoading();
     }
   });
 });

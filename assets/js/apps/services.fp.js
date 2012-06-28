@@ -4,7 +4,7 @@ FP.getList = function() {
 	var _vn = $('input[data-name="vn"]').val();
 	
 	$.ajax({
-		url: _base_url + 'services/getfp',
+		url: _base_url + '/services/getfp',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -59,7 +59,7 @@ FP.getList = function() {
 
 FP.getFPTypeList = function() {
   $.ajax({
-    url: _base_url + 'basic/getfptype_list',
+    url: _base_url + '/basic/getfptype_list',
     dataType: 'json',
     type: 'POST',
 
@@ -102,7 +102,7 @@ FP.getFPTypeList = function() {
 
 FP.doSearchHospital = function( query ) {
   $.ajax({
-    url: _base_url + 'basic/search_hospital',
+    url: _base_url + '/basic/search_hospital',
     dataType: 'json',
     type: 'POST',
 
@@ -145,7 +145,7 @@ FP.doSearchHospital = function( query ) {
 FP.doSave = function( items )
 {
 	$.ajax({
-		url: _base_url + 'services/dofp',
+		url: _base_url + '/services/dofp',
 		dataType: 'json',
 		type: 'POST',
 		
@@ -181,7 +181,7 @@ FP.doSave = function( items )
 FP.doUpdate = function( items )
 {
   $.ajax({
-    url: _base_url + 'services/dofp_update',
+    url: _base_url + '/services/dofp_update',
     dataType: 'json',
     type: 'POST',
 
@@ -216,7 +216,7 @@ FP.doUpdate = function( items )
 FP.doRemove = function( id )
 {
   $.ajax({
-    url: _base_url + 'services/dofp_remove',
+    url: _base_url + '/services/dofp_remove',
     dataType: 'json',
     type: 'POST',
 

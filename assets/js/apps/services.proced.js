@@ -7,7 +7,7 @@ $(function(){
     var vn = $('input[data-name="vn"]').val();
 
     $.ajax({
-      url: _base_url + 'services/get_visit_proced',
+      url: _base_url + '/services/get_visit_proced',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -18,23 +18,28 @@ $(function(){
       success: function(data){
 
         $('table[data-name="tblProcedList"] > tbody').empty();
-
-        $.each(data.rows, function(i, v){
+        if(_.size(data.rows) == 0){
+          $('table[data-name="tblProcedList"] > tbody').append(
+            '<tr> <td colspan="6">ไม่พบข้อมูล </td></tr>'
+          );
+        }else{
+          $.each(data.rows, function(i, v){
           i++;
           $('table[data-name="tblProcedList"] > tbody').append(
-              '<tr>'
-                  + '<td>' + i + '</td>'
-                  + '<td>' + v.code + '</td>'
-                  + '<td>' + v.name + '</td>'
-                  + '<td>' + v.price + '</td>'
-                  + '<td>' + v.doctor_name + '</td>'
-                  + '<td>'
-                  + ' <a href="#" class="btn disabled" data-name="proced-edit" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
-                  + ' <a href="#" class="btn" data-name="proced-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
-                  + '</td>'
-                  + '</tr>'
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.code + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>' + v.price + '</td>'
+                + '<td>' + v.doctor_name + '</td>'
+                + '<td>'
+                + ' <a href="#" class="btn disabled" data-name="proced-edit" data-id="'+ v.id +'"><i class="icon-edit"></i></a>'
+                + ' <a href="#" class="btn" data-name="proced-remove" data-id="'+ v.id +'"><i class="icon-trash"></i></a>'
+                + '</td>'
+                + '</tr>'
           );
         });
+        }
 
       },
       error: function(xhr, status, errorThrown){
@@ -44,7 +49,9 @@ $(function(){
   };
 
   $('a[data-name="btnTabProced"]').click(function(){
+    doLoading();
     Proced.getVisitList();
+    doUnLoading();
   });
 
   // search proced
@@ -61,7 +68,7 @@ $(function(){
   Proced.doSearch = function( query )
   {
     $.ajax({
-      url: _base_url + 'basic/search_proced',
+      url: _base_url + '/basic/search_proced',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -72,20 +79,25 @@ $(function(){
       success: function(data){
 
         $('table[data-name="tblProcedSearchList"] > tbody').empty();
-
-        $.each(data, function(i, v){
+        if(_.size(data.rows) == 0){
+          $('table[data-name="tblProcedSearchList"] > tbody').append(
+            '<tr><td colspan="4">ไม่พบข้อมูลที่ค้นหา</td></tr>'
+          );
+        }else{
+          $.each(data.rows, function(i, v){
           i++;
           $('table[data-name="tblProcedSearchList"] > tbody').append(
-              '<tr>'
-                  + '<td>' + i + '</td>'
-                  + '<td>' + v.code + '</td>'
-                  + '<td>' + v.name + '</td>'
-                  + '<td>'
-                  + '<a href="#" class="btn" data-name="proced-selected" data-code="'+ v.code +'"><i class="icon-check"></i></a>'
-                  + '</td>'
-                  + '</tr>'
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.code + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn" data-name="proced-selected" data-code="'+ v.code +'"><i class="icon-check"></i></a>'
+                + '</td>'
+                + '</tr>'
           );
         });
+        }
 
       },
       error: function(xhr, status, errorThrown){
@@ -97,7 +109,7 @@ $(function(){
   Proced.getDoctorsList = function( )
   {
     $.ajax({
-      url: _base_url + 'basic/get_doctor_list_visit',
+      url: _base_url + '/basic/get_doctor_list_visit',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -107,20 +119,25 @@ $(function(){
       success: function(data){
 
         $('table[data-name="tblDoctorsVisitList"] > tbody').empty();
-
-        $.each(data.rows, function(i, v){
+        if(_.size(data.rows) == 0){
+          $('table[data-name="tblDoctorsVisitList"] > tbody').append(
+            '<tr><td colspan="4">ไม่พบข้อมูล </td></tr>'
+          );
+        }else{
+          $.each(data.rows, function(i, v){
           i++;
           $('table[data-name="tblDoctorsVisitList"] > tbody').append(
-              '<tr>'
-                  + '<td>' + i + '</td>'
-                  + '<td>' + v.name + '</td>'
-                  + '<td>' + v.license_no + '</td>'
-                  + '<td>'
-                  + '<a href="#" class="btn" data-name="doctor-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
-                  + '</td>'
-                  + '</tr>'
+            '<tr>'
+                + '<td>' + i + '</td>'
+                + '<td>' + v.name + '</td>'
+                + '<td>' + v.license_no + '</td>'
+                + '<td>'
+                + '<a href="#" class="btn" data-name="doctor-selected" data-vname="'+ v.name +'" data-id="'+ v.id +'"><i class="icon-check"></i></a>'
+                + '</td>'
+                + '</tr>'
           );
         });
+        }
 
       },
       error: function(xhr, status, errorThrown){
@@ -204,7 +221,7 @@ $(function(){
 
   Proced.doSave = function( items ) {
     $.ajax({
-      url: _base_url + 'services/doproced',
+      url: _base_url + '/services/doproced',
       dataType: 'json',
       type: 'POST',
       data: {
@@ -239,13 +256,15 @@ $(function(){
     var id = $(this).attr('data-id');
 
     if(confirm('คุณต้องการลบรายการนี้ใช่หรือไม่?')){
+      doLoading();
       Proced.doRemove( id );
+      doUnLoading();
     }
 
   });
   Proced.doRemove = function( id ) {
         $.ajax({
-          url: _base_url + 'services/removeproced',
+          url: _base_url + '/services/removeproced',
           dataType: 'json',
           type: 'POST',
           data: {
@@ -254,7 +273,7 @@ $(function(){
           },
           success: function(data){
             if(data.success){
-              alert('ลบรายการเสร็จเรียบร้อยแล้ว');
+              //alert('ลบรายการเสร็จเรียบร้อยแล้ว');
               Proced.getVisitList();
             }else{
               alert('ไม่สามารถลบรายการได้ : ' + data.msg);

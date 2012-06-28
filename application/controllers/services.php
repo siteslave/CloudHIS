@@ -661,7 +661,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			
 			// render json
@@ -727,7 +727,7 @@ class Services extends CI_Controller {
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 			// render json
@@ -874,7 +874,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			
 			// render json
@@ -915,7 +915,7 @@ class Services extends CI_Controller {
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 			// render json
@@ -940,7 +940,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			printjson($json);
 		} else {
@@ -1006,7 +1006,7 @@ class Services extends CI_Controller {
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 
@@ -1035,7 +1035,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			
 			// render json
@@ -1075,7 +1075,7 @@ class Services extends CI_Controller {
 				if ( $result ) {
 					$json = '{"success": true, "rows": '.json_encode($result).'}';
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 			
@@ -1104,7 +1104,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true, "rows": '.json_encode($result).'}';
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			
 			// render json
@@ -1129,7 +1129,7 @@ class Services extends CI_Controller {
 			if ( $result ) {
 				$json = '{"success": true}';	
 			} else {
-				$json = '{"success": false, "status": "Database error."}';
+				$json = '{"success": false, "msg": "Database error."}';
 			}
 			printjson($json);
 		} else {
@@ -1156,7 +1156,7 @@ class Services extends CI_Controller {
 				if ( $result ) {
 					$json = '{"success": true}';	
 				} else {
-					$json = '{"success": false, "status": "Database error."}';
+					$json = '{"success": false, "msg": "Database error."}';
 				}
 			}
 			printjson($json);
